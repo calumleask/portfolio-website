@@ -1,8 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import Home from "~/pages/Home/index.jsx";
-import About from "~/pages/About/index.jsx";
+import Routes from "~/components/routes.jsx";
 
 export default class App extends React.Component {
 
@@ -10,30 +9,10 @@ export default class App extends React.Component {
         super(props);
     }
 
-    render () {
+    render() {
         return (
             <Router>
-                <div>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                    </ul>
-
-                    <hr/>
-
-                    <Switch>
-                        <Route exact path="/">
-                            <Home/>
-                        </Route>
-                        <Route path="/about">
-                            <About/>
-                        </Route>
-                    </Switch>
-                </div>
+                <Routes/>
             </Router>
         );
     }

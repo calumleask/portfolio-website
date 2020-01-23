@@ -6,7 +6,7 @@ export default class Home extends React.Component {
         super(props);
     }
 
-    render () {
+    render() {
         return (
             <div>
                 <h2>Home</h2>
