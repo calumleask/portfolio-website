@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 
-import Routes from "~/components/Routes.jsx";
+import Routes from "~/Containers/Routes.jsx";
 import Footer from "~/Footer/Containers/Footer.jsx";
 
 const Container = styled.div`

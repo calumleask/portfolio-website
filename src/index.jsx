@@ -3,7 +3,7 @@ import { render } from "react-dom";
 
 import "./index.css";
 
-import Root from "~/containers/Root.jsx";
+import Root from "~/Containers/Root.jsx";
 
 render(
 	<Root/>,

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import NavBar from "~/NavBar/Containers/NavBar.jsx";
-import Page from "~/containers/Page.jsx";
+import Page from "~/Containers/Page.jsx";
 
 const Div = styled.div`
     margin: 0 auto;
