@@ -1,21 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-const Home = () => {
-    return (
-        <div>
-            <h2>Home</h2>
-        </div>
-    );
-};
-
-const About = () => {
-    return (
-        <div>
-            <h2>About</h2>
-        </div>
-    );
-};
+import Home from "~/pages/Home/index.jsx";
+import About from "~/pages/About/index.jsx";
 
 export default class App extends React.Component {
 
@@ -40,10 +27,10 @@ export default class App extends React.Component {
 
                     <Switch>
                         <Route exact path="/">
-                            <Home />
+                            <Home/>
                         </Route>
                         <Route path="/about">
-                            <About />
+                            <About/>
                         </Route>
                     </Switch>
                 </div>
