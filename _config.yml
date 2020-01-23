@@ -39,3 +39,4 @@ exclude:
    - package-lock.json
    - src/
    - webpack.config.js
+   - babel.config.js
