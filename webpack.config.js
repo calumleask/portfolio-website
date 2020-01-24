@@ -37,6 +37,10 @@ var config = {
           publicPath: "dist/images",
           outputPath: "images"
         }
+      },
+      {
+        test: /\.md$/,
+        use: ["html-loader", "markdown-loader"]
       }
     ]
   }

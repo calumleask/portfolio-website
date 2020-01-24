@@ -1,4 +1,7 @@
 import React from "react";
+import Markdown from "markdown-to-jsx";
+
+import content from "~/Pages/About/index.md";
 
 export default class About extends React.Component {
 
@@ -8,9 +11,7 @@ export default class About extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>About</h2>
-            </div>
+            <Markdown>{content}</Markdown>
         );
     }
 }
