@@ -27,7 +27,16 @@ var config = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.png$/i,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+          publicPath: "dist/images",
+          outputPath: "images"
+        }
       }
     ]
   }

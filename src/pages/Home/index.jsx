@@ -1,16 +1,12 @@
 import React from "react";
 
-export default class Home extends React.Component {
+import SlideShow from "~/pages/Home/SlideShow.jsx";
 
-    constructor(props) {
-        super(props);
-    }
+export default class Home extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>Home</h2>
-            </div>
+            <SlideShow/>
         );
     }
 }
