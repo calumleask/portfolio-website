@@ -6,7 +6,7 @@ import Home from "~/pages/Home/index.jsx";
 import About from "~/pages/About/index.jsx";
 
 const Div = styled.div`
-    margin: 0 auto;
+    margin: 30px auto 0 auto;
     width: 70%;
 `;
 
