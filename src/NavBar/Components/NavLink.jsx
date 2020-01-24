@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
+
+import NavLinkText from "~/NavBar/Components/NavLinkText.jsx";
 
 const ListItem = styled.li`
     display: inline;
@@ -24,11 +27,15 @@ const StlyedLink = styled(Link)`
 class NavLink extends React.Component {
 
     render() {
-        const { to, text } = this.props;
+        const { to, text, location } = this.props;
+
+        const active = location.pathname === to;
 
         return (
             <ListItem>
-                <StlyedLink to={to}>{text}</StlyedLink>
+                <StlyedLink to={to}>
+                    <NavLinkText active={active}>{text}</NavLinkText>
+                </StlyedLink>
             </ListItem>
         );
     }
@@ -36,7 +43,8 @@ class NavLink extends React.Component {
 
 NavLink.propTypes = {
     to: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    location: PropTypes.object.isRequired
 };
 
-export default NavLink;
+export default withRouter(NavLink);
