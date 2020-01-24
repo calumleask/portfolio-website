@@ -47,7 +47,7 @@ class CircleButton extends React.Component {
 CircleButton.propTypes = {
     children: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    style: PropTypes.obj
+    style: PropTypes.object
 };
 
 export default CircleButton;

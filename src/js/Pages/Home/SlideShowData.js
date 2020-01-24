@@ -68,7 +68,7 @@ const generateSlideShowSlides = () => {
         group.imgSrcs.forEach(imgSrc => {
             slides.push({
                 title: group.title,
-                desc: group.description,
+                description: group.description,
                 imgSrc: imgSrc,
                 groupIndex: groupIndex
             });

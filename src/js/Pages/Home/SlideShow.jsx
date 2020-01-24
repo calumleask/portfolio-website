@@ -6,9 +6,9 @@ import { firstSlideIndexFromGroupIndex, slides } from "~/Pages/Home/SlideShowDat
 import SlideShowImage from "~/Pages/Home/SlideShowImage.jsx";
 import CircleButton from "~/Pages/Home/CircleButton.jsx";
 import SlideShowDots from "~/Pages/Home/SlideShowDots.jsx";
+import SlideShowText from "~/Pages/Home/SlideShowText.jsx";
 
 const SlideShowContainer = styled.div`
-    margin-bottom: 40px;
     position: relative;
     text-align: center;
     width: 100%;
@@ -95,7 +95,8 @@ export default class SlideShow extends React.Component {
     }
 
     render() {
-        const activeGroupIndex = slides[this.state.activeIndex].groupIndex;
+        const { activeIndex } = this.state;
+        const { title, description, groupIndex } = slides[activeIndex];
         const groupCount = slides[slides.length - 1].groupIndex + 1;
         const left = "\u2b9c";
         const right = "\u2b9e";
@@ -104,10 +105,11 @@ export default class SlideShow extends React.Component {
             <SlideShowContainer>
                 <ImageContainer>
                     {this._getImagesToRender()}
+                    <CircleButton onClick={() => this._onArrowClick(-1)} style={{left: "-45px"}}>{left}</CircleButton>
+                    <CircleButton onClick={() => this._onArrowClick(1)} style={{right: "-45px"}}>{right}</CircleButton>
                 </ImageContainer>
-                <CircleButton onClick={() => this._onArrowClick(-1)} style={{left: 0}}>{left}</CircleButton>
-                <CircleButton onClick={() => this._onArrowClick(1)} style={{right: 0}}>{right}</CircleButton>
-                <SlideShowDots active={activeGroupIndex} count={groupCount} onClick={this._onDotClick}/>
+                <SlideShowDots active={groupIndex} count={groupCount} onClick={this._onDotClick}/>
+                <SlideShowText title={title} description={description}/>
             </SlideShowContainer>
         );
     }

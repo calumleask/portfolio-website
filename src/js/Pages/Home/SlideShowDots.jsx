@@ -8,7 +8,6 @@ const Ul = styled.ul`
     list-style: circle;
     margin: 0;
     padding: 5px 0;
-    position: absolute;
     text-align: center;
     width: 100%;
 `;
