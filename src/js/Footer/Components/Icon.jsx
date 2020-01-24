@@ -12,10 +12,6 @@ const Svg = styled.svg`
 
 class Icon extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { viewBox, fill, path } = this.props;
 

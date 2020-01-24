@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { slideShowImages } from "~/pages/Home/SlideShowImages";
+import { slideShowImages } from "~/Pages/Home/SlideShowImages";
 
 const Image = styled.img`
     width: 50%;
