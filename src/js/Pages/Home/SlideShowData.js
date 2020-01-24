@@ -18,7 +18,7 @@ import OPENGL_1 from "~/../images/opengl_1.png";
 const ampsTitle = "AMPS - A Musical Platforming Symphony";
 const ampsDesc = "A game developed by students from Abertay University for PC and PS4 using the Sony PhyreEngine.";
 
-const cityTitle = "A Procedural";
+const cityTitle = "Procedural City";
 const cityDesc = "Procedurally generating realistic cities using voronoi regions.";
 
 const wavesTitle = "Honours Project";
