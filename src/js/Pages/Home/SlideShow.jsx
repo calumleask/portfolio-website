@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { firstSlideIndexFromGroupIndex, slides } from "~/Pages/Home/SlideShowData";
 
 import SlideShowImage from "~/Pages/Home/SlideShowImage.jsx";
+import CircleButton from "~/Pages/Home/CircleButton.jsx";
 import SlideShowDots from "~/Pages/Home/SlideShowDots.jsx";
 
 const SlideShowContainer = styled.div`
@@ -19,32 +20,6 @@ const ImageContainer = styled.div`
     position: relative;
 	width: 640px;
 	height: 360px;
-`;
-
-const ArrowButton = styled.button`
-    background-color: #f00;
-    border: 0;
-    cursor: pointer;
-    display: inline-block;
-    line-height: 0;
-    margin: auto 10px;
-    outline: 0;
-    position: absolute;
-    top: 50%;
-    width: 20px;
-    height: 20px;
-    z-index: 11;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-`;
-
-const PrevArrow = styled(ArrowButton)`
-    left: 0;
-`;
-
-const NextArrow = styled(ArrowButton)`
-    right: 0;
 `;
 
 export default class SlideShow extends React.Component {
@@ -115,26 +90,23 @@ export default class SlideShow extends React.Component {
     _getImagesToRender() {
         return slides.map((slide, index) => {
             const isActive = index === this.state.activeIndex;
-            return <SlideShowImage
-                        key={index}
-                        isActive={isActive}
-                        src={slide.imgSrc}
-                        onTransitionEnd={this._onSlideTransitionEnd}
-                        />;
+            return <SlideShowImage key={index} isActive={isActive} src={slide.imgSrc} onTransitionEnd={this._onSlideTransitionEnd}/>;
         });
     }
 
     render() {
         const activeGroupIndex = slides[this.state.activeIndex].groupIndex;
         const groupCount = slides[slides.length - 1].groupIndex + 1;
+        const left = "\u2b9c";
+        const right = "\u2b9e";
 
         return (
             <SlideShowContainer>
                 <ImageContainer>
                     {this._getImagesToRender()}
                 </ImageContainer>
-                <PrevArrow onClick={() => this._onArrowClick(-1)}/>
-                <NextArrow onClick={() => this._onArrowClick(1)}/>
+                <CircleButton onClick={() => this._onArrowClick(-1)} style={{left: 0}}>{left}</CircleButton>
+                <CircleButton onClick={() => this._onArrowClick(1)} style={{right: 0}}>{right}</CircleButton>
                 <SlideShowDots active={activeGroupIndex} count={groupCount} onClick={this._onDotClick}/>
             </SlideShowContainer>
         );
