@@ -1,6 +1,6 @@
 import React from "react";
 
-import SlideShow from "~/pages/Home/SlideShow.jsx";
+import SlideShow from "src/pages/Home/SlideShow.jsx";
 
 export default class Home extends React.Component {
 

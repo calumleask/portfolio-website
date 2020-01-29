@@ -1,7 +1,7 @@
 import React from "react";
 import Markdown from "markdown-to-jsx";
 
-import content from "~/Pages/About/index.md";
+import content from "src/Pages/About/index.md";
 
 export default class About extends React.Component {
 

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import MovingLetter from "~/NavBar/Components/MovingLetter.jsx";
+import MovingLetter from "src/NavBar/Components/MovingLetter.jsx";
 
 const Div = styled.div`
     display: inline;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-import NavLinkText from "~/NavBar/Components/NavLinkText.jsx";
+import NavLinkText from "src/NavBar/Components/NavLinkText.jsx";
 
 const ListItem = styled.li`
     display: inline;

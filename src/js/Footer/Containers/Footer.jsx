@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Icon from "~/Footer/Components/Icon.jsx";
+import Icon from "src/Footer/Components/Icon.jsx";
 
 const StyledFooter = styled.footer`
     border-top: 1px solid #d5d5d5;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import App from "~/Containers/App.jsx";
+import App from "src/Containers/App.jsx";
 
 export default class Root extends React.Component {
     render() {

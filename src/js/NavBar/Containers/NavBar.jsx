@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import NavLink from "~/NavBar/Components/NavLink.jsx";
+import NavLink from "src/NavBar/Components/NavLink.jsx";
 
 const Nav = styled.nav`
     border-bottom: 1px solid #d5d5d5;

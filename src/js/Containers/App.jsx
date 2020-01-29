@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 
-import Routes from "~/Containers/Routes.jsx";
-import Footer from "~/Footer/Containers/Footer.jsx";
+import Routes from "src/Containers/Routes.jsx";
+import Footer from "src/Footer/Containers/Footer.jsx";
 
 const Container = styled.div`
     width: 100%;

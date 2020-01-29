@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { firstSlideIndexFromGroupIndex, slides } from "~/Pages/Home/SlideShowData";
+import { firstSlideIndexFromGroupIndex, slides } from "src/Pages/Home/SlideShowData";
 
-import SlideShowImage from "~/Pages/Home/SlideShowImage.jsx";
-import CircleButton from "~/Pages/Home/CircleButton.jsx";
-import SlideShowDots from "~/Pages/Home/SlideShowDots.jsx";
-import SlideShowText from "~/Pages/Home/SlideShowText.jsx";
+import SlideShowImage from "src/Pages/Home/SlideShowImage.jsx";
+import CircleButton from "src/Pages/Home/CircleButton.jsx";
+import SlideShowDots from "src/Pages/Home/SlideShowDots.jsx";
+import SlideShowText from "src/Pages/Home/SlideShowText.jsx";
 
 const SlideShowContainer = styled.div`
     position: relative;
