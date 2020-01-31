@@ -2,8 +2,8 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 
-import Home from "src/pages/Home/index.jsx";
-//import About from "src/pages/About/index.jsx";
+import Home from "src/Pages/Home/index.jsx";
+import About from "src/Pages/About/index.jsx";
 
 const Div = styled.div`
     margin: 30px auto 0 auto;
@@ -20,6 +20,7 @@ export default class Routes extends React.Component {
                         <Home/>
                     </Route>
                     <Route path="/about">
+                        <About/>
                     </Route>
                 </Switch>
             </Div>

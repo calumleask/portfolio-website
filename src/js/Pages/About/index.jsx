@@ -1,17 +1,13 @@
 import React from "react";
-import Markdown from "markdown-to-jsx";
+import Markdown from "react-markdown/with-html";
 
-import content from "src/Pages/About/index.md";
+import content from "markdown/about.md";
 
 export default class About extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
-            <Markdown>{content}</Markdown>
+            <Markdown source={content} escapeHtml={false}/>
         );
     }
 }
