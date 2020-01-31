@@ -1,6 +1,12 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
+    siteMetadata: {
+        title: "Calum Leask",
+        siteUrl: "https://calumleask.co.uk/",
+        email: "me@calumleask.co.uk",
+        linkedin: "calumleask"
+    },
     plugins: [
         {
             resolve: "gatsby-plugin-root-import",
