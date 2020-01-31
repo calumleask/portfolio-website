@@ -6,9 +6,12 @@ import Routes from "src/Containers/Routes.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
 
 const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    padding: 60px 0 0 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 30px 0 0 0;
+    position: fixed;
 `;
 
 export default class App extends React.Component {
