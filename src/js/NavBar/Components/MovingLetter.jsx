@@ -5,6 +5,8 @@ import styled from "styled-components";
 const Letter = styled.div`
     color: #888;
     display: inline;
+    font-family: monospace;
+    font-size: 1.4em;
     position: relative;
     text-decoration: none;
     top: 0;

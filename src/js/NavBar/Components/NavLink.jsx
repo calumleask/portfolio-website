@@ -8,8 +8,6 @@ import NavLinkText from "src/NavBar/Components/NavLinkText.jsx";
 
 const ListItem = styled.li`
     display: inline;
-    font-size: 1.4em;
-    line-height: 1.4em;
     margin-right: 60px;
 `;
 

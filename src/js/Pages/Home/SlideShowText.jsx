@@ -7,7 +7,8 @@ const Div = styled.div`
 `;
 
 const TitleContainer = styled.div`
-    font-size: 2em;
+    font-family: sans-serif;
+    font-size: 1.6em;
     text-align: center;
 `;
 
