@@ -7,6 +7,7 @@ import About from "src/Pages/About/index.jsx";
 
 const Div = styled.div`
     margin: 30px auto 0 auto;
+    text-align: center;
     width: 70%;
 `;
 
