@@ -6,17 +6,6 @@ const Div = styled.div`
     margin: 30px;
 `;
 
-const TitleContainer = styled.div`
-    font-family: sans-serif;
-    font-size: 1.6em;
-    text-align: center;
-`;
-
-const DescriptionContainer = styled.div`
-    text-align: center;
-    font-size: 1em;
-`;
-
 class SlideShowText extends React.Component {
     
     render() {
@@ -24,12 +13,8 @@ class SlideShowText extends React.Component {
 
         return (
             <Div>
-                <TitleContainer>
-                    <b>{title}</b>
-                </TitleContainer>
-                <DescriptionContainer>
-                    {description}
-                </DescriptionContainer>
+                <h1>{title}</h1>
+                <p>{description}</p>
             </Div>
         );
     }
