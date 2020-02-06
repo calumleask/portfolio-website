@@ -22,6 +22,7 @@ export default class Routes extends React.Component {
             <Nav>
                 <Ul>
                     <NavLink to="/" text="Home"/>
+                    <NavLink to="/projects" text="Projects"/>
                     <NavLink to="/about" text="About"/>
                 </Ul>
             </Nav>

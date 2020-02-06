@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import Home from "src/Pages/Home/index.jsx";
 import About from "src/Pages/About/index.jsx";
+import ProjectList from "src/Pages/ProjectList/index.jsx";
+import Project from "src/Pages/Project/index.jsx";
 
 const Div = styled.div`
     margin: 30px auto 0 auto;
@@ -22,6 +24,12 @@ export default class Routes extends React.Component {
                     </Route>
                     <Route path="/about">
                         <About/>
+                    </Route>
+                    <Route path="/projects">
+                        <ProjectList/>
+                    </Route>
+                    <Route path="/:slug">
+                        <Project/>
                     </Route>
                 </Switch>
             </Div>
