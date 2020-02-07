@@ -1,5 +1,12 @@
 import React from "react";
 
-import Root from "src/Containers/Root.jsx";
+import Layout from "src/components/layout";
+import Home from "src/Pages/Home/index.jsx";
 
-export default () => <Root/>
+const HomePage = () => (
+    <Layout content={<Home/>}/>
+);
+
+HomePage.displayName = "HomePage";
+
+export default HomePage;

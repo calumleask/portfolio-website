@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import NavLink from "src/NavBar/Components/NavLink.jsx";
 
@@ -19,13 +20,15 @@ export default class Routes extends React.Component {
 
     render() {
         return (
-            <Nav>
-                <Ul>
-                    <NavLink to="/" text="Home"/>
-                    <NavLink to="/projects" text="Projects"/>
-                    <NavLink to="/about" text="About"/>
-                </Ul>
-            </Nav>
+            <Router>
+                <Nav>
+                    <Ul>
+                        <NavLink to="/" text="Home"/>
+                        <NavLink to="/projects" text="Projects"/>
+                        <NavLink to="/about" text="About"/>
+                    </Ul>
+                </Nav>
+            </Router>
         );
     }
 }
