@@ -28,20 +28,21 @@ const ContentContainer = styled.div`
     width: 70%;
 `;
 
-const Layout = ({content}) => (
-    <Container>
-        <Div>
-            <NavBar/>
-            <ContentContainer>{content}</ContentContainer>
-        </Div>
-        <Footer/>
-    </Container>
+const Layout = ({children, location}) => (
+        <Container>
+            <Div>
+                <NavBar location={location}/>
+                <ContentContainer>{children}</ContentContainer>
+            </Div>
+            <Footer/>
+        </Container>
 );
 
 Layout.displayName = "Layout";
 
 Layout.propTypes = {
-    content: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    location: PropTypes.object.isRequired
 };
 
 export default Layout;

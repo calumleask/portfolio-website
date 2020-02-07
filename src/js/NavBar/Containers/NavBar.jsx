@@ -1,6 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import { BrowserRouter as Router } from "react-router-dom";
 
 import NavLink from "src/NavBar/Components/NavLink.jsx";
 
@@ -16,19 +16,44 @@ const Ul = styled.ul`
     padding: 0px;
 `;
 
-export default class Routes extends React.Component {
+class NavBar extends React.Component {
+
 
     render() {
+
+        // TODO: move out of here
+        const navLinks = [
+            {
+                to: "/",
+                text: "Home"
+            },
+            {
+                to: "/projects",
+                text: "Projects"
+            },
+            {
+                to: "/about",
+                text: "About"
+            }
+        ];
+
+        const navLinkElements = navLinks.map(({ to, text } , index) => {
+            const active = this.props.location.pathname === to;
+            return <NavLink key={index} to={to} text={text} active={active}/>;
+        });
+
         return (
-            <Router>
-                <Nav>
-                    <Ul>
-                        <NavLink to="/" text="Home"/>
-                        <NavLink to="/projects" text="Projects"/>
-                        <NavLink to="/about" text="About"/>
-                    </Ul>
-                </Nav>
-            </Router>
+            <Nav>
+                <Ul>
+                    {navLinkElements}
+                </Ul>
+            </Nav>
         );
     }
 }
+
+NavBar.propTypes = {
+    location: PropTypes.object.isRequired
+};
+
+export default  NavBar;

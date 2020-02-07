@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
-import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 import NavLinkText from "src/NavBar/Components/NavLinkText.jsx";
@@ -25,10 +24,7 @@ const StlyedLink = styled(Link)`
 class NavLink extends React.Component {
 
     render() {
-        const { to, text, location } = this.props;
-
-        const active = location.pathname === to;
-
+        const { to, text, active } = this.props;
         return (
             <ListItem>
                 <StlyedLink to={to}>
@@ -40,9 +36,9 @@ class NavLink extends React.Component {
 }
 
 NavLink.propTypes = {
+    active: PropTypes.bool.isRequired,
     to: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired
+    text: PropTypes.string.isRequired
 };
 
-export default withRouter(NavLink);
+export default NavLink;
