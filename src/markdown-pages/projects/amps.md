@@ -3,10 +3,6 @@ path: "/projects/a-musical-platforming-symphony"
 title: "AMPS"
 date: "2015-08"
 ---
-
-# AMPS - A Musical Platforming Symphony
-	
-## PC & PS4
 	
 AMPS is a vibrant 2D neon platformer developed by students from Abertay University for PC and PS4 using the Sony PhyreEngine and had been in development since January 2015.
 Starting out as a third year group project, development was continued throughout summer and AMPS was showcased at the Dare Indie Showcase 2015 in Dundee.
