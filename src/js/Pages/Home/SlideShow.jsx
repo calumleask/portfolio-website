@@ -18,8 +18,8 @@ const ImageContainer = styled.div`
     display: inline-block;
     margin: 0 auto;
     position: relative;
-	width: 640px;
-	height: 360px;
+    max-width: 640px;
+    width: 80%;
 `;
 
 export default class SlideShow extends React.Component {

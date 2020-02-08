@@ -7,9 +7,8 @@ const Image = styled.img`
     transition-property: opacity;
     transition-timing-function: ease-in;
     left: 0;
-    right: 0;
     top: 0;
-    bottom: 0;
+    width: 100%
 `;
 
 class SlideShowImage extends React.Component {
@@ -19,6 +18,7 @@ class SlideShowImage extends React.Component {
 
         const style = {
             opacity: isActive ? 1 : 0,
+            position: isActive ? "relative" : "absolute",
             transitionDelay: isActive ? "0s" : "0.5s",
             transitionDuration: isActive ? "0.5s" : "0s",
             zIndex: isActive ? 1 : 0
