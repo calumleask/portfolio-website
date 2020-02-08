@@ -1,7 +1,7 @@
 {
   "name": "calumleask.co.uk",
   "version": "1.0.0",
-  "description": "A Portfolio Website",
+  "description": "A portfolio website built using Gatsby",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
