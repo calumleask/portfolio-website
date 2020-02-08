@@ -10,6 +10,7 @@ const Container = styled.div`
     right: 0;
     top: 0;
     bottom: 0;
+    overflow: auto;
     padding: 30px 0 0 0;
     position: fixed;
 `;
@@ -23,7 +24,7 @@ const Div = styled.div`
 `;
 
 const ContentContainer = styled.div`
-    margin: 30px auto 0 auto;
+    margin: 30px auto 200px auto;
     text-align: center;
     width: 70%;
 `;
