@@ -1,6 +1,7 @@
 ---
 path: "/projects/a-musical-platforming-symphony"
 title: "AMPS"
+date: "2015-08"
 ---
 
 # AMPS - A Musical Platforming Symphony
