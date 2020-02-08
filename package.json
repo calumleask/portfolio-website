@@ -32,6 +32,8 @@
     "file-loader": "^5.0.2",
     "gatsby-cli": "^2.8.27",
     "gatsby-plugin-root-import": "^2.0.5",
+    "gatsby-source-filesystem": "^2.1.46",
+    "gatsby-transformer-remark": "^2.6.49",
     "html-loader": "^0.5.5",
     "markdown-loader": "^5.1.0",
     "style-loader": "^1.1.3"

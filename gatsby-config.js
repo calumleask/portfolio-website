@@ -14,7 +14,14 @@ module.exports = {
                 src: path.join(__dirname, "src/js"),
                 markdown: path.join(__dirname, "src/markdown-pages")
             }
-        }
+        },
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "projects",
+                path: path.join(__dirname, "/src/markdown-pages/projects")
+            }
+        },
+        "gatsby-transformer-remark"
     ]
-  }
-  
+}

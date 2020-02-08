@@ -1,3 +1,8 @@
+---
+path: "/projects/a-musical-platforming-symphony"
+title: "AMPS"
+---
+
 # AMPS - A Musical Platforming Symphony
 	
 ## PC & PS4
