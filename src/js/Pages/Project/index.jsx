@@ -4,9 +4,15 @@ import PropTypes from "prop-types";
 class ProjectPage extends React.Component {
 
     render() {
-        const { html } = this.props.data.markdownRemark;
+        const { markdownRemark } = this.props.data;
+        const { html, frontmatter } = markdownRemark;
+        const { date, title } = frontmatter;
         return (
-            <div dangerouslySetInnerHTML={{ __html: html }}/>
+            <>
+                <h1>{title}</h1>
+                <h3><i>({date})</i></h3>
+                <div dangerouslySetInnerHTML={{ __html: html }}/>
+            </>
         );
     }
 }
@@ -14,7 +20,12 @@ class ProjectPage extends React.Component {
 ProjectPage.propTypes = {
     data: PropTypes.shape({
         markdownRemark: PropTypes.shape({
-            html: PropTypes.string.isRequired
+            html: PropTypes.string.isRequired,
+            frontmatter: PropTypes.shape({
+                date: PropTypes.string.isRequired,
+                path: PropTypes.string.isRequired,
+                title: PropTypes.string.isRequired
+            })
         })
     })
 };
