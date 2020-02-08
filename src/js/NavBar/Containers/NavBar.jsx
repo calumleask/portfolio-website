@@ -13,7 +13,8 @@ const Nav = styled.nav`
 const Ul = styled.ul`
     font-weight: bold;
     list-style: none;
-    padding: 0px;
+    margin: 0;
+    padding: 30px 0;
 `;
 
 class NavBar extends React.Component {
