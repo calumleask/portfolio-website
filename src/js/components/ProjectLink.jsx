@@ -5,11 +5,16 @@ import { Link } from "gatsby";
 class ProjectLink extends React.Component {
     
     render() {
-        const { project } = this.props;
+        const { path, title, date, tags } = this.props.project.frontmatter;
+        const tagsArray = tags.split(" ");
+        tagsArray.forEach((tag, index, tagsArray) => {
+            tagsArray[index] = tag.replace(/_/g, " ");
+        });
+
         return (
             <li>
-                <Link to={project.frontmatter.path}>
-                    {project.frontmatter.title} ({project.frontmatter.date})
+                <Link to={path}>
+                    {title} ({date})
                 </Link>
             </li>
         );
@@ -21,7 +26,8 @@ ProjectLink.propTypes = {
         frontmatter: PropTypes.shape({
             date: PropTypes.string.isRequired,
             path: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired
+            title: PropTypes.string.isRequired,
+            tags: PropTypes.string.isRequired
         })
     })
 };

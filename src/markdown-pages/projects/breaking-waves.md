@@ -1,11 +1,9 @@
 ---
 path: "/projects/breaking-waves"
-title: "Honours Project (Breaking Waves)"
+title: "Breaking Waves in Shoreline Water at Real-Time"
 date: "2016-05"
+tags: "3D_Graphics DirectX11 PC C++"
 ---
-
-# Honours Project
-## Breaking Waves in Shoreline Water at Real-Time
 
 For my honours project I looked into how breaking waves could be incorporated into shoreline water simulations
 at real-time for use in games. The dissertation can be found at the bottom of the page

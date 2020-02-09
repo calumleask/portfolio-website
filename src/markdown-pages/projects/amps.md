@@ -2,6 +2,7 @@
 path: "/projects/a-musical-platforming-symphony"
 title: "AMPS"
 date: "2015-08"
+tags: "PS4 PC Games C++"
 ---
 	
 AMPS is a vibrant 2D neon platformer developed by students from Abertay University for PC and PS4 using the Sony PhyreEngine and had been in development since January 2015.
