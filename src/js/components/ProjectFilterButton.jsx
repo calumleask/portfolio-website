@@ -42,7 +42,7 @@ class ProjectFilterButton extends React.Component {
 ProjectFilterButton.propTypes = {
     active: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-    tag: PropTypes.tag.isRequired
+    tag: PropTypes.string.isRequired
 };
 
 export default ProjectFilterButton;
