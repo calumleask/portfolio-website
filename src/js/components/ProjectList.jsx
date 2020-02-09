@@ -1,8 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import ProjectFilterButton from "src/components/ProjectFilterButton.jsx";
 import ProjectLink from "src/components/ProjectLink.jsx";
+
+const Ul = styled.ul`
+    list-style: none;
+    margin: auto;
+    padding: 0;
+    width: 80%;
+`;
 
 class ProjectList extends React.Component {
 
@@ -65,9 +73,9 @@ class ProjectList extends React.Component {
             : projectsToDisplay.map(project => <ProjectLink key={project.id} project={project}/>);
 
         return (
-            <ul>
+            <Ul>
                 {ProjectLinks}
-            </ul>
+            </Ul>
         );
     }
 

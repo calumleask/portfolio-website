@@ -1,5 +1,6 @@
 ---
 path: "/projects/a-musical-platforming-symphony"
+cover: "amps"
 title: "AMPS"
 date: "2015-08"
 tags: "PS4 PC Games C++"

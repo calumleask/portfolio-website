@@ -1,5 +1,6 @@
 ---
 path: "/projects/breaking-waves"
+cover: "breaking_waves"
 title: "Breaking Waves in Shoreline Water at Real-Time"
 date: "2016-05"
 tags: "3D_Graphics DirectX11 PC C++"

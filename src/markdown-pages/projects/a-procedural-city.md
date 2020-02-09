@@ -1,5 +1,6 @@
 ---
 path: "/projects/procedural-city"
+cover: "procedural_city"
 title: "A Procedural City"
 date: "2015-05"
 tags: "Procedural_Generation 3D_Graphics DirectX11 PC C++"
