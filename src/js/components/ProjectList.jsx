@@ -91,7 +91,10 @@ class ProjectList extends React.Component {
 
 ProjectList.propTypes = {
     projects: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired
+        id: PropTypes.string.isRequired,
+        frontmatter: PropTypes.shape({
+            tags: PropTypes.string.isRequired
+        })
     }))
 };
 

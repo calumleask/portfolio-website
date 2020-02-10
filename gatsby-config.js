@@ -15,13 +15,13 @@ module.exports = {
                 markdown: path.join(__dirname, "src/markdown-pages")
             }
         },
+        "gatsby-plugin-mdx",
         {
             resolve: "gatsby-source-filesystem",
             options: {
                 name: "projects",
                 path: path.join(__dirname, "/src/markdown-pages/projects")
             }
-        },
-        "gatsby-transformer-remark"
+        }
     ]
 }

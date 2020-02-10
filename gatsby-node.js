@@ -9,8 +9,8 @@ exports.createPages = ({ graphql, actions }) => {
     // products, portfolio items, landing pages, etc.
     // Variables can be added as the second function parameter
     return graphql(`
-        query loadPagesQuery ($limit: Int!) {
-            allMarkdownRemark(limit: $limit) {
+        query loadPagesQuery {
+            allMdx {
                 edges {
                     node {
                         frontmatter {
@@ -26,7 +26,7 @@ exports.createPages = ({ graphql, actions }) => {
         }
 
         // Create blog post pages.
-        result.data.allMarkdownRemark.edges.forEach(edge => {
+        result.data.allMdx.edges.forEach(edge => {
             createPage({
                 // Path for this page — required
                 path: `${edge.node.frontmatter.path}`,

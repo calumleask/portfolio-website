@@ -6,7 +6,7 @@ import ProjectList from "src/components/ProjectList.jsx";
 
 const ProjectsPage = ({
     data: {
-        allMarkdownRemark: { edges }
+        allMdx: { edges }
     }
 }) => {
     const projects = edges.map(edge => edge.node);
@@ -15,7 +15,7 @@ const ProjectsPage = ({
 
 export const pageQuery = graphql`
     query {
-        allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+        allMdx(sort: { order: DESC, fields: [frontmatter___date] }) {
             edges {
                 node {
                     id
@@ -37,7 +37,7 @@ ProjectsPage.displayName = "ProjectsPage";
 
 ProjectsPage.propTypes = {
     data: PropTypes.shape({
-        allMarkdownRemark: PropTypes.shape({
+        allMdx: PropTypes.shape({
             edges: PropTypes.arrayOf(PropTypes.shape({
                 node: PropTypes.object.isRequired
             }))

@@ -10,8 +10,8 @@ const ProjectTemplate = ({ data }) => {
 
 export const pageQuery = graphql`
 	query($path: String!) {
-		markdownRemark(frontmatter: { path: { eq: $path } }) {
-			html
+		mdx(frontmatter: { path: { eq: $path } }) {
+			body
 			frontmatter {
 				date(formatString: "MMMM YYYY")
 				path
