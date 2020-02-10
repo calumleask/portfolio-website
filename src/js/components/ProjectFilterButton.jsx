@@ -5,7 +5,6 @@ import styled from "styled-components";
 const Button = styled.button`
     background-color: #fff;
     border: 0;
-    border-radius: 10px;
     box-shadow: 1px 1px 2px 0 #888;
     cursor: pointer;
     display: inline-block;

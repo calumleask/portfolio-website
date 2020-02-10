@@ -1,17 +1,11 @@
 import React from "react";
 import Markdown from "react-markdown/with-html";
-import styled from "styled-components";
 import { StaticQuery, graphql } from "gatsby";
+
+import Image from "src/components/Image.jsx";
 
 import content from "markdown/about.md";
 import profileImg from "src/../images/profile.png";
-
-const Img = styled.img`
-    border-radius: 30px;
-    box-shadow: 5px 5px 10px 0 #888;
-    max-width: 200px;
-    width: 50%;
-`;
 
 export default class About extends React.Component {
 
@@ -35,9 +29,17 @@ export default class About extends React.Component {
 
 const render = (data) => {
     const { title } = data.site.siteMetadata;
+
+    const style = {
+        borderRadius: "50%",
+        boxShadow: "5px 5px 10px 0 #888",
+        width: "50%",
+        maxWidth: "240px"
+    };
+
     return (
         <>
-            <Img alt={title} title={title} src={profileImg}/>
+            <Image alt={title} style={style} src={profileImg}/>
             <Markdown source={content} escapeHtml={false}/>
         </>
     );

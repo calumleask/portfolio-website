@@ -3,30 +3,32 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
-    margin: 20px auto;
+    margin: 30px auto;
 `;
 
 const Caption = styled.figcaption`
-    margin: 10px auto;
+    margin: 5px auto;
 `;
 
 class Image extends React.Component {
 
     _getImages() {
-        const { alt, src, width, maxWidth } = this.props;
+        const { alt, className, src, width, maxWidth, style } = this.props;
 
-        const style = {
+        const defaultStyle = {
             margin: "5px",
             width: width,
             maxWidth: maxWidth
         };
 
+        const actualStyle = { ...defaultStyle, ...style };
+
         if (Array.isArray(src)) {
             return src.map((imgSrc, index) => {
-                return <img key={index} alt={alt} style={style} src={imgSrc}/>;
+                return <img key={index} className={className} alt={alt} style={actualStyle} src={imgSrc}/>;
             });
         }
-        return <img alt={alt} style={style} src={src}/>;
+        return <img className={className} alt={alt} style={actualStyle} src={src}/>;
     }
 
     _getCaption() {
@@ -46,8 +48,10 @@ class Image extends React.Component {
 Image.defaultProps = {
     alt: "",
     caption: null,
+    className: null,
     maxWidth: null,
-    width: null
+    width: null,
+    style: {}
 };
 
 Image.propTypes = {
@@ -56,6 +60,7 @@ Image.propTypes = {
         null,
         PropTypes.string
     ]).isRequired,
+    className: PropTypes.string,
     width: PropTypes.oneOfType([
         null,
         PropTypes.string
@@ -67,7 +72,8 @@ Image.propTypes = {
     src: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
-    ]).isRequired
+    ]).isRequired,
+    style: PropTypes.object.isRequired
 };
 
 export default Image;

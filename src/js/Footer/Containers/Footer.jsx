@@ -24,7 +24,7 @@ const Li = styled.li`
     display: block;
     font-size: 1em;
     line-height: 1em;
-    margin-right: 20px;
+    margin: 5px 20px;
 `;
 
 export default class Footer extends React.Component {

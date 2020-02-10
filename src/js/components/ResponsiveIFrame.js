@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const MaxBounds = styled.div`
-    margin: 20px auto;
+    margin: 40px auto;
 `;
 
 const ResponsiveContainer = styled.div`

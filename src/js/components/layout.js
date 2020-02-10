@@ -26,7 +26,8 @@ const Div = styled.div`
 const ContentContainer = styled.div`
     margin: 30px auto 200px auto;
     text-align: center;
-    width: 70%;
+    width: 80%;
+    max-width: 960px;
 `;
 
 const Layout = ({children, location}) => (

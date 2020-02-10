@@ -7,13 +7,14 @@ import NavLink from "src/NavBar/Components/NavLink.jsx";
 const Nav = styled.nav`
     border-bottom: 1px solid #d5d5d5;
     margin: 0 auto;
-    width: 70%;
+    width: 80%;
+    max-width: 1000px;
 `;
 
 const Ul = styled.ul`
     font-weight: bold;
     list-style: none;
-    margin: 0;
+    margin: 0 0 0 20px;
     padding: 30px 0;
 `;
 
@@ -26,15 +27,15 @@ class NavBar extends React.Component {
         const navLinks = [
             {
                 to: "/",
-                text: "Home"
+                text: "HOME"
             },
             {
                 to: "/projects",
-                text: "Projects"
+                text: "PROJECTS"
             },
             {
                 to: "/about",
-                text: "About"
+                text: "ABOUT"
             }
         ];
 
