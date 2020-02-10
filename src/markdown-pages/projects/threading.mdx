@@ -1,0 +1,31 @@
+---
+path: "/projects/threading"
+cover: "threading"
+title: "Threading (Fractals)"
+date: "2014-05"
+tags: "PC C++"
+---
+import Image from "src/components/Image.jsx"
+
+An application to demonstrate threading was developed during my second year at university for the module titled 'Computer Operating Environments'.
+The application was created with Visual Studio 2010 in c++ using SFML to render the graphics and the Boost library for the threading.
+Threading is used to speed up the calculation and rendering of three fractals: the <a href="https://en.wikipedia.org/wiki/Mandelbrot_set" target="_blank">Mandlebrot</a>,
+the <a href="https://en.wikipedia.org/wiki/Mandelbulb" target="_blank">Mandlebulb</a> and the <a href="https://en.wikipedia.org/wiki/Buddhabrot" target="_blank">Buddhabrot</a>.
+
+## Mandlebrot
+
+<Image alt="Mandlebrot" width="30%" src={["/threading/mandlebrot_00.png",
+"/threading/mandlebrot_01.png"]}/>
+
+<Image alt="Mandlebrot" src="/threading/mandlebrot.gif"/>
+
+## Mandlebulb
+
+<Image alt="Mandlebulb" src="/threading/mandlebulb.gif"/>
+
+## Buddhabrot
+
+<Image alt="Buddhabrot" width="30%" src={["/threading/buddhabrot0.gif",
+"/threading/buddhabrot1.gif"]}/>
+
+<Image alt="Buddhabrot" src="/threading/buddhabrot.gif"/>
