@@ -96,8 +96,8 @@ class ProjectLink extends React.Component {
             tagsArray[index] = tag.replace(/_/g, " ");
         });
 
-        const imgSrc = "/images" + slug + ".png";
-        const imgSrcOnHover = "/images" + slug + "-hover.png";
+        const imgSrc = "/assets" + slug + ".png";
+        const imgSrcOnHover = "/assets" + slug + "-hover.png";
 
         const style = {
             opacity: this.state.hover ? 1 : 0,
