@@ -3,22 +3,15 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "gatsby";
 
-const StyledLink = styled(Link)`
-    &:hover {
-        text-decoration: none;
-    }
-`;
 
 const ProjectContainer = styled.li`
     background-color: #fff;
     box-shadow: 1px 1px 2px 0 #888;
     color: #444;
     cursor: pointer;
-    display: table;
     margin: 20px 0;
     text-align: left;
     width: 100%;
-    height: 100px;
 
     &:hover {
         background-color: #f0f0f0;
@@ -31,19 +24,43 @@ const ProjectContainer = styled.li`
     }
 `;
 
+const StyledLink = styled(Link)`
+    &:hover {
+        text-decoration: none;
+    }
+`;
+
+const Table = styled.table`
+    border-spacing: 0;
+    padding: 10px;
+    width: 100%;
+`;
+
+const TableRow = styled.tr`
+    vertical-align: top
+`;
+
+const TableCell = styled.td`
+    padding: 0;
+    vertical-align: top
+`;
+
+const ImgContainer = styled.div`
+    margin-right: 10px;
+    width: 240px;
+    height: 135px;
+`;
+
 const ProjectImg = styled.img`
-    display: table-cell;
     opacity: 1;
     transition-duration: 0.25s;
     transition-property: opacity;
     transition-timing-function: ease-in;
-    width: 248px;
+    width: 240px;
     z-index: 10;
 `;
 
 const ProjectInfo = styled.div`
-    display: table-cell;
-    padding: 10px;
     height: 100%;
     vertical-align: top;
 `;
@@ -80,6 +97,15 @@ class ProjectLink extends React.Component {
         this._onMouseOut = this._onMouseOut.bind(this);
     }
 
+    componentDidMount() {
+        this.setState({
+            dimensions: {
+                width: this.container.offsetWidth,
+                height: this.container.offsetHeight
+            }
+        });
+    }
+
     _onMouseOver() {
         this.setState({ hover: true });
     }
@@ -105,18 +131,62 @@ class ProjectLink extends React.Component {
             zIndex: 11
         };
 
-        return (
-            <StyledLink to={slug} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut}>
-                <ProjectContainer>
-                    <ProjectImg src={imgSrcOnHover} style={style}/>
-                    <ProjectImg src={imgSrc}/>
-                    <ProjectInfo>
-                        <ProjectTitle>{title}</ProjectTitle>
-                        <ProjectDate>{date}</ProjectDate>
+        let project = null;
+        if (false){//(this.state.dimensions && this.state.dimensions.width < 480) {
+            project = 
+            <>
+                <TableRow>
+                    <TableCell width="240px">
+                        <ImgContainer style={{ marginBottom: "5px" }}>
+                            <ProjectImg src={imgSrcOnHover} style={style}/>
+                            <ProjectImg src={imgSrc}/>
+                        </ImgContainer>
+                    </TableCell>
+                    <TableCell>
+                        <ProjectInfo>
+                            <ProjectTitle>{title}</ProjectTitle>
+                            <ProjectDate>{date}</ProjectDate>
+                        </ProjectInfo>
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell colSpan="2">
                         <ProjectExcerpt>{this.props.project.excerpt}</ProjectExcerpt>
-                    </ProjectInfo>
-                </ProjectContainer>
-            </StyledLink>
+                    </TableCell>
+                </TableRow>
+            </>;
+        }
+        else {
+            project =
+            <>
+                <TableRow>
+                    <TableCell width="240px">
+                        <ImgContainer style={{ paddingTop: 0 }}>
+                            <ProjectImg src={imgSrcOnHover} style={style}/>
+                            <ProjectImg src={imgSrc}/>
+                        </ImgContainer>
+                    </TableCell>
+                    <TableCell>
+                        <ProjectInfo>
+                            <ProjectTitle>{title}</ProjectTitle>
+                            <ProjectDate>{date}</ProjectDate>
+                            <ProjectExcerpt>{this.props.project.excerpt}</ProjectExcerpt>
+                        </ProjectInfo>
+                    </TableCell>
+                </TableRow>
+            </>;
+        }
+
+        return (
+            <ProjectContainer>
+                <StyledLink to={slug} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} ref={el => (this.container = el)}>
+                    <Table>
+                        <tbody>
+                        {project}
+                        </tbody>
+                    </Table>
+                </StyledLink>
+            </ProjectContainer>
         );
     }
 }
