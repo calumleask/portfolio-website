@@ -9,12 +9,11 @@ const ProjectTemplate = ({ data }) => {
 };
 
 export const pageQuery = graphql`
-	query($path: String!) {
-		mdx(frontmatter: { path: { eq: $path } }) {
+	query($slug: String!) {
+		mdx(fields: { slug: { eq: $slug } }) {
 			body
 			frontmatter {
 				date(formatString: "MMMM YYYY")
-				path
 				title
 			}
 		}

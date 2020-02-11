@@ -35,7 +35,6 @@ ProjectPage.propTypes = {
             body: PropTypes.string.isRequired,
             frontmatter: PropTypes.shape({
                 date: PropTypes.string.isRequired,
-                path: PropTypes.string.isRequired,
                 title: PropTypes.string.isRequired
             })
         })

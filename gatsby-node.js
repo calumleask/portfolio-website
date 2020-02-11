@@ -1,4 +1,18 @@
 const path = require("path");
+const { createFilePath } = require("gatsby-source-filesystem");
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+    const { createNodeField } = actions;
+
+    if (node.internal.type === "Mdx") {
+        const value = createFilePath({ node, getNode, trailingSlash: false });
+        createNodeField({
+            name: "slug",
+            node,
+            value,
+        });
+    }
+};
 
 exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions;
@@ -13,8 +27,8 @@ exports.createPages = ({ graphql, actions }) => {
             allMdx {
                 edges {
                     node {
-                        frontmatter {
-                            path
+                        fields {
+                            slug
                         }
                     }
                 }
@@ -27,28 +41,20 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Create blog post pages.
         result.data.allMdx.edges.forEach(edge => {
+            const slug = edge.node.fields.slug;
             createPage({
                 // Path for this page — required
-                path: `${edge.node.frontmatter.path}`,
+                path: slug,
                 component: projectTemplate,
                 context: {
-                    // Add optional context data to be inserted
-                    // as props into the page component..
-                    //
-                    // The context data can also be used as
-                    // arguments to the page GraphQL query.
-                    //
-                    // The page "path" is always available as a GraphQL
-                    // argument.
+                    slug: slug
                 },
             })
         })
     })
-}
+};
 
-exports.onCreateWebpackConfig = ({
-    actions,
-}) => {
+exports.onCreateWebpackConfig = ({ actions }) => {
     actions.setWebpackConfig({
         module: {
             rules: [

@@ -89,14 +89,15 @@ class ProjectLink extends React.Component {
     }
     
     render() {
-        const { path, cover, title, date, tags } = this.props.project.frontmatter;
+        const { title, date, tags } = this.props.project.frontmatter;
+        const { slug } = this.props.project.fields;
         const tagsArray = tags.split(" ");
         tagsArray.forEach((tag, index, tagsArray) => {
             tagsArray[index] = tag.replace(/_/g, " ");
         });
 
-        const imgSrc = "/project-cover/" + cover + ".png";
-        const imgSrcOnHover = "/project-cover/" + cover + "_hover.png";
+        const imgSrc = "/images" + slug + ".png";
+        const imgSrcOnHover = "/images" + slug + "-hover.png";
 
         const style = {
             opacity: this.state.hover ? 1 : 0,
@@ -105,7 +106,7 @@ class ProjectLink extends React.Component {
         };
 
         return (
-            <StyledLink to={path} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut}>
+            <StyledLink to={slug} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut}>
                 <ProjectContainer>
                     <ProjectImg src={imgSrcOnHover} style={style}/>
                     <ProjectImg src={imgSrc}/>
@@ -123,10 +124,11 @@ class ProjectLink extends React.Component {
 ProjectLink.propTypes = {
     project: PropTypes.shape({
         excerpt: PropTypes.string.isRequired,
+        fields: PropTypes.shape({
+            slug: PropTypes.string.isRequired
+        }),
         frontmatter: PropTypes.shape({
             date: PropTypes.string.isRequired,
-            path: PropTypes.string.isRequired,
-            cover: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             tags: PropTypes.string.isRequired
         })
