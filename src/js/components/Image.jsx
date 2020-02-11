@@ -57,16 +57,16 @@ Image.defaultProps = {
 Image.propTypes = {
     alt: PropTypes.string.isRequired,
     caption: PropTypes.oneOfType([
-        null,
+        PropTypes.number,
         PropTypes.string
     ]).isRequired,
     className: PropTypes.string,
     width: PropTypes.oneOfType([
-        null,
+        PropTypes.number,
         PropTypes.string
     ]).isRequired,
     maxWidth: PropTypes.oneOfType([
-        null,
+        PropTypes.number,
         PropTypes.string
     ]).isRequired,
     src: PropTypes.oneOfType([
