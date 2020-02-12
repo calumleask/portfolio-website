@@ -1,6 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { StaticQuery, graphql } from "gatsby";
+
+import { withThemeContext } from "src/components/ThemeContext.jsx";
 
 import SvgIcon from "src/components/SvgIcon.jsx";
 
@@ -8,7 +11,8 @@ const StyledFooter = styled.footer`
     border-top: 1px solid #d5d5d5;
     flex-shrink: 0;
     font-size: 1em;
-    margin: 20px auto 0 auto;
+    max-width: 1000px;
+    padding: 10px;
     text-align: center;
     width: 70%;
 `;
@@ -16,7 +20,8 @@ const StyledFooter = styled.footer`
 const Ul = styled.ul`
     font-weight: bold;
     list-style: none;
-    padding: 0px;
+    margin: 10px 0;
+    padding: 0;
     text-align: left;
 `;
 
@@ -27,8 +32,31 @@ const Li = styled.li`
     margin: 5px 20px;
 `;
 
-export default class Footer extends React.Component {
+const Text = styled.div`
+    margin: 5px 0;
+`;
+
+const getFooterStyle = (layout, colors) => {
+    if (layout === "narrow") {
+        return {
+            background: colors.mobileFooterBackground,
+            margin: 0,
+            width: "100%"
+        };
+    }
+    else {
+        return {
+            background: colors.pageBackground,
+            margin: "0 auto",
+            width: "80%"
+        };
+    }
+};
+
+class Footer extends React.Component {
     render() {
+        const { theme } = this.props;
+
         return (
             <StaticQuery
                 query={graphql`
@@ -42,13 +70,13 @@ export default class Footer extends React.Component {
                         }
                     }
                 `}
-                render={(data) => render(data)}
+                render={(data) => render(data, theme.layout, theme.styles.color)}
             />
         );
     }
 }
 
-const render = (data) => {
+const render = (data, layout, colors) => {
     const { title, email, linkedin } = data.site.siteMetadata;
 
     const svgStyle = {
@@ -58,7 +86,7 @@ const render = (data) => {
     };
 
     return (
-        <StyledFooter>
+        <StyledFooter style={getFooterStyle(layout, colors)}>
             <Ul>
                 <Li>
                     <a href={"mailto:" + email}>
@@ -85,8 +113,19 @@ const render = (data) => {
                 </Li>
             </Ul>
 
-            <p>Copyright © {new Date().getFullYear()} {" "} {title}, Built with {" "}<a target="_blank" rel="noopener noreferrer" href="https://www.gatsbyjs.org">Gatsby</a></p>
-            <p>Home icon by <a href="https://icons8.com/icon/83326/home" rel="noopener noreferrer" target="_blank">Icons8</a></p>
+            <Text>Copyright © {new Date().getFullYear()} {" "} {title}, Built with {" "}<a target="_blank" rel="noopener noreferrer" href="https://www.gatsbyjs.org">Gatsby</a></Text>
+            <Text>Home icon by <a href="https://icons8.com/icon/83326/home" rel="noopener noreferrer" target="_blank">Icons8</a></Text>
         </StyledFooter>
     );
 };
+
+Footer.propTypes = {
+    theme: PropTypes.shape({
+        layout: PropTypes.string.isRequired,
+        styles: PropTypes.shape({
+            color: PropTypes.object.isRequired
+        }).isRequired
+    }).isRequired
+};
+
+export default withThemeContext(Footer);
