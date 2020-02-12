@@ -32,7 +32,7 @@ class NavLinkText extends React.Component {
     }
 
     getLettersElements() {
-        const { children, active } = this.props;
+        const { children, active, color } = this.props;
 
         if (typeof children === "string" || children instanceof String) {
             return [...children].map((letter, index) => {
@@ -43,6 +43,7 @@ class NavLinkText extends React.Component {
                         hover={this.state.hover}
                         offset={offset}
                         active={active}
+                        color={color}
                         >
                         {letter}
                     </MovingLetter>
@@ -65,6 +66,7 @@ class NavLinkText extends React.Component {
 
 NavLinkText.propTypes = {
     active: PropTypes.bool.isRequired,
+    color: PropTypes.string,
     children: PropTypes.string
 };
 

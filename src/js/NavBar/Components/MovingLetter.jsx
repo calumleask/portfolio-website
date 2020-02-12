@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Letter = styled.div`
-    color: #888;
     display: inline;
     font-family: monospace;
     font-size: 1.4em;
@@ -16,11 +15,13 @@ const Letter = styled.div`
 class MovingLetter extends React.Component {
 
     getStyle() {
-        const { hover, offset, active } = this.props;
-        const style = {};
+        const { hover, offset, active, color } = this.props;
+        const style = {
+            color: color
+        };
         const emOffset = (active ? 0.1 : -0.1) * offset + "em";
         style.top = active || hover ? emOffset : 0;
-        style.color = active ? "#444" : "#888";
+        style.color = color;
         return style;
     }
 
@@ -33,10 +34,11 @@ class MovingLetter extends React.Component {
 }
 
 MovingLetter.propTypes = {
-    hover: PropTypes.bool.isRequired,
+    children: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
+    hover: PropTypes.bool.isRequired,
     offset: PropTypes.number.isRequired,
-    children: PropTypes.string
 };
 
 export default MovingLetter;

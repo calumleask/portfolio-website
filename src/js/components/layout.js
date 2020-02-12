@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import WindowDimensionsProvider from "src/components/WindowDimensionsProvider";
+import ThemeProvider from "src/components/ThemeContext.jsx";
 import NavBar from "src/NavBar/Containers/NavBar.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
 
@@ -33,13 +34,15 @@ const ContentContainer = styled.div`
 
 const Layout = ({ children, location }) => (
     <WindowDimensionsProvider>
-        <Container>
-            <Div>
-                <NavBar location={location}/>
-                <ContentContainer>{children}</ContentContainer>
-            </Div>
-            <Footer/>
-        </Container>
+        <ThemeProvider>
+            <Container>
+                <Div>
+                    <NavBar location={location}/>
+                    <ContentContainer>{children}</ContentContainer>
+                </Div>
+                <Footer/>
+            </Container>
+        </ThemeProvider>
     </WindowDimensionsProvider>
 );
 
