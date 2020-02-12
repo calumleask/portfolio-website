@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import WindowDimensionsProvider from "src/components/WindowDimensionsProvider";
 import NavBar from "src/NavBar/Containers/NavBar.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
 
@@ -30,7 +31,8 @@ const ContentContainer = styled.div`
     max-width: 960px;
 `;
 
-const Layout = ({children, location}) => (
+const Layout = ({ children, location }) => (
+    <WindowDimensionsProvider>
         <Container>
             <Div>
                 <NavBar location={location}/>
@@ -38,6 +40,7 @@ const Layout = ({children, location}) => (
             </Div>
             <Footer/>
         </Container>
+    </WindowDimensionsProvider>
 );
 
 Layout.displayName = "Layout";

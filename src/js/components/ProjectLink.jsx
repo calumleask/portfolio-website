@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "gatsby";
 
+import ResponsiveLayout from "src/components/ResponsiveLayout";
 
 const ProjectContainer = styled.li`
     background-color: #fff;
@@ -115,6 +116,7 @@ class ProjectLink extends React.Component {
     }
     
     render() {
+        const { excerpt } = this.props.project;
         const { title, date, tags } = this.props.project.frontmatter;
         const { slug } = this.props.project.fields;
         const tagsArray = tags.split(" ");
@@ -131,62 +133,48 @@ class ProjectLink extends React.Component {
             zIndex: 11
         };
 
-        let project = null;
-        if (false){//(this.state.dimensions && this.state.dimensions.width < 480) {
-            project = 
-            <>
-                <TableRow>
-                    <TableCell width="240px">
-                        <ImgContainer style={{ marginBottom: "5px" }}>
-                            <ProjectImg src={imgSrcOnHover} style={style}/>
-                            <ProjectImg src={imgSrc}/>
-                        </ImgContainer>
-                    </TableCell>
-                    <TableCell>
-                        <ProjectInfo>
-                            <ProjectTitle>{title}</ProjectTitle>
-                            <ProjectDate>{date}</ProjectDate>
-                        </ProjectInfo>
-                    </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell colSpan="2">
-                        <ProjectExcerpt>{this.props.project.excerpt}</ProjectExcerpt>
-                    </TableCell>
-                </TableRow>
-            </>;
-        }
-        else {
-            project =
-            <>
-                <TableRow>
-                    <TableCell width="240px">
-                        <ImgContainer style={{ paddingTop: 0 }}>
-                            <ProjectImg src={imgSrcOnHover} style={style}/>
-                            <ProjectImg src={imgSrc}/>
-                        </ImgContainer>
-                    </TableCell>
-                    <TableCell>
-                        <ProjectInfo>
-                            <ProjectTitle>{title}</ProjectTitle>
-                            <ProjectDate>{date}</ProjectDate>
-                            <ProjectExcerpt>{this.props.project.excerpt}</ProjectExcerpt>
-                        </ProjectInfo>
-                    </TableCell>
-                </TableRow>
-            </>;
-        }
-
         return (
             <ProjectContainer>
                 <StyledLink to={slug} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} ref={el => (this.container = el)}>
                     <Table>
                         <tbody>
-                        {project}
+                            <TableRow>
+                                <TableCell width="240px">
+                                    <ImgContainer style={{ marginBottom: "5px" }}>
+                                        <ProjectImg src={imgSrcOnHover} style={style}/>
+                                        <ProjectImg src={imgSrc}/>
+                                    </ImgContainer>
+                                </TableCell>
+                                <TableCell>
+                                    <ProjectInfo>
+                                        <ResponsiveLayout
+                                            breakpoint={767}
+                                            renderDesktop={() => (
+                                                <DesktopView title={title} date={date} excerpt={excerpt}/>
+                                            )}
+                                            renderMobile={() => (
+                                                <MobileView title={title} date={date} excerpt={excerpt}/>
+                                            )}
+                                        />
+                                    </ProjectInfo>
+                                </TableCell>
+                            </TableRow>
+                            <ResponsiveLayout
+                                breakpoint={767}
+                                renderDesktop={()=>(null)}
+                                renderMobile={() => (
+                                    <TableRow>
+                                        <TableCell colSpan="2">
+                                            <ProjectExcerpt>{excerpt}</ProjectExcerpt>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            />
                         </tbody>
                     </Table>
                 </StyledLink>
             </ProjectContainer>
+            
         );
     }
 }
@@ -206,3 +194,18 @@ ProjectLink.propTypes = {
 };
 
 export default ProjectLink;
+
+const DesktopView = ({ title, date, excerpt }) => (
+    <>
+        <ProjectTitle>{title}</ProjectTitle>
+        <ProjectDate>{date}</ProjectDate>
+        <ProjectExcerpt>{excerpt}</ProjectExcerpt>
+    </>
+);
+
+const MobileView = ({ title, date }) => (
+    <>
+        <ProjectTitle>{title}</ProjectTitle>
+        <ProjectDate>{date}</ProjectDate>
+    </>
+);
