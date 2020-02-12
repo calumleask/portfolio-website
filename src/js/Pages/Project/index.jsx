@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
+import { withThemeContext } from "src/components/ThemeContext";
+
 const ProjectTitle = styled.h1`
     margin-bottom: 10px;
 `;
@@ -12,15 +14,27 @@ const DateSubheading = styled.h3`
     font-style: italic
 `;
 
+const getTitleStyle = (layout) => {
+    if (layout === "narrow") {
+        return {
+            textAlign: "left"
+        };
+    }
+    else {
+        return {};
+    }
+};
+
 class ProjectPage extends React.Component {
 
     render() {
+        const { layout } = this.props.theme;
         const { mdx } = this.props.data;
         const { date, title } = mdx.frontmatter;
         return (
             <>
-                <ProjectTitle>{title}</ProjectTitle>
-                <DateSubheading>({date})</DateSubheading>
+                <ProjectTitle style={getTitleStyle(layout)}>{title}</ProjectTitle>
+                <DateSubheading style={getTitleStyle(layout)}>({date})</DateSubheading>
                 <div>
                     <MDXRenderer>{mdx.body}</MDXRenderer>
                 </div>
@@ -38,7 +52,10 @@ ProjectPage.propTypes = {
                 title: PropTypes.string.isRequired
             })
         })
+    }),
+    theme: PropTypes.shape({
+        layout: PropTypes.string.isRequired
     })
 };
 
-export default ProjectPage;
+export default withThemeContext(ProjectPage);

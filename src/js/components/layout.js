@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import WindowDimensionsProvider from "src/components/WindowDimensionsProvider";
-import ThemeProvider from "src/components/ThemeContext.jsx";
+import ThemeProvider, { withThemeContext } from "src/components/ThemeContext.jsx";
 import NavBar from "src/NavBar/Containers/NavBar.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
 
@@ -27,12 +27,36 @@ const ContentContainer = styled.div`
     width: 80%;
 `;
 
+const getStyle = (layout) => {
+    if (layout === "narrow") {
+        return {
+            margin: 0,
+            padding: "0 30px",
+            width: "100%"
+        };
+    }
+    else {
+        return {
+            margin: "0 auto",
+            width: "80%"
+        };
+    }
+};
+
+const Content = (props) => {
+    return (
+        <ContentContainer style={getStyle(props.theme.layout)}>{props.children}</ContentContainer>
+    );
+};
+
+const WrappedContent = withThemeContext(Content);
+
 const Layout = ({ children, location }) => (
     <WindowDimensionsProvider>
         <ThemeProvider>
             <FlexContainer>
                 <NavBar location={location}/>
-                <ContentContainer>{children}</ContentContainer>
+                    <WrappedContent>{children}</WrappedContent>
                 <Footer/>
             </FlexContainer>
         </ThemeProvider>
