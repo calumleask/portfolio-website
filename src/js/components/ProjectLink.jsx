@@ -203,9 +203,20 @@ const DesktopView = ({ title, date, excerpt }) => (
     </>
 );
 
+DesktopView.propTypes = {
+    date: PropTypes.string.isRequired,
+    excerpt: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+};
+
 const MobileView = ({ title, date }) => (
     <>
         <ProjectTitle>{title}</ProjectTitle>
         <ProjectDate>{date}</ProjectDate>
     </>
 );
+
+MobileView.propTypes = {
+    date: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+};
