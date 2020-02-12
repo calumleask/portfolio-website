@@ -4,6 +4,7 @@ date: "2015-05"
 tags: "Procedural_Generation 3D_Graphics DirectX11 PC C++"
 ---
 import Image from "src/components/Image.jsx"
+import ImageGroup from "src/components/ImageGroup.jsx"
 import ResponsiveIFrame from "src/components/ResponsiveIFrame"
 
 <ResponsiveIFrame aspect="4:3" src="https://www.youtube.com/embed/HQLa8YGWNwg"/>
@@ -13,7 +14,7 @@ view the steps taken to generate the building plots. The city visibly changes du
 The main procedural content within the application is the generation of the building plots and the buildings themselves. The lighting of the windows are not done procedurally
 during the application but utilised self-made textures created in GIMP.
 
-<Image alt="Generated City" width="30%" style={{margin:0}} src={["/assets/projects/procedural-city/05.png",
+<ImageGroup alt="Generated City" width="30%" style={{margin:0}} src={["/assets/projects/procedural-city/05.png",
 "/assets/projects/procedural-city/06.png"]}/>
 
 ## Generating the Building Plots
@@ -81,7 +82,7 @@ During the night the colour of the windows are lit up based on the value in the 
 The blue channel is used to determine when the light in the window will turn on. This enables the lights to turn on gradually as the day-night cycle progresses.
 See Figure 6 for an example of the widows being lit up as the sun sets.
 
-<Image alt="Window Texture" width="20%" src={[
+<ImageGroup alt="Window Texture" width="20%" src={[
     "/assets/projects/procedural-city/window_texture_0.png",
 "/assets/projects/procedural-city/window_texture_1.png",
 "/assets/projects/procedural-city/window_texture_2.png",

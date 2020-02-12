@@ -33,13 +33,20 @@ const render = (data) => {
     const style = {
         borderRadius: "50%",
         boxShadow: "5px 5px 10px 0 #888",
-        width: "50%",
-        maxWidth: "240px"
+        margin: "0 auto",
+        maxWidth: "240px",
+        width: "50%"
     };
 
     return (
         <>
-            <Image alt={title} style={style} src={profileImg}/>
+            <div style={{
+                margin: "40px 0",
+                textAlign: "center",
+                width: "100%"
+            }}>
+                <Image alt={title} style={style} src={profileImg}/>
+            </div>
             <Markdown source={content} escapeHtml={false}/>
         </>
     );
