@@ -21,6 +21,9 @@ const ThemeProvider = ({ children }) => {
 
     const [ styles ] = useState({
         color: {
+            pageBackground: "#f8f8f8",
+            mobileNavBackground: "#f0f0f0",
+            mobileFooterBackground: "#f0f0f0",
             navText: "#888",
             navTextActive: "#444"
         }

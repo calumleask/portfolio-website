@@ -18,9 +18,10 @@ const Ul = styled.ul`
     padding: 0;
 `;
 
-const getNavStyle = (layout) => {
+const getNavStyle = (layout, colors) => {
     if (layout === "narrow") {
         return {
+            background: colors.mobileNavBackground,
             height: "60px",
             lineHeight: "60px",
             margin: 0,
@@ -28,6 +29,7 @@ const getNavStyle = (layout) => {
         };
     }
     return {
+        background: colors.pageBackground,
         height: "80px",
         lineHeight: "80px",
         margin: "0 auto",
@@ -69,7 +71,7 @@ class NavBar extends React.Component {
 
 
     render() {
-        const { layout } = this.props.theme;
+        const { layout, styles } = this.props.theme;
 
         // TODO: move out of here
         const navLinks = [
@@ -107,7 +109,7 @@ class NavBar extends React.Component {
         });
 
         return (
-            <Nav style={getNavStyle(layout)}>
+            <Nav style={getNavStyle(layout, styles.color)}>
                 <Ul style={getUlStyle(layout)}>
                     {navLinkElements}
                 </Ul>
@@ -119,7 +121,10 @@ class NavBar extends React.Component {
 NavBar.propTypes = {
     location: PropTypes.object.isRequired,
     theme: PropTypes.shape({
-        layout: PropTypes.string.isRequired
+        layout: PropTypes.string.isRequired,
+        styles: PropTypes.shape({
+            color: PropTypes.object.isRequired
+        }).isRequired
     }).isRequired
 };
 
