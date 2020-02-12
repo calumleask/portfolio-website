@@ -7,7 +7,9 @@ import ThemeProvider from "src/components/ThemeContext.jsx";
 import NavBar from "src/NavBar/Containers/NavBar.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
 
-const Container = styled.div`
+const FlexContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     left: 0;
     right: 0;
     top: 0;
@@ -17,31 +19,22 @@ const Container = styled.div`
     position: fixed;
 `;
 
-const Div = styled.div`
-    margin: 0 auto;
-    width: 100%;
-    min-height: 100%;
-    height: auto !important;
-    margin-bottom: -158px;
-`;
-
 const ContentContainer = styled.div`
-    margin: 30px auto 200px auto;
+    flex-grow: 1;
+    margin: 30px auto;
+    max-width: 960px;
     text-align: center;
     width: 80%;
-    max-width: 960px;
 `;
 
 const Layout = ({ children, location }) => (
     <WindowDimensionsProvider>
         <ThemeProvider>
-            <Container>
-                <Div>
-                    <NavBar location={location}/>
-                    <ContentContainer>{children}</ContentContainer>
-                </Div>
+            <FlexContainer>
+                <NavBar location={location}/>
+                <ContentContainer>{children}</ContentContainer>
                 <Footer/>
-            </Container>
+            </FlexContainer>
         </ThemeProvider>
     </WindowDimensionsProvider>
 );

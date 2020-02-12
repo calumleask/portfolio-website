@@ -6,11 +6,11 @@ import SvgIcon from "src/components/SvgIcon.jsx";
 
 const StyledFooter = styled.footer`
     border-top: 1px solid #d5d5d5;
+    flex-shrink: 0;
     font-size: 1em;
     margin: 20px auto 0 auto;
     text-align: center;
     width: 70%;
-    height: 138px;
 `;
 
 const Ul = styled.ul`
