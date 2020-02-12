@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import WindowDimensionsProvider from "src/components/WindowDimensionsProvider";
-import ThemeProvider, { withThemeContext } from "src/components/ThemeContext.jsx";
+import { withThemeContext } from "src/components/ThemeContext.jsx";
 import NavBar from "src/NavBar/Containers/NavBar.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
 
@@ -43,31 +42,22 @@ const getStyle = (layout) => {
     }
 };
 
-const Content = (props) => {
-    return (
-        <ContentContainer style={getStyle(props.theme.layout)}>{props.children}</ContentContainer>
-    );
-};
-
-const WrappedContent = withThemeContext(Content);
-
-const Layout = ({ children, location }) => (
-    <WindowDimensionsProvider>
-        <ThemeProvider>
+const Layout = ({ children, location, theme }) => (
             <FlexContainer>
                 <NavBar location={location}/>
-                    <WrappedContent>{children}</WrappedContent>
+                <ContentContainer style={getStyle(theme.layout)}>{children}</ContentContainer>
                 <Footer/>
             </FlexContainer>
-        </ThemeProvider>
-    </WindowDimensionsProvider>
 );
 
 Layout.displayName = "Layout";
 
 Layout.propTypes = {
     children: PropTypes.node.isRequired,
-    location: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
+    theme: PropTypes.shape({
+        layout: PropTypes.string.isRequired
+    })
 };
 
-export default Layout;
+export default withThemeContext(Layout);
