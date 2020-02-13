@@ -6,7 +6,9 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <SlideShow/>
+            <div style={{ margin: "40px 0" }}>
+                <SlideShow/>
+            </div>
         );
     }
 }

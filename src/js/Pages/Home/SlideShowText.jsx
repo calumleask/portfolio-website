@@ -14,7 +14,7 @@ class SlideShowText extends React.Component {
         return (
             <Div>
                 <h1>{title}</h1>
-                <p>{description}</p>
+                <p style={{ textAlign: "center" }}>{description}</p>
             </Div>
         );
     }

@@ -19,7 +19,6 @@ const ImageContainer = styled.div`
     margin: 0 auto;
     position: relative;
     max-width: 640px;
-    width: 80%;
 `;
 
 export default class SlideShow extends React.Component {
