@@ -9,7 +9,7 @@ import NavLink from "src/NavBar/Components/NavLink.jsx";
 const Nav = styled.nav`
     border-bottom: 1px solid #d5d5d5;
     font-weight: bold;
-    max-width: 1000px;
+    margin: 0;
 `;
 
 const Ul = styled.ul`
@@ -23,17 +23,13 @@ const getNavStyle = (layout, colors) => {
         return {
             background: colors.mobileNavBackground,
             height: "60px",
-            lineHeight: "60px",
-            margin: 0,
-            width: "100%"
+            lineHeight: "60px"
         };
     }
     return {
         background: colors.pageBackground,
         height: "80px",
         lineHeight: "80px",
-        margin: "0 auto",
-        width: "80%"
     };
 };
 

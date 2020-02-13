@@ -11,10 +11,9 @@ const StyledFooter = styled.footer`
     border-top: 1px solid #d5d5d5;
     flex-shrink: 0;
     font-size: 1em;
-    max-width: 1000px;
+    margin: 0;
     padding: 10px;
     text-align: center;
-    width: 70%;
 `;
 
 const Ul = styled.ul`
@@ -39,16 +38,12 @@ const Text = styled.div`
 const getFooterStyle = (layout, colors) => {
     if (layout === "narrow") {
         return {
-            background: colors.mobileFooterBackground,
-            margin: 0,
-            width: "100%"
+            background: colors.mobileFooterBackground
         };
     }
     else {
         return {
-            background: colors.pageBackground,
-            margin: "0 auto",
-            width: "80%"
+            background: colors.pageBackground
         };
     }
 };
