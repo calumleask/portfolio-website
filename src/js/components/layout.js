@@ -6,6 +6,8 @@ import { withThemeContext } from "src/components/ThemeContext.jsx";
 import NavBar from "src/NavBar/Containers/NavBar.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
 
+import "css/index.css";
+
 const RootContainer = styled.div`
     left: 0;
     right: 0;

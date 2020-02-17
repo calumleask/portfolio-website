@@ -12,7 +12,8 @@ module.exports = {
             resolve: "gatsby-plugin-root-import",
             options: {
                 src: path.join(__dirname, "src/js"),
-                markdown: path.join(__dirname, "src/markdown-pages")
+                markdown: path.join(__dirname, "src/markdown-pages"),
+                css: path.join(__dirname, "src/css")
             }
         },
         "gatsby-plugin-mdx",
