@@ -68,6 +68,7 @@ class NavBar extends React.Component {
 
     render() {
         const { layout, styles } = this.props.theme;
+        const { pathname } = this.props.location;
 
         // TODO: move out of here
         const navLinks = [
@@ -92,7 +93,8 @@ class NavBar extends React.Component {
         ];
 
         const navLinkElements = navLinks.map(({ to, text, svg } , index) => {
-            const active = this.props.location.pathname === to;
+            const formattedSlug = pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
+            const active = formattedSlug === to;
             let navLink = (layout === "narrow"&& svg) ?
             <NavLink to={to} svg={svg} active={active}/>
             : <NavLink to={to} text={text} active={active}/>;
