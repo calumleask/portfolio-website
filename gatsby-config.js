@@ -23,6 +23,7 @@ module.exports = {
                 name: "projects",
                 path: path.join(__dirname, "/src/markdown-pages")
             }
-        }
+        },
+        "gatsby-plugin-styled-components"
     ]
 }
