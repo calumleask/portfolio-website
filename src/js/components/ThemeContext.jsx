@@ -1,9 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { globalWindow } from "src/helpers/global-window.js";
 
 const ThemeContext = createContext(null);
 
-const mql = window.matchMedia("(min-width: 600px)");
+const mql = globalWindow.matchMedia("(min-width: 600px)");
 
 const layoutMode = {
     narrow: "narrow",
