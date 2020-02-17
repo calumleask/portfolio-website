@@ -4,7 +4,6 @@ date: "2015-05"
 tags: "Procedural_Generation 3D_Graphics DirectX11 PC C++"
 ---
 import Image from "src/components/Image.jsx"
-import ImageGroup from "src/components/ImageGroup.jsx"
 import ResponsiveIFrame from "src/components/ResponsiveIFrame"
 
 <ResponsiveIFrame aspect="4:3" src="https://www.youtube.com/embed/HQLa8YGWNwg"/>
@@ -14,8 +13,8 @@ view the steps taken to generate the building plots. The city visibly changes du
 The main procedural content within the application is the generation of the building plots and the buildings themselves. The lighting of the windows are not done procedurally
 during the application but utilised self-made textures created in GIMP.
 
-<ImageGroup alt="Generated City" width="30%" style={{margin:0}} src={["/assets/projects/procedural-city/05.png",
-"/assets/projects/procedural-city/06.png"]}/>
+<Image alt="Generated City" width="30%" style={{margin:0}} src="/assets/projects/procedural-city/05.png"/>
+<Image alt="Generated City" width="30%" style={{margin:0}} src="/assets/projects/procedural-city/06.png"/>
 
 ## Generating the Building Plots
 The first step to generating the city is generating the building plots. A city is split into districts, districts are split into blocks, and blocks are split into plots.
@@ -82,12 +81,10 @@ During the night the colour of the windows are lit up based on the value in the 
 The blue channel is used to determine when the light in the window will turn on. This enables the lights to turn on gradually as the day-night cycle progresses.
 See Figure 6 for an example of the widows being lit up as the sun sets.
 
-<ImageGroup alt="Window Texture" width="20%" src={[
-    "/assets/projects/procedural-city/window_texture_0.png",
-"/assets/projects/procedural-city/window_texture_1.png",
-"/assets/projects/procedural-city/window_texture_2.png",
-"/assets/projects/procedural-city/window_texture_3.png"
-]} caption="Figure 5. Four different window texture types"/>
+<Image alt="Window Texture" width="20%" src="/assets/projects/procedural-city/window_texture_0.png"/>
+<Image alt="Window Texture" width="20%" src="/assets/projects/procedural-city/window_texture_1.png"/>
+<Image alt="Window Texture" width="20%" src="/assets/projects/procedural-city/window_texture_2.png"/>
+<Image alt="Window Texture" width="20%" src="/assets/projects/procedural-city/window_texture_3.png" caption="Figure 5. Four different window texture types"/>
 
 <Image alt="Windows Lighting Up" width="60%" src="/assets/projects/procedural-city/04.png" caption="Figure 6. Windows lighting up at night"/>
 
