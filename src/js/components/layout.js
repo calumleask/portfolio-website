@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { withThemeContext } from "src/components/ThemeContext.jsx";
 import NavBar from "src/NavBar/Containers/NavBar.jsx";
 import Footer from "src/Footer/Containers/Footer.jsx";
+
+import { device } from "src/helpers/devices.js";
 
 import "css/index.css";
 
@@ -24,6 +25,11 @@ const FlexContainer = styled.div`
     height: 100%;
     margin: 0 auto;
     max-width: 1000px;
+    width: 100%;
+
+    @media ${device.tablet} {
+        width: 80%;
+    }
 `;
 
 const ContentContainer = styled.div`
@@ -32,22 +38,9 @@ const ContentContainer = styled.div`
     text-align: center;
 `;
 
-const getFlexContainerStyle = (layout) => {
-    if (layout === "narrow") {
-        return {
-            width: "100%"
-        };
-    }
-    else {
-        return {
-            width: "80%"
-        };
-    }
-};
-
-const Layout = ({ children, location, theme }) => (
+const Layout = ({ children, location }) => (
     <RootContainer>
-        <FlexContainer style={getFlexContainerStyle(theme.layout)}>
+        <FlexContainer>
             <NavBar location={location}/>
             <ContentContainer>{children}</ContentContainer>
             <Footer/>
@@ -59,10 +52,7 @@ Layout.displayName = "Layout";
 
 Layout.propTypes = {
     children: PropTypes.node.isRequired,
-    location: PropTypes.object.isRequired,
-    theme: PropTypes.shape({
-        layout: PropTypes.string.isRequired
-    })
+    location: PropTypes.object.isRequired
 };
 
-export default withThemeContext(Layout);
+export default Layout;

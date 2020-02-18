@@ -1,19 +1,24 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { StaticQuery, graphql } from "gatsby";
 
-import { withThemeContext } from "src/components/ThemeContext.jsx";
+import { device } from "src/helpers/devices.js";
+import { color } from "css/colors.js";
 
 import SvgIcon from "src/components/SvgIcon.jsx";
 
 const StyledFooter = styled.footer`
-    border-top: 1px solid #d5d5d5;
+    background: ${color.mobileFooterBackground};
+    border-top: 1px solid ${color.border};
     flex-shrink: 0;
     font-size: 1em;
     margin: 0;
     padding: 10px;
     text-align: center;
+
+    @media ${device.tablet} {
+        background: ${color.pageBackground}
+    }
 `;
 
 const Ul = styled.ul`
@@ -35,23 +40,8 @@ const Text = styled.div`
     margin: 5px 0;
 `;
 
-const getFooterStyle = (layout, colors) => {
-    if (layout === "narrow") {
-        return {
-            background: colors.mobileFooterBackground
-        };
-    }
-    else {
-        return {
-            background: colors.pageBackground
-        };
-    }
-};
-
-class Footer extends React.Component {
+export default class Footer extends React.Component {
     render() {
-        const { theme } = this.props;
-
         return (
             <StaticQuery
                 query={graphql`
@@ -65,13 +55,13 @@ class Footer extends React.Component {
                         }
                     }
                 `}
-                render={(data) => render(data, theme.layout, theme.styles.color)}
+                render={(data) => render(data)}
             />
         );
     }
 }
 
-const render = (data, layout, colors) => {
+const render = (data) => {
     const { title, email, linkedin } = data.site.siteMetadata;
 
     const svgStyle = {
@@ -81,7 +71,7 @@ const render = (data, layout, colors) => {
     };
 
     return (
-        <StyledFooter style={getFooterStyle(layout, colors)}>
+        <StyledFooter>
             <Ul>
                 <Li>
                     <a href={"mailto:" + email}>
@@ -113,14 +103,3 @@ const render = (data, layout, colors) => {
         </StyledFooter>
     );
 };
-
-Footer.propTypes = {
-    theme: PropTypes.shape({
-        layout: PropTypes.string.isRequired,
-        styles: PropTypes.shape({
-            color: PropTypes.object.isRequired
-        }).isRequired
-    }).isRequired
-};
-
-export default withThemeContext(Footer);

@@ -2,72 +2,60 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { withThemeContext } from "src/components/ThemeContext.jsx";
-
+import ResponsiveLayout from "src/components/ResponsiveLayout";
 import NavLink from "src/NavBar/Components/NavLink.jsx";
 
+import { device } from "src/helpers/devices.js";
+import { color } from "css/colors.js";
+
 const Nav = styled.nav`
-    border-bottom: 1px solid #d5d5d5;
+    background: ${color.mobileFooterBackground};
+    border-bottom: 1px solid ${color.border};
     font-weight: bold;
+    height: 60px;
+    line-height: 60px;
     margin: 0;
+
+    @media ${device.tablet} {
+        background: ${color.pageBackground};
+        height: 80px;
+        line-height: 80px;
+        width: 80%;
+    }
 `;
 
-const Ul = styled.ul`
+const Ul = styled.ul`    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     list-style: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
+    width: 95%;
+
+    @media ${device.tablet} {
+        display: block;
+        margin: 0;
+        width: 100%;
+    }
 `;
 
-const getNavStyle = (layout, colors) => {
-    if (layout === "narrow") {
-        return {
-            background: colors.mobileNavBackground,
-            height: "60px",
-            lineHeight: "60px"
-        };
-    }
-    return {
-        background: colors.pageBackground,
-        height: "80px",
-        lineHeight: "80px",
-    };
-};
+const Li = styled.li`
+    display: inline-block;
+    float: left;
+    margin: 0 auto;
+    padding: 0 10px;
 
-const getUlStyle = (layout) => {
-    if (layout === "narrow") {
-        return {
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            margin: "0 auto",
-            width: "95%"
-        };
+    @media ${device.tablet} {
+        margin: 0 30px;
+        padding: 0;
     }
-    return {};
-};
-
-const getLiStyle = (layout) => {
-    if (layout === "narrow") {
-        return {
-            display: "inline-block",
-            float: "left",
-            margin: "0 auto",
-            padding: "0 10px"
-        };
-    }
-    else {
-        return {
-            display: "inline",
-            margin: "0 30px"
-        };
-    }
-};
+`;
 
 class NavBar extends React.Component {
 
 
     render() {
-        const { layout, styles } = this.props.theme;
         const { pathname } = this.props.location;
 
         // TODO: move out of here
@@ -95,20 +83,23 @@ class NavBar extends React.Component {
         const navLinkElements = navLinks.map(({ to, text, svg } , index) => {
             const formattedSlug = pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
             const active = formattedSlug === to;
-            let navLink = (layout === "narrow"&& svg) ?
-            <NavLink to={to} svg={svg} active={active}/>
-            : <NavLink to={to} text={text} active={active}/>;
-
             return (
-                <li key={index} style={getLiStyle(layout)}>
-                    {navLink}
-                </li>
+                <Li key={index}>
+                    <ResponsiveLayout
+                        breakpoint={device.size.mobileL}
+                        renderDesktop={() => (<NavLink to={to} text={text} active={active}/>)}
+                        renderMobile={() => {
+                            if (svg) return <NavLink to={to} svg={svg} active={active}/>;
+                            return <NavLink to={to} text={text} active={active}/>;
+                        }}
+                    />
+                </Li>
             );
         });
 
         return (
-            <Nav style={getNavStyle(layout, styles.color)}>
-                <Ul style={getUlStyle(layout)}>
+            <Nav>
+                <Ul>
                     {navLinkElements}
                 </Ul>
             </Nav>
@@ -117,13 +108,7 @@ class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-    location: PropTypes.object.isRequired,
-    theme: PropTypes.shape({
-        layout: PropTypes.string.isRequired,
-        styles: PropTypes.shape({
-            color: PropTypes.object.isRequired
-        }).isRequired
-    }).isRequired
+    location: PropTypes.object.isRequired
 };
 
-export default withThemeContext(NavBar);
+export default NavBar;

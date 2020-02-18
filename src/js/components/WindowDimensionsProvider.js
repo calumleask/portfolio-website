@@ -4,7 +4,6 @@ import { globalWindow } from "src/helpers/global-window.js";
 
 const WindowDimensionsContext = createContext(null);
 
-
 const WindowDimensionsProvider = ({ children }) => {
     const [ dimensions, setDimensions ] = useState({
         width: globalWindow.innerWidth,

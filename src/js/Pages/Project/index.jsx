@@ -3,38 +3,36 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
-import { withThemeContext } from "src/components/ThemeContext";
+import { device } from "src/helpers/devices.js";
 
 const ProjectTitle = styled.h1`
+    text-align: left;
     margin-bottom: 10px;
+
+    @media ${device.mobileL} {
+        text-align: center;
+    }
 `;
 
 const DateSubheading = styled.h3`
+    text-align: left;
     margin: 10px 0 40px 0;
-    font-style: italic
-`;
+    font-style: italic;
 
-const getTitleStyle = (layout) => {
-    if (layout === "narrow") {
-        return {
-            textAlign: "left"
-        };
+    @media ${device.mobileL} {
+        text-align: center;
     }
-    else {
-        return {};
-    }
-};
+`;
 
 class ProjectPage extends React.Component {
 
     render() {
-        const { layout } = this.props.theme;
         const { mdx } = this.props.data;
         const { date, title } = mdx.frontmatter;
         return (
             <>
-                <ProjectTitle style={getTitleStyle(layout)}>{title}</ProjectTitle>
-                <DateSubheading style={getTitleStyle(layout)}>({date})</DateSubheading>
+                <ProjectTitle>{title}</ProjectTitle>
+                <DateSubheading>({date})</DateSubheading>
                 <div>
                     <MDXRenderer>{mdx.body}</MDXRenderer>
                 </div>
@@ -52,10 +50,7 @@ ProjectPage.propTypes = {
                 title: PropTypes.string.isRequired
             })
         })
-    }),
-    theme: PropTypes.shape({
-        layout: PropTypes.string.isRequired
     })
 };
 
-export default withThemeContext(ProjectPage);
+export default ProjectPage;
