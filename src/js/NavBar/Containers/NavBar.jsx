@@ -20,7 +20,6 @@ const Nav = styled.nav`
         background: ${color.pageBackground};
         height: 80px;
         line-height: 80px;
-        width: 80%;
     }
 `;
 
