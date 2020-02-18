@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { StaticQuery, graphql } from "gatsby";
 
+import ResponsiveLayout from "src/components/ResponsiveLayout";
+import SvgIcon from "src/components/SvgIcon.jsx";
+
 import { device } from "src/helpers/devices.js";
 import { color } from "css/colors.js";
-
-import SvgIcon from "src/components/SvgIcon.jsx";
 
 const StyledFooter = styled.footer`
     background: ${color.mobileFooterBackground};
@@ -99,7 +100,11 @@ const render = (data) => {
             </Ul>
 
             <Text>Copyright © {new Date().getFullYear()} {" "} {title}, Built with {" "}<a target="_blank" rel="noopener noreferrer" href="https://www.gatsbyjs.org">Gatsby</a></Text>
-            <Text>Home icon by <a href="https://icons8.com/icon/83326/home" rel="noopener noreferrer" target="_blank">Icons8</a></Text>
+            <ResponsiveLayout
+                breakpoint={device.size.mobileL}
+                renderDesktop={() => (null)}
+                renderMobile={() => (<Text>Home icon by <a href="https://icons8.com/icon/83326/home" rel="noopener noreferrer" target="_blank">Icons8</a></Text>)}
+            />
         </StyledFooter>
     );
 };
