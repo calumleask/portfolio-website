@@ -8,8 +8,8 @@ import ProjectLink from "src/components/ProjectLink.jsx";
 const Ul = styled.ul`
     list-style: none;
     margin: auto;
+    max-width: 720px;
     padding: 0;
-    width: 80%;
 `;
 
 class ProjectList extends React.Component {

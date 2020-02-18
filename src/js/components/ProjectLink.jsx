@@ -5,25 +5,8 @@ import { Link } from "gatsby";
 
 import ResponsiveLayout from "src/components/ResponsiveLayout";
 
-const ProjectContainer = styled.li`
-    background-color: #fff;
-    box-shadow: 1px 1px 2px 0 #888;
-    color: #444;
-    cursor: pointer;
-    margin: 20px 0;
-    text-align: left;
-    width: 100%;
-
-    &:hover {
-        background-color: #f0f0f0;
-        color: #333;
-    }
-
-    &:active {
-        background-color: #e0e0e0;
-        color: #222;
-    }
-`;
+import { device } from "src/helpers/devices.js";
+import { color } from "css/colors.js";
 
 const StyledLink = styled(Link)`
     &:hover {
@@ -31,58 +14,104 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Table = styled.table`
-    border-spacing: 0;
-    padding: 10px;
+const ProjectContainer = styled.li`
+    background-color: ${color.projectLink.background};
+    box-shadow: 1px 1px 2px 0 ${color.projectLink.shadow};
+    color: #444;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    min-width: 240px;
+    padding: 5px;
+    text-align: left;
     width: 100%;
-`;
 
-const TableRow = styled.tr`
-    vertical-align: top
-`;
+    &:hover {
+        background-color: ${color.projectLink.backgroundHover};
+        color: #333;
+    }
 
-const TableCell = styled.td`
-    padding: 0;
-    vertical-align: top
+    &:active {
+        background-color: ${color.projectLink.backgroundActive};
+        color: #222;
+    }
+    
+    @media ${device.mobileL} {
+        flex-direction: row;
+    }
 `;
 
 const ImgContainer = styled.div`
-    margin-right: 10px;
-    width: 240px;
-    height: 135px;
+    margin: 0 auto;
+    max-width: 330px;
+    position: relative;
+
+    @media ${device.mobileL} {
+        margin: 0 5px 0 0;
+        flex: 1 2;
+    }
 `;
 
 const ProjectImg = styled.img`
+    max-width: 100%;
     opacity: 1;
     transition-duration: 0.25s;
     transition-property: opacity;
     transition-timing-function: ease-in;
-    width: 240px;
     z-index: 10;
 `;
 
-const ProjectInfo = styled.div`
-    height: 100%;
-    vertical-align: top;
+const ProjectInfoContainer = styled.div`
+    @media ${device.mobileL} {
+        flex: 1 1;
+    }
 `;
 
 const ProjectTitle = styled.div`
-    color: #444;
-    font-size: 1.2em;
+    color: ${color.projectLink.title};
+    font-size: 1em;
     font-weight: normal;
+
+    @media ${device.mobileL} {
+        font-size: 1.1em;
+    }
+
+    @media ${device.tablet} {
+        font-size: 1.2em;
+    }
 `;
 
 const ProjectDate = styled.div`
-    color: #444;
-    font-size: 1.1em;
+    color: ${color.projectLink.title};
+    font-size: 0.9em;
     font-style: italic;
     font-weight: normal;
+
+    @media ${device.mobileL} {
+        font-size: 1em;
+    }
+
+    @media ${device.tablet} {
+        font-size: 1.1em;
+    }
 `;
 
 const ProjectExcerpt = styled.div`
-    color: #777;
-    font-size: 1em;
+    color: ${color.projectLink.excerpt};
+    font-size: 0.8em;
     font-weight: lighter;
+    text-align: justify;
+
+    @media ${device.mobileL} {
+        font-size: 0.9em;
+        padding: 5px;
+    }
+
+    @media ${device.tablet} {
+        font-size: 1em;
+    }
 `;
 
 class ProjectLink extends React.Component {
@@ -134,46 +163,33 @@ class ProjectLink extends React.Component {
         };
 
         return (
-            <ProjectContainer>
-                <StyledLink to={slug} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} ref={el => (this.container = el)}>
-                    <Table>
-                        <tbody>
-                            <TableRow>
-                                <TableCell width="240px">
-                                    <ImgContainer style={{ marginBottom: "5px" }}>
-                                        <ProjectImg src={imgSrcOnHover} style={style}/>
-                                        <ProjectImg src={imgSrc}/>
-                                    </ImgContainer>
-                                </TableCell>
-                                <TableCell>
-                                    <ProjectInfo>
-                                        <ResponsiveLayout
-                                            breakpoint={767}
-                                            renderDesktop={() => (
-                                                <DesktopView title={title} date={date} excerpt={excerpt}/>
-                                            )}
-                                            renderMobile={() => (
-                                                <MobileView title={title} date={date} excerpt={excerpt}/>
-                                            )}
-                                        />
-                                    </ProjectInfo>
-                                </TableCell>
-                            </TableRow>
-                            <ResponsiveLayout
-                                breakpoint={767}
-                                renderDesktop={()=>(null)}
-                                renderMobile={() => (
-                                    <TableRow>
-                                        <TableCell colSpan="2">
-                                            <ProjectExcerpt>{excerpt}</ProjectExcerpt>
-                                        </TableCell>
-                                    </TableRow>
-                                )}
-                            />
-                        </tbody>
-                    </Table>
-                </StyledLink>
-            </ProjectContainer>
+            <StyledLink to={slug} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} ref={el => (this.container = el)}>
+                <ProjectContainer>
+                    <ImgContainer>
+                        <ProjectImg src={imgSrcOnHover} style={style}/>
+                        <ProjectImg src={imgSrc}/>
+                    </ImgContainer>
+                    <ResponsiveLayout
+                        breakpoint={500}
+                        renderDesktop={() => (
+                            <ProjectInfoContainer>
+                                <ProjectTitle>{title}</ProjectTitle>
+                                <ProjectDate>{date}</ProjectDate>
+                                <ProjectExcerpt>{excerpt}</ProjectExcerpt>
+                            </ProjectInfoContainer>
+                        )}
+                        renderMobile={() => (
+                            <>
+                                <ProjectInfoContainer>
+                                    <ProjectTitle>{title}</ProjectTitle>
+                                    <ProjectDate>{date}</ProjectDate>
+                                </ProjectInfoContainer>
+                                <ProjectExcerpt>{excerpt}</ProjectExcerpt>
+                            </>
+                        )}
+                    />
+                </ProjectContainer>
+            </StyledLink>
             
         );
     }
@@ -194,29 +210,3 @@ ProjectLink.propTypes = {
 };
 
 export default ProjectLink;
-
-const DesktopView = ({ title, date, excerpt }) => (
-    <>
-        <ProjectTitle>{title}</ProjectTitle>
-        <ProjectDate>{date}</ProjectDate>
-        <ProjectExcerpt>{excerpt}</ProjectExcerpt>
-    </>
-);
-
-DesktopView.propTypes = {
-    date: PropTypes.string.isRequired,
-    excerpt: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-};
-
-const MobileView = ({ title, date }) => (
-    <>
-        <ProjectTitle>{title}</ProjectTitle>
-        <ProjectDate>{date}</ProjectDate>
-    </>
-);
-
-MobileView.propTypes = {
-    date: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-};

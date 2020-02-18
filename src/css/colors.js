@@ -7,4 +7,12 @@ export const color = {
     navText: "#888",
     navTextHover: "#333",
     navTextActive: "#444",
+    projectLink: {
+        background: "#fff",
+        backgroundHover: "#f0f0f0",
+        backgroundActive: "#e0e0e0",
+        shadow: "#888",
+        title: "#444",
+        excerpt: "#777"
+    }
 };
