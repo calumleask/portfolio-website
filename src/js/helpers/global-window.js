@@ -1,21 +1,7 @@
 
-const mockMediaQueryList = {
-    matches: true,
-    addListener: () => {},
-    removeListener: () => {}
+const mockWindow = {
+    width: 1024,
+    height: 768
 };
 
-export let globalWindow = null;
-
-if (typeof window === "undefined") {
-    globalWindow = {
-        matchMedia: () => { return mockMediaQueryList; },
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        width: 1024,
-        height: 768
-    };
-}
-else {
-    globalWindow = window;
-}
+export const globalWindow = (typeof window === "undefined") ? mockWindow : window;
