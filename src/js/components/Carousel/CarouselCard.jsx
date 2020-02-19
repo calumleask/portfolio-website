@@ -24,12 +24,11 @@ class CarouselCard extends React.Component {
         this.state = {
             cycle: props.cycle,
             activeIndex: 0
-        }
+        };
 
         this._cycleImageInterval = null;
 
         this._cycleImage = this._cycleImage.bind(this);
-        this._onCarouselCardImageTransitionEnd = this._onCarouselCardImageTransitionEnd.bind(this);
     }
 
     componentDidMount() {
@@ -51,23 +50,11 @@ class CarouselCard extends React.Component {
         this._transitionToSlide(this.state.activeIndex + 1);
     }
 
-    _onCarouselCardImageTransitionEnd(isActive) {
-        if (isActive) {
-            this._canTransition = true;
-        }
-    }
-
     _transitionToSlide(newIndex) {
         if (!this.props.cycle) return;
         const imageCount = this.props.images.length;
         if (newIndex >= imageCount) newIndex -= imageCount;
         if (newIndex < 0) newIndex += imageCount;
-        if (newIndex === 0) {
-            console.log("end! index: " + newIndex)
-        }
-        else {
-            console.log("next index: " + newIndex)
-        }
         this.setState({ activeIndex: newIndex });
 
         this._canTransition = false;
@@ -78,8 +65,8 @@ class CarouselCard extends React.Component {
         return images.map((image, index) => {
             const active = this.state.activeIndex === index;
             return (
-                <CarouselCardImage key={index} src={image} active={active} onTransitionEnd={this._onCarouselCardImageTransitionEnd}/>
-            )
+                <CarouselCardImage key={index} src={image} active={active}/>
+            );
         });
     }
     
@@ -102,7 +89,7 @@ class CarouselCard extends React.Component {
             left: indexOffset * 102 + "%",
             opacity: 0,
             top: "20%",
-            transitionProperty: "bottom, left, top, opacity",
+            transitionProperty: "bottom, left, top, opacity, z-index",
             zIndex: 0
         };
 
@@ -126,8 +113,10 @@ class CarouselCard extends React.Component {
 }
 
 CarouselCard.propTypes = {
+    cycle: PropTypes.bool.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
     indexOffset: PropTypes.number.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired
+    interval: PropTypes.number.isRequired
 };
 
 export default CarouselCard;

@@ -7,7 +7,7 @@ const Ul = styled.ul`
     display: block;
     list-style: circle;
     margin: 0;
-    padding: 5px 0;
+    padding: 10px 0;
     text-align: center;
     width: 100%;
 `;

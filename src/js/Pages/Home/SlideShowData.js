@@ -31,96 +31,30 @@ const openglTitle = "OpenGL";
 const openglDesc = "A 3D scene created using OpenGL, demonstrating various graphics techniques.";
 
 
-const slideShowSources = [
+export const carouselProjectCards = [
     {
         title: wavesTitle,
         description: wavesDesc,
-        imgSrcs: [WAVES_0, WAVES_1, WAVES_2, WAVES_3]
+        images: [WAVES_0, WAVES_1, WAVES_2, WAVES_3]
     },
     {
         title: cityTitle,
         description: cityDesc,
-        imgSrcs: [CITY_0, CITY_1, CITY_2, CITY_3]
+        images: [CITY_0, CITY_1, CITY_2, CITY_3]
     },
     {
         title: ampsTitle,
         description: ampsDesc,
-        imgSrcs: [AMPS_0, AMPS_1, AMPS_2, AMPS_3]
+        images: [AMPS_0, AMPS_1, AMPS_2, AMPS_3]
     },
     {
         title: oceanTitle,
         description: oceanDesc,
-        imgSrcs: [OCEAN_0, OCEAN_1]
+        images: [OCEAN_0, OCEAN_1]
     },
     {
         title: openglTitle,
         description: openglDesc,
-        imgSrcs: [OPENGL_0, OPENGL_1]
+        images: [OPENGL_0, OPENGL_1]
     }
 ];
-
-const groupIndexToFirstSlideIndex = {};
-
-const generateSlideShowSlides = () => {
-    const slides = [];
-
-    let nextId = 0;
-
-    slideShowSources.forEach((group, groupIndex) => {
-        group.imgSrcs.forEach(imgSrc => {
-            slides.push({
-                title: group.title,
-                description: group.description,
-                imgSrc: imgSrc,
-                groupIndex: groupIndex,
-                slideId: nextId++
-            });
-
-            if (groupIndexToFirstSlideIndex[groupIndex] === undefined) {
-                groupIndexToFirstSlideIndex[groupIndex] = slides.length - 1;
-            }
-        });
-    });
-
-    return slides;
-};
-
-export const firstSlideIndexFromGroupIndex = (groupIndex) => {
-    return groupIndexToFirstSlideIndex[groupIndex];
-};
-
-export const slides = generateSlideShowSlides();
-
-const generateGroupSlideShowSlides = () => {
-    const groups = [];
-
-    let nextId = 0;
-
-    slideShowSources.forEach((group, groupIndex) => {
-        const slides = [];
-
-        group.imgSrcs.forEach(imgSrc => {
-            slides.push({
-                title: group.title,
-                description: group.description,
-                imgSrc: imgSrc,
-                groupIndex: groupIndex,
-                slideId: nextId++
-            });
-
-            if (groupIndexToFirstSlideIndex[groupIndex] === undefined) {
-                groupIndexToFirstSlideIndex[groupIndex] = slides.length - 1;
-            }
-        });
-
-        groups.push({
-            slides: slides,
-            index: groupIndex,
-            images: slides.map((slide) => (slide.imgSrc))
-        });
-    });
-
-    return groups;
-};
-
-export const groupSlides = generateGroupSlideShowSlides();

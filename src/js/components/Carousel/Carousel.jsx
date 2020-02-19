@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { groupSlides } from "src/Pages/Home/SlideShowData";
-
 import CarouselCard from "src/components/Carousel/CarouselCard.jsx";
 
 const ImageContainer = styled.div`
@@ -30,64 +28,70 @@ class Carousel extends React.Component {
         super(props);
 
         this.state = {
-            activeGroupIndex: 0
+            activeIndex: props.activeIndex
         };
 
-        this._canTransition = true;
-        this._cycleImageInterval = null;
+        this._cycleTimeout = null;
 
-        this._cycleImage = this._cycleImage.bind(this);
-        this._onSlideTransitionEnd = this._onSlideTransitionEnd.bind(this);
+        this._cycleCard = this._cycleCard.bind(this);
     }
 
     componentDidMount() {
-        this._cycleImageInterval = setInterval(this._cycleImage, this.props.interval);
+        this._cycleTimeout = setTimeout(this._cycleCard, this.props.interval);
     }
 
     componentWillUnmount() {
-        clearInterval(this._cycleImageInterval);
+        clearTimeout(this._cycleTimeout);
     }
 
-    _cycleImage() {
-        this._transitionToSlide(this.state.activeGroupIndex + 1);
+    static getDerivedStateFromProps(nextProps, prevState){
+        if (nextProps.activeIndex !== prevState.activeIndex) {
+            return { activeIndex: nextProps.activeIndex };
+        }
+        return null;
     }
 
-    _onSlideTransitionEnd(isActive) {
-        if (isActive) {
-            this._canTransition = true;
+    componentDidUpdate(nextProps, prevState) {
+        if (prevState.activeIndex !== this.state.activeIndex) {
+            clearTimeout(this._cycleTimeout);
+            this._cycleTimeout = setTimeout(this._cycleCard, this.props.interval);
         }
     }
 
-    _transitionToSlide(newIndex) {
-        const groupCount = groupSlides.length;
-        if (newIndex >= groupCount) newIndex -= groupCount;
-        if (newIndex < 0) newIndex += groupCount;
-        this.setState({ activeGroupIndex: newIndex });
+    _cycleCard() {
+        this._transitionToSlide(this.state.activeIndex + 1);
+    }
 
-        this._canTransition = false;
+    _transitionToSlide(newIndex) {
+        const { data, onCycle } = this.props;
+        const cardCount = data.length;
+        if (newIndex >= cardCount) newIndex -= cardCount;
+        if (newIndex < 0) newIndex += cardCount;
+        onCycle(newIndex);
     }
 
     render () {
-        const { activeGroupIndex } = this.state;
-        const groupCount = groupSlides.length;
+        const { data } = this.props;
+        const { activeIndex } = this.state;
+        const cardCount = data.length;
 
         return (
             <ImageContainer>
                 {
-                    groupSlides.map((group, groupIndex) => {
-                        let indexOffset = 0
-                        if (groupIndex < activeGroupIndex) {
-                            const wrapAroundActiveIndex = activeGroupIndex - groupCount;
-                            let wrapAroundIndexOffset = groupIndex - wrapAroundActiveIndex;
-                            indexOffset = closestToZero(wrapAroundIndexOffset, groupIndex - activeGroupIndex);
+                    data.map((card, cardIndex) => {
+                        let indexOffset = 0;
+                        if (cardIndex < activeIndex) {
+                            const wrapAroundActiveIndex = activeIndex - cardCount;
+                            let wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
+                            indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
                         }
-                        else if (groupIndex > activeGroupIndex) {
-                            const wrapAroundActiveIndex = groupCount + activeGroupIndex;
-                            let wrapAroundIndexOffset = groupIndex - wrapAroundActiveIndex;
-                            indexOffset = closestToZero(wrapAroundIndexOffset, groupIndex - activeGroupIndex);
+                        else if (cardIndex > activeIndex) {
+                            const wrapAroundActiveIndex = cardCount + activeIndex;
+                            let wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
+                            indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
                         }
                         const isActive = indexOffset === 0;
-                        return <CarouselCard key={groupIndex} indexOffset={indexOffset} images={group.images} interval={2000} cycle={isActive}/>;
+                        return <CarouselCard key={cardIndex} indexOffset={indexOffset} images={card.images} interval={2000} cycle={isActive}/>;
                     })
                 }
             </ImageContainer>
@@ -96,7 +100,12 @@ class Carousel extends React.Component {
 }
 
 Carousel.propTypes = {
-    interval: PropTypes.number.isRequired
+    activeIndex: PropTypes.number.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape({
+        images: PropTypes.arrayOf(PropTypes.string).isRequired
+    })).isRequired,
+    interval: PropTypes.number.isRequired,
+    onCycle: PropTypes.func.isRequired
 };
 
 export default Carousel;

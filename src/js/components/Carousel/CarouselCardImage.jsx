@@ -15,7 +15,7 @@ const Image = styled.img`
 class CarouselCardImage extends React.Component {
     
     render() {
-        const { active, src, onTransitionEnd } = this.props;
+        const { active, src } = this.props;
 
         const style = {
             opacity: active ? 1 : 0,
@@ -25,15 +25,14 @@ class CarouselCardImage extends React.Component {
         };
 
         return (
-            <Image src={src} style={style} onTransitionEnd={() => onTransitionEnd(active)}/>
+            <Image src={src} style={style}/>
         );
     }
 }
 
 CarouselCardImage.propTypes = {
     active: PropTypes.bool.isRequired,
-    src: PropTypes.string.isRequired,
-    onTransitionEnd: PropTypes.func
+    src: PropTypes.string.isRequired
 };
 
 export default CarouselCardImage;
