@@ -116,6 +116,7 @@ const generateGroupSlideShowSlides = () => {
         groups.push({
             slides: slides,
             index: groupIndex,
+            images: slides.map((slide) => (slide.imgSrc))
         });
     });
 

@@ -2,13 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { slides, groupSlides } from "src/Pages/Home/SlideShowData";
+import { groupSlides } from "src/Pages/Home/SlideShowData";
 
-import CarouselCardContainer from "src/components/Carousel/CarouselCardContainer.jsx";
-
-const GroupDiv = styled.div`
-    height: 100%;
-`;
+import CarouselCard from "src/components/Carousel/CarouselCard.jsx";
 
 const ImageContainer = styled.div`
     display: inline-block;
@@ -30,44 +26,68 @@ const closestToZero = (a, b) => {
 
 class Carousel extends React.Component {
 
-    getSlides
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeGroupIndex: 0
+        };
+
+        this._canTransition = true;
+        this._cycleImageInterval = null;
+
+        this._cycleImage = this._cycleImage.bind(this);
+        this._onSlideTransitionEnd = this._onSlideTransitionEnd.bind(this);
+    }
+
+    componentDidMount() {
+        this._cycleImageInterval = setInterval(this._cycleImage, this.props.interval);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this._cycleImageInterval);
+    }
+
+    _cycleImage() {
+        this._transitionToSlide(this.state.activeGroupIndex + 1);
+    }
+
+    _onSlideTransitionEnd(isActive) {
+        if (isActive) {
+            this._canTransition = true;
+        }
+    }
+
+    _transitionToSlide(newIndex) {
+        const groupCount = groupSlides.length;
+        if (newIndex >= groupCount) newIndex -= groupCount;
+        if (newIndex < 0) newIndex += groupCount;
+        this.setState({ activeGroupIndex: newIndex });
+
+        this._canTransition = false;
+    }
 
     render () {
-        const { activeIndex, onTransitionEnd } = this.props;
-        const activeSlide = slides[activeIndex];
-        const slideCount = slides.length;
-
-        const activeGroupIndex = activeSlide.groupIndex;
+        const { activeGroupIndex } = this.state;
         const groupCount = groupSlides.length;
-
-        let nextGroupIndex = activeGroupIndex + 1;
-        if (nextGroupIndex >= groupCount) nextGroupIndex = 0;
-
-        let prevGroupIndex = activeGroupIndex - 1;
-        if (prevGroupIndex < 0) prevGroupIndex = groupCount - 1;
-
-        let nextSlideIndex = activeIndex + 1;
-        if (nextSlideIndex >= groupCount) nextSlideIndex = 0;
-
-        let prevSlideIndex = activeIndex - 1;
-        if (prevSlideIndex < 0) prevSlideIndex = slideCount - 1;
 
         return (
             <ImageContainer>
                 {
-                    slides.map((slide, slideIndex) => {
+                    groupSlides.map((group, groupIndex) => {
                         let indexOffset = 0
-                        if (slideIndex < activeIndex) {
-                            const wrapAroundActiveIndex = activeIndex - slideCount;
-                            let wrapAroundIndexOffset = slideIndex - wrapAroundActiveIndex;
-                            indexOffset = closestToZero(wrapAroundIndexOffset, slideIndex - activeIndex);
+                        if (groupIndex < activeGroupIndex) {
+                            const wrapAroundActiveIndex = activeGroupIndex - groupCount;
+                            let wrapAroundIndexOffset = groupIndex - wrapAroundActiveIndex;
+                            indexOffset = closestToZero(wrapAroundIndexOffset, groupIndex - activeGroupIndex);
                         }
-                        else if (slideIndex > activeIndex) {
-                            const wrapAroundActiveIndex = slideCount + activeIndex;
-                            let wrapAroundIndexOffset = slideIndex - wrapAroundActiveIndex;
-                            indexOffset = closestToZero(wrapAroundIndexOffset, slideIndex - activeIndex);
+                        else if (groupIndex > activeGroupIndex) {
+                            const wrapAroundActiveIndex = groupCount + activeGroupIndex;
+                            let wrapAroundIndexOffset = groupIndex - wrapAroundActiveIndex;
+                            indexOffset = closestToZero(wrapAroundIndexOffset, groupIndex - activeGroupIndex);
                         }
-                        return <CarouselCardContainer key={slideIndex} indexOffset={indexOffset} src={slide.imgSrc} onTransitionEnd={onTransitionEnd}/>;
+                        const isActive = indexOffset === 0;
+                        return <CarouselCard key={groupIndex} indexOffset={indexOffset} images={group.images} interval={2000} cycle={isActive}/>;
                     })
                 }
             </ImageContainer>
@@ -75,12 +95,8 @@ class Carousel extends React.Component {
     }
 }
 
-Carousel.defaultProps = {
-};
-
 Carousel.propTypes = {
-    activeIndex: PropTypes.number.isRequired,
-    onTransitionEnd: PropTypes.func
+    interval: PropTypes.number.isRequired
 };
 
 export default Carousel;
