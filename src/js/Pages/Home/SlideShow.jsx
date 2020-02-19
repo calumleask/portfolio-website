@@ -7,6 +7,7 @@ import SlideShowImage from "src/Pages/Home/SlideShowImage.jsx";
 import CircleButton from "src/Pages/Home/CircleButton.jsx";
 import SlideShowDots from "src/Pages/Home/SlideShowDots.jsx";
 import SlideShowText from "src/Pages/Home/SlideShowText.jsx";
+import Carousel from "src/components/Carousel/Carousel.jsx";
 
 import ResponsiveLayout from "src/components/ResponsiveLayout";
 
@@ -121,7 +122,7 @@ export default class SlideShow extends React.Component {
                             </ImageContainer>
                         )}
                         renderMobile={() => (
-                            <MobileCarousel activeIndex={activeIndex} onTransitionEnd={this._onSlideTransitionEnd}/>
+                            <Carousel activeIndex={activeIndex} onTransitionEnd={this._onSlideTransitionEnd}/>
                         )}
                     />
                 <SlideShowDots active={groupIndex} count={groupCount} onClick={this._onDotClick}/>
