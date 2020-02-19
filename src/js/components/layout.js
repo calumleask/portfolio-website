@@ -15,6 +15,7 @@ const RootContainer = styled.div`
     top: 0;
     bottom: 0;
     overflow: auto;
+    overflow-x: hidden;
     padding: 0;
     position: fixed;
 `;
