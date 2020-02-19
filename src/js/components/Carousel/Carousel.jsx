@@ -74,30 +74,32 @@ class Carousel extends React.Component {
         this._transitionToSlide(index);
     }
 
-    render () {
+    _getCarouselCards() {
         const { data } = this.props;
         const { activeIndex } = this.state;
         const cardCount = data.length;
 
+        return data.map((card, cardIndex) => {
+            let indexOffset = 0;
+            if (cardIndex < activeIndex) {
+                const wrapAroundActiveIndex = activeIndex - cardCount;
+                let wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
+                indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
+            }
+            else if (cardIndex > activeIndex) {
+                const wrapAroundActiveIndex = cardCount + activeIndex;
+                let wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
+                indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
+            }
+            const isActive = indexOffset === 0;
+            return <CarouselCard key={cardIndex} indexOffset={indexOffset} images={card.images} interval={2000} cycle={isActive} onClick={() => { this._onCardClick(cardIndex); }}/>;
+        });
+    }
+
+    render () {
         return (
             <ImageContainer>
-                {
-                    data.map((card, cardIndex) => {
-                        let indexOffset = 0;
-                        if (cardIndex < activeIndex) {
-                            const wrapAroundActiveIndex = activeIndex - cardCount;
-                            let wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
-                            indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
-                        }
-                        else if (cardIndex > activeIndex) {
-                            const wrapAroundActiveIndex = cardCount + activeIndex;
-                            let wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
-                            indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
-                        }
-                        const isActive = indexOffset === 0;
-                        return <CarouselCard key={cardIndex} indexOffset={indexOffset} images={card.images} interval={2000} cycle={isActive} onClick={() => { this._onCardClick(cardIndex); }}/>;
-                    })
-                }
+                {this._getCarouselCards()}
             </ImageContainer>
         );
     }
