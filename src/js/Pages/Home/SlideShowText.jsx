@@ -2,8 +2,31 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Div = styled.div`
-    margin: 30px;
+import { device } from "src/helpers/devices.js";
+
+const H1 = styled.h1`
+    font-size: 1.5em;
+    margin: 20px 0;
+
+    @media ${device.mobileL} {
+        font-size: 1.75em;
+    }
+
+    @media ${device.tablet} {
+        font-size: 2em;
+    }
+`;
+
+const P = styled.p`
+    text-align: center;
+
+    @media ${device.mobileL} {
+        font-size: 1.2em;
+    }
+
+    @media ${device.tablet} {
+        font-size: 1.3em;
+    }
 `;
 
 class SlideShowText extends React.Component {
@@ -12,10 +35,10 @@ class SlideShowText extends React.Component {
         const { title, description } = this.props;
 
         return (
-            <Div>
-                <h1>{title}</h1>
-                <p style={{ textAlign: "center" }}>{description}</p>
-            </Div>
+            <>
+                <H1>{title}</H1>
+                <P>{description}</P>
+            </>
         );
     }
 }

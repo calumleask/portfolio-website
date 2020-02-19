@@ -1,24 +1,54 @@
 import React from "react";
 import styled from "styled-components";
 
-import { firstSlideIndexFromGroupIndex, slides } from "src/Pages/Home/SlideShowData";
+import { carouselProjectCards } from "src/Pages/Home/SlideShowData";
 
-import SlideShowImage from "src/Pages/Home/SlideShowImage.jsx";
-import CircleButton from "src/Pages/Home/CircleButton.jsx";
 import SlideShowDots from "src/Pages/Home/SlideShowDots.jsx";
 import SlideShowText from "src/Pages/Home/SlideShowText.jsx";
+import Carousel from "src/components/Carousel/Carousel.jsx";
 
-const SlideShowContainer = styled.div`
-    position: relative;
-    text-align: center;
-    width: 100%;
-`;
+import { device } from "src/helpers/devices.js";
+import { color } from "css/colors.js";
 
-const ImageContainer = styled.div`
-    display: inline-block;
+const CarouselContainer = styled.div`
     margin: 0 auto;
     position: relative;
+    text-align: center;
+    width: 90%;
+
+    @media ${device.tablet} {
+        overflow-x: hidden;
+        padding: 0 100px;
+        width: 100%;
+    }
+`;
+
+const MaxBoundsContainer = styled.div`
+    margin: 0 auto;
     max-width: 640px;
+`;
+
+const EdgeFadeOverlay = styled.div`
+    background: linear-gradient(
+        90deg,
+        ${color.pageBackground} 0%,
+        rgba(255, 255, 255, 0) 2%,
+        rgba(255, 255, 255, 0) 98%,
+        ${color.pageBackground} 100%
+    );
+
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: none;
+    
+    @media ${device.tablet} {
+        display: block;
+    }
 `;
 
 export default class SlideShow extends React.Component {
@@ -27,89 +57,43 @@ export default class SlideShow extends React.Component {
         super(props);
 
         this.state = {
-            prevIndex: 0,
             activeIndex: 0
         };
 
         this._canTransition = true;
-        this._cycleImageInterval = null;
 
-        this._cycleImage = this._cycleImage.bind(this);
-        this._onSlideTransitionEnd = this._onSlideTransitionEnd.bind(this);
         this._onDotClick = this._onDotClick.bind(this);
+        this._onCarouselCycle = this._onCarouselCycle.bind(this);
     }
 
-    componentDidMount() {
-        this._cycleImageInterval = setInterval(this._cycleImage, 3000);
+    _tryTransitionOnInteraction(index) {
+        this.setState({ activeIndex: index });
     }
 
-    componentWillUnmount() {
-        clearInterval(this._cycleImageInterval);
+    _onDotClick(index) {
+        this._tryTransitionOnInteraction(index);
     }
 
-    _cycleImage() {
-        this._transitionToSlide(this.state.activeIndex + 1);
-    }
-
-    _onSlideTransitionEnd(isActive) {
-        if (isActive) {
-            this._canTransition = true;
-        }
-    }
-
-    _transitionToSlide(newIndex) {
-        const oldIndex = this.state.activeIndex;
-        const numImages = slides.length;
-        if (newIndex >= numImages) newIndex -= numImages;
-        if (newIndex < 0) newIndex += numImages;
-        this.setState({
-            prevIndex: oldIndex,
-            activeIndex: newIndex
-        });
-
-        this._canTransition = false;
-    }
-
-    _tryTransitionOnInteraction(newIndex) {
-        if (!this._canTransition) return;
-        clearInterval(this._cycleImageInterval);
-        this._transitionToSlide(newIndex);
-        this._cycleImageInterval = setInterval(this._cycleImage, 3000);
-    }
-
-    _onArrowClick(delta) {
-        this._tryTransitionOnInteraction(this.state.activeIndex + delta);
-    }
-
-    _onDotClick(groupIndex) {
-        const newIndex = firstSlideIndexFromGroupIndex(groupIndex);
-        this._tryTransitionOnInteraction(newIndex);
-    }
-
-    _getImagesToRender() {
-        return slides.map((slide, index) => {
-            const isActive = index === this.state.activeIndex;
-            return <SlideShowImage key={index} isActive={isActive} src={slide.imgSrc} onTransitionEnd={this._onSlideTransitionEnd}/>;
-        });
+    _onCarouselCycle(newIndex) {
+        this.setState({ activeIndex: newIndex });
     }
 
     render() {
         const { activeIndex } = this.state;
-        const { title, description, groupIndex } = slides[activeIndex];
-        const groupCount = slides[slides.length - 1].groupIndex + 1;
-        const left = "\u2b9c";
-        const right = "\u2b9e";
+        const projectCount = carouselProjectCards.length;
+        const { title, description } = carouselProjectCards[activeIndex];
 
         return (
-            <SlideShowContainer>
-                <ImageContainer>
-                    {this._getImagesToRender()}
-                    <CircleButton onClick={() => this._onArrowClick(-1)} style={{left: "-45px"}}>{left}</CircleButton>
-                    <CircleButton onClick={() => this._onArrowClick(1)} style={{right: "-45px"}}>{right}</CircleButton>
-                </ImageContainer>
-                <SlideShowDots active={groupIndex} count={groupCount} onClick={this._onDotClick}/>
+            <>
+                <CarouselContainer>
+                    <MaxBoundsContainer>
+                        <Carousel activeIndex={activeIndex} interval={4000} onCycle={this._onCarouselCycle} data={carouselProjectCards}/>
+                    </MaxBoundsContainer>
+                    <EdgeFadeOverlay/>
+                </CarouselContainer>
+                <SlideShowDots active={activeIndex} count={projectCount} onClick={this._onDotClick}/>
                 <SlideShowText title={title} description={description}/>
-            </SlideShowContainer>
+            </>
         );
     }
 }
