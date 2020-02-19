@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { firstSlideIndexFromGroupIndex, slides } from "src/Pages/Home/SlideShowData";
+import { firstSlideIndexFromGroupIndex, slides, groupSlides } from "src/Pages/Home/SlideShowData";
 
 import SlideShowImage from "src/Pages/Home/SlideShowImage.jsx";
 import CircleButton from "src/Pages/Home/CircleButton.jsx";
@@ -133,30 +133,18 @@ export default class SlideShow extends React.Component {
 
 class MobileCarousel extends React.Component {
 
-    _getImagesToRender(activeGroupIndex) {
-        return slides.filter((slide) => (slide.groupIndex === activeGroupIndex))
-        .map((slide, index) => {
-            const isActive = slide.slideId === this.props.activeIndex;
-            return <SlideShowImage key={index} isActive={isActive} src={slide.imgSrc} onTransitionEnd={this.props.onTransitionEnd}/>;
-        });
-    }
-
     render () {
         const { activeIndex, onTransitionEnd } = this.props;
         const activeSlide = slides[activeIndex];
 
         const activeGroupIndex = activeSlide.groupIndex;
-        const groupCount = slides[slides.length - 1].groupIndex + 1;
+        const groupCount = groupSlides.length;
 
         let nextGroupIndex = activeGroupIndex + 1;
         if (nextGroupIndex >= groupCount) nextGroupIndex = 0;
-        const nextGroupSlideIndex = firstSlideIndexFromGroupIndex(nextGroupIndex);
-        const nextGroupSlide = slides[nextGroupSlideIndex];
 
         let prevGroupIndex = activeGroupIndex - 1;
         if (prevGroupIndex < 0) prevGroupIndex = groupCount - 1;
-        const prevGroupSlideIndex = firstSlideIndexFromGroupIndex(prevGroupIndex);
-        const prevGroupSlide = slides[prevGroupSlideIndex];
 
         const prevStyle = {
             height: "80%",
@@ -174,10 +162,29 @@ class MobileCarousel extends React.Component {
 
         return (
             <ImageContainer>
-                <SlideShowImage style={prevStyle} isActive={false} src={prevGroupSlide.imgSrc}/>
-                {this._getImagesToRender(activeGroupIndex)}
-                <SlideShowImage style={nextStyle} isActive={false} src={nextGroupSlide.imgSrc}/>
+                
+                {
+                    groupSlides.map((group, groupIndex) => {
+                        let style = {};
+                        if (groupIndex === prevGroupIndex) style = prevStyle;
+                        if (groupIndex === nextGroupIndex) style = nextStyle;
+                        return (
+                            <GroupDiv key={groupIndex}>
+                            {
+                                group.slides.map((slide, index) => {
+                                    const isActive = slide.slideId === this.props.activeIndex;
+                                    return <SlideShowImage style={style} key={index} isActive={isActive} src={slide.imgSrc} onTransitionEnd={onTransitionEnd}/>;
+                                })
+                            }
+                            </GroupDiv>
+                        )
+                    })
+                }
             </ImageContainer>
         );
     }
 }
+
+const GroupDiv = styled.div`
+    height: 100%;
+`;

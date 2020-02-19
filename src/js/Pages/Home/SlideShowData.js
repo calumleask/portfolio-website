@@ -90,3 +90,36 @@ export const firstSlideIndexFromGroupIndex = (groupIndex) => {
 };
 
 export const slides = generateSlideShowSlides();
+
+const generateGroupSlideShowSlides = () => {
+    const groups = [];
+
+    let nextId = 0;
+
+    slideShowSources.forEach((group, groupIndex) => {
+        const slides = [];
+
+        group.imgSrcs.forEach(imgSrc => {
+            slides.push({
+                title: group.title,
+                description: group.description,
+                imgSrc: imgSrc,
+                groupIndex: groupIndex,
+                slideId: nextId++
+            });
+
+            if (groupIndexToFirstSlideIndex[groupIndex] === undefined) {
+                groupIndexToFirstSlideIndex[groupIndex] = slides.length - 1;
+            }
+        });
+
+        groups.push({
+            slides: slides,
+            index: groupIndex,
+        });
+    });
+
+    return groups;
+};
+
+export const groupSlides = generateGroupSlideShowSlides();
