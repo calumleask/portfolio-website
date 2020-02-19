@@ -6,6 +6,7 @@ import CarouselCardImage from "src/components/Carousel/CarouselCardImage.jsx";
 
 const CardContainer = styled.div`
     bottom: 0;
+    cursor: pointer;
     left: 0;
     opacity: 1;
     position: absolute;
@@ -46,6 +47,17 @@ class CarouselCard extends React.Component {
         return null;
     }
 
+    componentDidUpdate(nextProps, prevState) {
+        if (prevState.cycle !== this.state.cycle) {
+            if (!this.state.cycle) {
+                clearInterval(this._cycleInterval);
+            }
+            else {
+                this._cycleInterval = setInterval(this._cycleCard, this.props.interval);
+            }
+        }
+    }
+
     _cycleImage() {
         this._transitionToSlide(this.state.activeIndex + 1);
     }
@@ -71,7 +83,7 @@ class CarouselCard extends React.Component {
     }
     
     render() {
-        const { indexOffset } = this.props;
+        const { indexOffset, onClick } = this.props;
 
         const activeCardStyle = {
             zIndex: 2
@@ -105,18 +117,23 @@ class CarouselCard extends React.Component {
         }
 
         return (
-            <CardContainer style={containerStyle}>
+            <CardContainer style={containerStyle} onClick={onClick}>
                 {this._getImages()}
             </CardContainer>
         );
     }
 }
 
+CarouselCard.defaultProps = {
+    onClick: () => {}
+};
+
 CarouselCard.propTypes = {
     cycle: PropTypes.bool.isRequired,
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
     indexOffset: PropTypes.number.isRequired,
-    interval: PropTypes.number.isRequired
+    interval: PropTypes.number.isRequired,
+    onClick: PropTypes.func
 };
 
 export default CarouselCard;

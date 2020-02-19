@@ -70,6 +70,10 @@ class Carousel extends React.Component {
         onCycle(newIndex);
     }
 
+    _onCardClick(index) {
+        this._transitionToSlide(index);
+    }
+
     render () {
         const { data } = this.props;
         const { activeIndex } = this.state;
@@ -91,7 +95,7 @@ class Carousel extends React.Component {
                             indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
                         }
                         const isActive = indexOffset === 0;
-                        return <CarouselCard key={cardIndex} indexOffset={indexOffset} images={card.images} interval={2000} cycle={isActive}/>;
+                        return <CarouselCard key={cardIndex} indexOffset={indexOffset} images={card.images} interval={2000} cycle={isActive} onClick={() => { this._onCardClick(cardIndex); }}/>;
                     })
                 }
             </ImageContainer>
