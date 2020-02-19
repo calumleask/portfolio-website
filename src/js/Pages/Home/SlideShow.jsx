@@ -8,6 +8,7 @@ import SlideShowText from "src/Pages/Home/SlideShowText.jsx";
 import Carousel from "src/components/Carousel/Carousel.jsx";
 
 import { device } from "src/helpers/devices.js";
+import { color } from "css/colors.js";
 
 const SlideShowContainer = styled.div`
     margin: 0 auto;
@@ -25,6 +26,28 @@ const SlideShowContainer = styled.div`
 const CarouselContainer = styled.div`
     margin: 0 auto;
     max-width: 640px;
+`;
+
+const EdgeFadeOverlay = styled.div`
+    background: linear-gradient(
+        90deg,
+        ${color.pageBackground} 0%,
+        rgba(255, 255, 255, 0) 2%,
+        rgba(255, 255, 255, 0) 98%,
+        ${color.pageBackground} 100%
+    );
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: none;
+    
+    @media ${device.tablet} {
+        display: block;
+    }
 `;
 
 export default class SlideShow extends React.Component {
@@ -64,6 +87,7 @@ export default class SlideShow extends React.Component {
             <SlideShowContainer>
                 <CarouselContainer>
                     <Carousel interval={8000}/>
+                    <EdgeFadeOverlay/>
                 </CarouselContainer>
                 <SlideShowDots active={groupIndex} count={groupCount} onClick={this._onDotClick}/>
                 <SlideShowText title={title} description={description}/>
