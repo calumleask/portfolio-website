@@ -14,9 +14,9 @@ const Image = styled.img`
 class SlideShowImage extends React.Component {
     
     render() {
-        const { isActive, src, onTransitionEnd } = this.props;
+        const { style, isActive, src, onTransitionEnd } = this.props;
 
-        const style = {
+        const defaultStyle = {
             opacity: isActive ? 1 : 0,
             position: isActive ? "relative" : "absolute",
             transitionDelay: isActive ? "0s" : "0.5s",
@@ -25,10 +25,14 @@ class SlideShowImage extends React.Component {
         };
 
         return (
-            <Image src={src} style={style} onTransitionEnd={() => onTransitionEnd(isActive)}/>
+            <Image src={src} style={{ ...defaultStyle, ...style }} onTransitionEnd={() => onTransitionEnd(isActive)}/>
         );
     }
 }
+
+SlideShowImage.defaultProps = {
+    style: {}
+};
 
 SlideShowImage.propTypes = {
     isActive: PropTypes.bool.isRequired,

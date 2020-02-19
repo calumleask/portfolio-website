@@ -64,13 +64,16 @@ const groupIndexToFirstSlideIndex = {};
 const generateSlideShowSlides = () => {
     const slides = [];
 
+    let nextId = 0;
+
     slideShowSources.forEach((group, groupIndex) => {
         group.imgSrcs.forEach(imgSrc => {
             slides.push({
                 title: group.title,
                 description: group.description,
                 imgSrc: imgSrc,
-                groupIndex: groupIndex
+                groupIndex: groupIndex,
+                slideId: nextId++
             });
 
             if (groupIndexToFirstSlideIndex[groupIndex] === undefined) {

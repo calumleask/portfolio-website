@@ -8,10 +8,19 @@ import CircleButton from "src/Pages/Home/CircleButton.jsx";
 import SlideShowDots from "src/Pages/Home/SlideShowDots.jsx";
 import SlideShowText from "src/Pages/Home/SlideShowText.jsx";
 
+import ResponsiveLayout from "src/components/ResponsiveLayout";
+
+import { device } from "src/helpers/devices.js";
+
 const SlideShowContainer = styled.div`
+    margin: 0 auto;
     position: relative;
     text-align: center;
-    width: 100%;
+    width: 90%;
+
+    @media ${device.tablet} {
+        width: 100%;
+    }
 `;
 
 const ImageContainer = styled.div`
@@ -102,14 +111,73 @@ export default class SlideShow extends React.Component {
 
         return (
             <SlideShowContainer>
-                <ImageContainer>
-                    {this._getImagesToRender()}
-                    <CircleButton onClick={() => this._onArrowClick(-1)} style={{left: "-45px"}}>{left}</CircleButton>
-                    <CircleButton onClick={() => this._onArrowClick(1)} style={{right: "-45px"}}>{right}</CircleButton>
-                </ImageContainer>
+                <ResponsiveLayout
+                        breakpoint={device.size.tablet}
+                        renderDesktop={() => (
+                            <ImageContainer>
+                                {this._getImagesToRender()}
+                                <CircleButton onClick={() => this._onArrowClick(-1)} style={{left: "-45px"}}>{left}</CircleButton>
+                                <CircleButton onClick={() => this._onArrowClick(1)} style={{right: "-45px"}}>{right}</CircleButton>
+                            </ImageContainer>
+                        )}
+                        renderMobile={() => (
+                            <MobileCarousel activeIndex={activeIndex} onTransitionEnd={this._onSlideTransitionEnd}/>
+                        )}
+                    />
                 <SlideShowDots active={groupIndex} count={groupCount} onClick={this._onDotClick}/>
                 <SlideShowText title={title} description={description}/>
             </SlideShowContainer>
+        );
+    }
+}
+
+class MobileCarousel extends React.Component {
+
+    _getImagesToRender(activeGroupIndex) {
+        return slides.filter((slide) => (slide.groupIndex === activeGroupIndex))
+        .map((slide, index) => {
+            const isActive = slide.slideId === this.props.activeIndex;
+            return <SlideShowImage key={index} isActive={isActive} src={slide.imgSrc} onTransitionEnd={this.props.onTransitionEnd}/>;
+        });
+    }
+
+    render () {
+        const { activeIndex, onTransitionEnd } = this.props;
+        const activeSlide = slides[activeIndex];
+
+        const activeGroupIndex = activeSlide.groupIndex;
+        const groupCount = slides[slides.length - 1].groupIndex + 1;
+
+        let nextGroupIndex = activeGroupIndex + 1;
+        if (nextGroupIndex >= groupCount) nextGroupIndex = 0;
+        const nextGroupSlideIndex = firstSlideIndexFromGroupIndex(nextGroupIndex);
+        const nextGroupSlide = slides[nextGroupSlideIndex];
+
+        let prevGroupIndex = activeGroupIndex - 1;
+        if (prevGroupIndex < 0) prevGroupIndex = groupCount - 1;
+        const prevGroupSlideIndex = firstSlideIndexFromGroupIndex(prevGroupIndex);
+        const prevGroupSlide = slides[prevGroupSlideIndex];
+
+        const prevStyle = {
+            height: "80%",
+            left: "-102%",
+            opacity: 1,
+            top: "10%"
+        };
+        
+        const nextStyle = {
+            height: "80%",
+            left: "102%",
+            opacity: 1,
+            top: "10%"
+        };
+
+        return (
+            <ImageContainer>
+                <SlideShowImage style={prevStyle} isActive={false} src={prevGroupSlide.imgSrc}/>
+                {this._getImagesToRender(activeGroupIndex)}
+                <SlideShowImage style={nextStyle} isActive={false} src={nextGroupSlide.imgSrc}/>
+            </ImageContainer>
         );
     }
 }
