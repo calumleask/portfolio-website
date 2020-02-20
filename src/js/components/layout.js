@@ -35,7 +35,7 @@ const FlexContainer = styled.div`
 
 const ContentContainer = styled.div`
     flex-grow: 1;
-    padding: 0 30px;
+    padding: 30px 30px 60px 30px;
     text-align: center;
 `;
 

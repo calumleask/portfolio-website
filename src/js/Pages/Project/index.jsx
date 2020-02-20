@@ -33,9 +33,7 @@ class ProjectPage extends React.Component {
             <>
                 <ProjectTitle>{title}</ProjectTitle>
                 <DateSubheading>({date})</DateSubheading>
-                <div>
-                    <MDXRenderer>{mdx.body}</MDXRenderer>
-                </div>
+                <MDXRenderer>{mdx.body}</MDXRenderer>
             </>
         );
     }
