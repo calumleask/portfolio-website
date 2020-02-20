@@ -1,0 +1,57 @@
+---
+title: "Pathfinding"
+date: "2014-05"
+tags: "Algorithms PC C++"
+---
+import Image from "src/components/Image.jsx"
+
+Two applications have been created to demonstrate two different pathfinding algorithms:
+The Lee algorithm and the A* algorithm. Both algorithms find the shortest path between a start and an end point.
+
+### Lee Algorithm
+
+The Lee algorithm is guaranteed to find the shortest path but is not quick as it takes a breadth first
+approach to searching, exploring all possible options.
+
+The application can demonstrate the Lee algorithm in two settings:
+in a <a href="/projects/maze-generator">maze</a> or in a place of randomly
+positioned walls. The second option is not gauranteed to have a path connecting the start and target positions
+which is something all pathfnding algorithms must be able to handle.
+
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_00.gif"/>
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_01.gif"/>
+<br/>
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_00.png"/>
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_01.png"/>
+<br/>
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_02.gif"/>
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_03.gif"/>
+<br/>
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_02.png"/>
+<Image alt="Lee Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/lee_03.png"/>
+
+### A* Algorithm
+
+The A* algorithm incorporates heuristics, allowing a 'best-fit-depth-search' method to be executed.
+Depending on the number of obstacles this greatly reduces the number of cells checked compared to the Lee algorithm.
+
+The heuristic method used by the implementation is the
+<a href="https://en.wikipedia.org/wiki/Taxicab_geometry">Manhattan method</a> which
+adds the horizontal and vertical distance from the current cell to the target cell.
+This method is sufficient as the implementation does not take diagonal movement into consideration.
+
+Like the Lee algorithm, the A* algorithm can be demonstrated in two settings:
+in a <a href="/projects/maze-generator">maze</a> or in a place of randomly
+positioned walls.
+
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_00.gif"/>
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_01.gif"/>
+<br/>
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_00.png"/>
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_01.png"/>
+<br/>
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_02.gif"/>
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_03.gif"/>
+<br/>
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_02.png"/>
+<Image alt="A Star Algorithm" width="45%" maxWidth="240px" src="/assets/projects/pathfinding/a_star_03.png"/>
