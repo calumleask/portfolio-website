@@ -1,0 +1,21 @@
+---
+title: "Maze Generator"
+date: "2014-05"
+tags: "Algorithms Procedural_Generation PC C++"
+---
+import CodeBlock from "src/components/CodeBlock.jsx"
+import Image from "src/components/Image.jsx"
+
+A maze generator was created in c++ using the <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim.27s_algorithm">randomized Prim's algorithm</a>.
+
+<CodeBlock code={"1. Start with a grid full of walls.\
+\n2. Pick a cell, mark it as part of the maze. Add the walls of the cell to the wall list.\
+\n3. While there are walls in the list:\
+\n\ti. Pick a random wall from the list. If the cell on the opposite side isn't in the maze yet:\
+\n\t\ta. Make the wall a passage and mark the cell on the opposite side as part of the maze.\
+\n\t\tb. Add the neighboring walls of the cell to the wall list.\
+\n\tii. If the cell on the opposite side already was in the maze, remove the wall from the list."}
+/>
+
+<Image alt="Maze Generation" width="100%" maxWidth="240px" src="/assets/projects/maze-generator/maze_generation_00.gif"/>
+<Image alt="Maze Generation" width="100%" maxWidth="240px" src="/assets/projects/maze-generator/maze_generation_01.gif"/>
