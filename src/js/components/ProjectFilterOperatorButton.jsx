@@ -12,6 +12,7 @@ const Button = styled.button`
     margin: 10px;
     outline: 0;
     padding: 10px;
+    width: 60px;
 
     &:hover {
         background-color: #f0f0f0;
@@ -22,26 +23,31 @@ const Button = styled.button`
     }
 `;
 
-class ProjectFilterButton extends React.Component {
+class ProjectFilterOperatorButton extends React.Component {
 
     render() {
-        const { active, onClick, tag } = this.props;
+        const { active, onClick, operator } = this.props;
 
         const style = active ? {
             backgroundColor: "#e0e0e0", 
             color: "#404040" 
         } : {};
 
+        const text = active ? operator.name : operator.symbol;
+
         return (
-            <Button style={style} onClick={() => { onClick(tag); }}>{tag}</Button>
+            <Button style={style} onClick={() => { onClick(operator.name); }}>{text}</Button>
         );
     }
 }
 
-ProjectFilterButton.propTypes = {
+ProjectFilterOperatorButton.propTypes = {
     active: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-    tag: PropTypes.string.isRequired
+    operator: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        symbol: PropTypes.string.isRequired
+    }).isRequired
 };
 
-export default ProjectFilterButton;
+export default ProjectFilterOperatorButton;

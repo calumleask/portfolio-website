@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import ProjectFilterOperatorButton from "src/components/ProjectFilterOperatorButton.jsx";
 import ProjectFilterButton from "src/components/ProjectFilterButton.jsx";
 import ProjectLink from "src/components/ProjectLink.jsx";
 
@@ -18,8 +19,24 @@ class ProjectList extends React.Component {
         super(props);
 
         this.state = {
+            selectedOperator: null,
             selectedTags: []
         };
+
+        this._filterOperators = [
+            {
+                symbol: "&&",
+                name: "AND"
+            },
+            {
+                symbol: "!",
+                name: "NOT"
+            },
+            {
+                symbol: "||",
+                name: "OR"
+            }
+        ];
 
         const { projects } = props;
         this._tagsToProjectMap = {};
@@ -35,10 +52,20 @@ class ProjectList extends React.Component {
             });
         });
 
-        this._selectFilter = this._selectFilter.bind(this);
+        this._selectOperatorFilter = this._selectOperatorFilter.bind(this);
+        this._selectTagsFilter = this._selectTagsFilter.bind(this);
     }
 
-    _selectFilter(tag) {
+    _selectOperatorFilter(operatorName) {
+        if (this.state.selectedOperator === operatorName) {
+            this.setState({ selectedOperator: null });
+        }
+        else {
+            this.setState({ selectedOperator: operatorName });
+        }
+    }
+
+    _selectTagsFilter(tag) {
         if (this.state.selectedTags.indexOf(tag) < 0) {
             this.setState({ selectedTags: [ ...this.state.selectedTags,  tag ] });
         }
@@ -48,25 +75,48 @@ class ProjectList extends React.Component {
         }
     }
 
-    _getTagsButtons() {
+    _getOperatorFilterButtons() {
+        return this._filterOperators.map((operator, index) => {
+            const isActive = this.state.selectedOperator === operator.name;
+            return <ProjectFilterOperatorButton key={index} active={isActive} onClick={this._selectOperatorFilter} operator={operator}/>;
+        });
+    }
+
+    _getTagsFilterButtons() {
         return Object.keys(this._tagsToProjectMap).map((tag, index) => {
             const isActive = this.state.selectedTags.indexOf(tag) > -1;
-            return <ProjectFilterButton key={index} active={isActive} onClick={this._selectFilter} tag={tag}/>;
+            return <ProjectFilterButton key={index} active={isActive} onClick={this._selectTagsFilter} tag={tag}/>;
         });
     }
 
     _getFilteredProjectLinks() {
         const { projects } = this.props;
-        const { selectedTags } = this.state;
+        const { selectedOperator, selectedTags } = this.state;
+        let projectsToDisplay = [];
 
-        const projectsToDisplay = [];
-        this.state.selectedTags.forEach(tag => {
-            this._tagsToProjectMap[tag].forEach(project => {
-                if (projectsToDisplay.indexOf(project) < 0) {
-                    projectsToDisplay.push(project);
-                }
+        if (selectedOperator === "AND") {
+            // TODO
+        }
+        else if (selectedOperator === "NOT") {
+            projectsToDisplay = projects.slice();
+            this.state.selectedTags.forEach(tag => {
+                this._tagsToProjectMap[tag].forEach(project => {
+                    const index = projectsToDisplay.indexOf(project);
+                    if (index > -1) {
+                        projectsToDisplay.splice(index, 1);
+                    }
+                });
             });
-        });
+        }
+        else if (selectedOperator === "OR") {
+            this.state.selectedTags.forEach(tag => {
+                this._tagsToProjectMap[tag].forEach(project => {
+                    if (projectsToDisplay.indexOf(project) < 0) {
+                        projectsToDisplay.push(project);
+                    }
+                });
+            });
+        }
 
         const ProjectLinks = selectedTags.length === 0 ? 
             projects.map(project => <ProjectLink key={project.id} project={project}/>)
@@ -82,7 +132,12 @@ class ProjectList extends React.Component {
     render() {
         return (
             <>
-                {this._getTagsButtons()}
+                <div>
+                    {this._getOperatorFilterButtons()}
+                </div>
+                <div>
+                    {this._getTagsFilterButtons()}
+                </div>
                 {this._getFilteredProjectLinks()}
             </>
         );
