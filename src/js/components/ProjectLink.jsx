@@ -23,7 +23,7 @@ const ProjectContainer = styled.li`
     flex-direction: column;
     flex-wrap: wrap;
     margin: 20px 0;
-    min-width: 240px;
+    min-width: 200px;
     padding: 5px;
     text-align: left;
     width: 100%;
@@ -45,7 +45,7 @@ const ProjectContainer = styled.li`
 
 const ImgContainer = styled.div`
     margin: 0 auto;
-    max-width: 330px;
+    max-width: 240px;
     position: relative;
 
     @media ${device.mobileL} {
@@ -60,6 +60,7 @@ const ProjectImg = styled.img`
     transition-duration: 0.25s;
     transition-property: opacity;
     transition-timing-function: ease-in;
+    vertical-align: top;
     z-index: 10;
 `;
 
