@@ -95,11 +95,24 @@ class ProjectList extends React.Component {
         let projectsToDisplay = [];
 
         if (selectedOperator === "AND") {
-            // TODO
+            const projectReferencesBySelectedTags = {};
+            selectedTags.forEach(tag => {
+                this._tagsToProjectMap[tag].forEach(project => {
+                    if (projectReferencesBySelectedTags[project.id] === undefined) {
+                        projectReferencesBySelectedTags[project.id] = 0;
+                    }
+                    projectReferencesBySelectedTags[project.id]++;
+                });
+            });
+            projects.forEach(project => {
+                if (projectReferencesBySelectedTags[project.id] === selectedTags.length) {
+                    projectsToDisplay.push(project);
+                }
+            });
         }
         else if (selectedOperator === "NOT") {
             projectsToDisplay = projects.slice();
-            this.state.selectedTags.forEach(tag => {
+            selectedTags.forEach(tag => {
                 this._tagsToProjectMap[tag].forEach(project => {
                     const index = projectsToDisplay.indexOf(project);
                     if (index > -1) {
@@ -109,7 +122,7 @@ class ProjectList extends React.Component {
             });
         }
         else if (selectedOperator === "OR") {
-            this.state.selectedTags.forEach(tag => {
+            selectedTags.forEach(tag => {
                 this._tagsToProjectMap[tag].forEach(project => {
                     if (projectsToDisplay.indexOf(project) < 0) {
                         projectsToDisplay.push(project);
