@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import ResponsiveLayout from "src/components/ResponsiveLayout";
-import ExpandableList from "src/components/ExpandableList.jsx";
+import ExpandableList from "src/components/Expandable/ExpandableList.jsx";
 import Button from "src/components/Button.jsx";
 import ProjectLink from "src/components/ProjectLink.jsx";
 
@@ -14,6 +14,20 @@ const Ul = styled.ul`
     margin: auto;
     max-width: 720px;
     padding: 0;
+`;
+
+const FilterBounds = styled.div`
+    margin: 0;
+    width: 100%;
+
+    @media ${device.mobileL} {
+        margin: 0 auto;
+        max-width: ${device.size.mobileM}px;
+    }
+
+    @media ${device.laptop} {
+        width: 100%;
+    }
 `;
 
 class ProjectList extends React.Component {
@@ -186,10 +200,10 @@ class ProjectList extends React.Component {
                     }}
                     renderMobile={() => {
                         return (
-                            <>
-                                <ExpandableList title="Filter Mode" options={this._filterOperatorOptions} collapseOnSelect={false} onOptionSelect={({ context }) => { this._selectOperatorFilter(context); }}/>
-                                <ExpandableList title="Filter" options={this._tagFilterListOptions} collapseOnSelect={false} onOptionSelect={({ context }) => { this._selectTagsFilter(context); }}/>
-                            </>
+                            <FilterBounds>
+                                <ExpandableList title="Filter Mode" options={this._filterOperatorOptions} onOptionSelect={({ context }) => { this._selectOperatorFilter(context); }}/>
+                                <ExpandableList title="Filter" options={this._tagFilterListOptions} onOptionSelect={({ context }) => { this._selectTagsFilter(context); }}/>
+                            </FilterBounds>
                         );
                     }}
                 />
