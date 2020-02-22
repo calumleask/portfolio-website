@@ -9,8 +9,7 @@ import { device } from "src/helpers/devices.js";
 import { color } from "css/colors.js";
 
 const Nav = styled.nav`
-    background: ${color.mobileFooterBackground};
-    border-bottom: 1px solid ${color.border};
+    background: ${color.mobileNavBackground};
     font-weight: bold;
     height: 60px;
     line-height: 60px;

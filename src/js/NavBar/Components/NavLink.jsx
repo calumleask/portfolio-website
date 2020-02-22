@@ -15,6 +15,16 @@ const StlyedLink = styled(Link)`
     &:hover {
         color: ${color.navTextHover};
         text-decoration: none;
+
+        path {
+            fill: ${color.navTextHover};
+            transform: scale(1.1, 1.1);
+            transform-origin: center;
+        }
+    }
+
+    path {
+        fill: ${color.navText};
     }
 `;
 
@@ -23,7 +33,7 @@ class NavLink extends React.Component {
     render() {
         const { to, text, active, svg } = this.props;
 
-        const textColor = active ? color.navTextActive : color.navText;
+        const textColor = active ? color.navTextActive : null;
 
         const svgElement = svg ? <SvgIcon viewBox={svg.viewBox} color={textColor} path={svg.path} style={{
             height: "30px",

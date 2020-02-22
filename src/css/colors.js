@@ -1,12 +1,27 @@
 
+const white = "#FCFCFC";
+const offWhite = "#F8F8F8";
+const whiteSmoke = "#F5F5F5";
+const lightGrey = "#E0E0E0";
+const midGrey = "#D3D3D3";
+const grey = "#A1A1A1";
+const darkGrey = "#808080";
+const black = "#333";
+
+const lightYellow = "#fcfcda";
+const lightBlue = "#5adcfc";
+
 export const color = {
-    border: "#d5d5d5",
-    pageBackground: "#f8f8f8",
-    mobileNavBackground: "#f0f0f0",
-    mobileFooterBackground: "#f0f0f0",
-    navText: "#888",
-    navTextHover: "#333",
-    navTextActive: "#444",
+    border: lightGrey,
+    pageBackground: white,
+    mobileNavBackground: black,
+    mobileFooterBackground: black,
+    navText: whiteSmoke,
+    navTextHover: lightBlue,
+    navTextActive: whiteSmoke,
+    footerText: whiteSmoke,
+    footerLinkText: lightBlue,
+    footerLinkTextHover: lightYellow,
     projectLink: {
         background: "#fff",
         backgroundHover: "#f0f0f0",

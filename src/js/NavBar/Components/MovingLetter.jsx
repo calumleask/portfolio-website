@@ -30,6 +30,7 @@ class MovingLetter extends React.Component {
         if (typeof children === "string" || children instanceof String) {
             return (<Letter style={this.getStyle()}>{children}</Letter>);
         }
+        return null;
     }
 }
 
