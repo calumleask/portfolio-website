@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import ResponsiveLayout from "src/components/ResponsiveLayout";
+import ExpandableList from "src/components/ExpandableList.jsx";
 import Button from "src/components/Button.jsx";
 import ProjectLink from "src/components/ProjectLink.jsx";
+
+import { device } from "src/helpers/devices.js";
 
 const Ul = styled.ul`
     list-style: none;
@@ -25,17 +29,17 @@ class ProjectList extends React.Component {
         this._filterOperators = [
             {
                 symbol: "&&",
-                name: "AND",
-                text: "AND"
+                context: "AND",
+                text: "AND",
             },
             {
                 symbol: "!",
-                name: "NOT",
+                context: "NOT",
                 text: "NOT"
             },
             {
                 symbol: "||",
-                name: "OR",
+                context: "OR",
                 text: "OR"
             }
         ];
@@ -55,9 +59,9 @@ class ProjectList extends React.Component {
         });
     }
 
-    _selectOperatorFilter(operatorName) {
-        if (this.state.selectedOperator !== operatorName) {
-            this.setState({ selectedOperator: operatorName });
+    _selectOperatorFilter(operator) {
+        if (this.state.selectedOperator !== operator) {
+            this.setState({ selectedOperator: operator });
         }
     }
 
@@ -73,8 +77,8 @@ class ProjectList extends React.Component {
 
     _getOperatorFilterButtons() {
         return this._filterOperators.map((operator, index) => {
-            const isActive = this.state.selectedOperator === operator.name;
-            return <Button key={index} active={isActive}  context={{ operator }} onClick={({ context }) => { this._selectOperatorFilter(context.operator.name); }} text={operator.name}/>;
+            const isActive = this.state.selectedOperator === operator.text;
+            return <Button key={index} active={isActive}  context={operator.context} onClick={({ context }) => { this._selectOperatorFilter(context); }} text={operator.text}/>;
         });
     }
 
@@ -141,9 +145,24 @@ class ProjectList extends React.Component {
     render() {
         return (
             <>
-                <div>
-                    {this._getOperatorFilterButtons()}
-                </div>
+                <ResponsiveLayout
+                    breakpoint={device.size.tablet}
+                    renderDesktop={() => {
+                        return (
+                            <div>
+                                {this._getOperatorFilterButtons()}
+                            </div>
+                        );
+                    }}
+                    renderMobile={() => {
+                        return (
+                            <>
+                                <ExpandableList title="Filter Mode" options={this._filterOperators} collapseOnSelect={true} onOptionSelect={({ context }) => { this._selectOperatorFilter(context); }}/>
+                            </>
+                        );
+                    }}
+                />
+                
                 <div>
                     {this._getTagsFilterButtons()}
                 </div>
