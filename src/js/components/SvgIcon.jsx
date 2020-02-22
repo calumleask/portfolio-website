@@ -25,7 +25,7 @@ SvgIcon.defaultProps = {
 };
 
 SvgIcon.propTypes = {
-    color: PropTypes.string.isRequired,
+    color: PropTypes.string,
     path: PropTypes.string.isRequired,
     style: PropTypes.object.isRequired,
     viewBox: PropTypes.string.isRequired

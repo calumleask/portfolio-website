@@ -29,6 +29,14 @@ const StyledFooter = styled.footer`
                 fill: ${color.footerLinkTextHover};
             }
         }
+
+        &:active {
+            color: ${color.footerLinkTextActive};
+
+            path {
+                fill: ${color.footerLinkTextActive};
+            }
+        }
     }
 `;
 

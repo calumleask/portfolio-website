@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import ProjectFilterOperatorButton from "src/components/ProjectFilterOperatorButton.jsx";
-import ProjectFilterButton from "src/components/ProjectFilterButton.jsx";
+import Button from "src/components/Button.jsx";
 import ProjectLink from "src/components/ProjectLink.jsx";
 
 const Ul = styled.ul`
@@ -19,22 +18,25 @@ class ProjectList extends React.Component {
         super(props);
 
         this.state = {
-            selectedOperator: null,
+            selectedOperator: "OR",
             selectedTags: []
         };
 
         this._filterOperators = [
             {
                 symbol: "&&",
-                name: "AND"
+                name: "AND",
+                text: "AND"
             },
             {
                 symbol: "!",
-                name: "NOT"
+                name: "NOT",
+                text: "NOT"
             },
             {
                 symbol: "||",
-                name: "OR"
+                name: "OR",
+                text: "OR"
             }
         ];
 
@@ -51,16 +53,10 @@ class ProjectList extends React.Component {
                 this._tagsToProjectMap[formattedTag].push(project);
             });
         });
-
-        this._selectOperatorFilter = this._selectOperatorFilter.bind(this);
-        this._selectTagsFilter = this._selectTagsFilter.bind(this);
     }
 
     _selectOperatorFilter(operatorName) {
-        if (this.state.selectedOperator === operatorName) {
-            this.setState({ selectedOperator: null });
-        }
-        else {
+        if (this.state.selectedOperator !== operatorName) {
             this.setState({ selectedOperator: operatorName });
         }
     }
@@ -78,14 +74,14 @@ class ProjectList extends React.Component {
     _getOperatorFilterButtons() {
         return this._filterOperators.map((operator, index) => {
             const isActive = this.state.selectedOperator === operator.name;
-            return <ProjectFilterOperatorButton key={index} active={isActive} onClick={this._selectOperatorFilter} operator={operator}/>;
+            return <Button key={index} active={isActive}  context={{ operator }} onClick={({ context }) => { this._selectOperatorFilter(context.operator.name); }} text={operator.name}/>;
         });
     }
 
     _getTagsFilterButtons() {
         return Object.keys(this._tagsToProjectMap).map((tag, index) => {
             const isActive = this.state.selectedTags.indexOf(tag) > -1;
-            return <ProjectFilterButton key={index} active={isActive} onClick={this._selectTagsFilter} tag={tag}/>;
+            return <Button key={index} active={isActive}  context={{ tag }} onClick={({ context }) => { this._selectTagsFilter(context.tag); }} text={tag}/>;
         });
     }
 

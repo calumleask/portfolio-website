@@ -9,22 +9,14 @@ import NavLinkText from "src/NavBar/Components/NavLinkText.jsx";
 import { color } from "css/colors.js";
 
 const StlyedLink = styled(Link)`
-    color: ${color.navText};
     text-decoration: none;
     
     &:hover {
-        color: ${color.navTextHover};
         text-decoration: none;
-
-        path {
-            fill: ${color.navTextHover};
+        svg {
             transform: scale(1.1, 1.1);
             transform-origin: center;
         }
-    }
-
-    path {
-        fill: ${color.navText};
     }
 `;
 
@@ -33,12 +25,16 @@ class NavLink extends React.Component {
     render() {
         const { to, text, active, svg } = this.props;
 
-        const textColor = active ? color.navTextActive : null;
-
-        const svgElement = svg ? <SvgIcon viewBox={svg.viewBox} color={textColor} path={svg.path} style={{
+        const textColor = active ? color.navTextSelected : color.navText;
+        const svgStyle = {
             height: "30px",
             width: "30px",
-        }}/> : null;
+        };
+        if (active) {
+            svgStyle.transform = "none";
+        }
+
+        const svgElement = svg ? <SvgIcon viewBox={svg.viewBox} color={textColor} path={svg.path} style={svgStyle}/> : null;
         const textElement = text ? <NavLinkText active={active} color={textColor}>{text}</NavLinkText> : null;
 
         return (

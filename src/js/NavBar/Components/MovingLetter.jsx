@@ -21,7 +21,7 @@ class MovingLetter extends React.Component {
         };
         const emOffset = (active ? 0.1 : -0.1) * offset + "em";
         style.top = active || hover ? emOffset : 0;
-        style.color = color;
+        if (color) style.color = color;
         return style;
     }
 
@@ -36,7 +36,7 @@ class MovingLetter extends React.Component {
 
 MovingLetter.propTypes = {
     children: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
+    color: PropTypes.string,
     active: PropTypes.bool.isRequired,
     hover: PropTypes.bool.isRequired,
     offset: PropTypes.number.isRequired,

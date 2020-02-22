@@ -3,12 +3,12 @@ const white = "#FCFCFC";
 const offWhite = "#F8F8F8";
 const whiteSmoke = "#F5F5F5";
 const lightGrey = "#E0E0E0";
-const midGrey = "#D3D3D3";
 const grey = "#A1A1A1";
 const darkGrey = "#808080";
 const black = "#333";
 
-const lightYellow = "#fcfcda";
+const lightYellow = "#ffffea";
+const yellow = "#fcfcda";
 const lightBlue = "#5adcfc";
 
 export const color = {
@@ -17,17 +17,30 @@ export const color = {
     mobileNavBackground: black,
     mobileFooterBackground: black,
     navText: whiteSmoke,
-    navTextHover: lightBlue,
-    navTextActive: whiteSmoke,
+    navTextSelected: lightBlue,
     footerText: whiteSmoke,
     footerLinkText: lightBlue,
-    footerLinkTextHover: lightYellow,
+    footerLinkTextHover: yellow,
+    footerLinkTextActive: lightYellow,
     projectLink: {
-        background: "#fff",
-        backgroundHover: "#f0f0f0",
-        backgroundActive: "#e0e0e0",
-        shadow: "#888",
-        title: "#444",
-        excerpt: "#777"
-    }
+        background: white,
+        backgroundHover: white,
+        backgroundActive: offWhite,
+        shadow: grey,
+        title: black,
+        excerpt: darkGrey
+    },
+    button: white,
+    buttonHover: yellow,
+    buttonActive: lightYellow,
+    buttonSelected: black,
+    buttonSelectedHover: black,
+    buttonSelectedActive: black,
+    buttonText: black,
+    buttonTextHover: black,
+    buttonTextActive: black,
+    buttonTextSelected: whiteSmoke,
+    buttonTextSelectedHover: yellow,
+    buttonTextSelectedActive: lightYellow,
+    buttonShadow: grey
 };
