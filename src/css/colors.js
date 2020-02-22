@@ -26,8 +26,8 @@ const theme = {
 export const color = {
     border: lightGrey,
     pageBackground: white,
-    mobileNavBackground: black,
-    mobileFooterBackground: black,
+    navBackground: black,
+    footerBackground: black,
     navText: whiteSmoke,
     navTextSelected: theme.primary,
     footerText: whiteSmoke,

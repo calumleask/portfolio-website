@@ -24,19 +24,19 @@ const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin: 0 auto;
-    max-width: 1000px;
     width: 100%;
-
-    @media ${device.tablet} {
-        width: 80%;
-    }
 `;
 
 const ContentContainer = styled.div`
     flex-grow: 1;
+    margin: 0 auto;
+    max-width: 1000px;
     padding: 30px 30px 60px 30px;
     text-align: center;
+
+    @media ${device.tablet} {
+        width: 80%;
+    }
 `;
 
 const Layout = ({ children, location }) => (

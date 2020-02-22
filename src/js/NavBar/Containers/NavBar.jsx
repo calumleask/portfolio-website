@@ -8,17 +8,21 @@ import NavLink from "src/NavBar/Components/NavLink.jsx";
 import { device } from "src/helpers/devices.js";
 import { color } from "css/colors.js";
 
-const Nav = styled.nav`
-    background: ${color.mobileNavBackground};
+const Container = styled.div`
+    background: ${color.navBackground};
+    margin: 0;
+`;
+
+const BoundNav = styled.nav`
     font-weight: bold;
     height: 60px;
     line-height: 60px;
-    margin: 0;
 
     @media ${device.tablet} {
-        background: ${color.pageBackground};
         height: 80px;
         line-height: 80px;
+        margin: 0 auto;
+        max-width: 1000px;
     }
 `;
 
@@ -96,11 +100,13 @@ class NavBar extends React.Component {
         });
 
         return (
-            <Nav>
-                <Ul>
-                    {navLinkElements}
-                </Ul>
-            </Nav>
+            <Container>
+                <BoundNav>
+                    <Ul>
+                        {navLinkElements}
+                    </Ul>
+                </BoundNav>
+            </Container>
         );
     }
 }
