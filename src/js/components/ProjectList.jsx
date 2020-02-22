@@ -26,25 +26,29 @@ class ProjectList extends React.Component {
             selectedTags: []
         };
 
-        this._filterOperators = [
+        this._filterOperatorOptions = [
             {
                 symbol: "&&",
                 context: "AND",
                 text: "AND",
+                selected: false
             },
             {
                 symbol: "!",
                 context: "NOT",
-                text: "NOT"
+                text: "NOT",
+                selected: false
             },
             {
                 symbol: "||",
                 context: "OR",
-                text: "OR"
+                text: "OR",
+                selected: true
             }
         ];
 
         const { projects } = props;
+        this._tagFilterListOptions = [];
         this._tagsToProjectMap = {};
         projects.forEach(project => {
             project.frontmatter.tags
@@ -53,6 +57,11 @@ class ProjectList extends React.Component {
                 const formattedTag = tag.replace(/_/g, " ");
                 if (this._tagsToProjectMap[formattedTag] === undefined) {
                     this._tagsToProjectMap[formattedTag] = [];
+                    this._tagFilterListOptions.push({
+                        context: formattedTag,
+                        selected: false,
+                        text: formattedTag
+                    });
                 }
                 this._tagsToProjectMap[formattedTag].push(project);
             });
@@ -62,21 +71,37 @@ class ProjectList extends React.Component {
     _selectOperatorFilter(operator) {
         if (this.state.selectedOperator !== operator) {
             this.setState({ selectedOperator: operator });
+            this._filterOperatorOptions.forEach((option, i, array) => {
+                array[i].selected = (option.context === operator);
+            });
         }
     }
 
     _selectTagsFilter(tag) {
-        if (this.state.selectedTags.indexOf(tag) < 0) {
-            this.setState({ selectedTags: [ ...this.state.selectedTags,  tag ] });
+        const { selectedTags } = this.state;
+        if (selectedTags.indexOf(tag) < 0) {
+            this.setState({ selectedTags: [ ...selectedTags,  tag ] });
+            this._tagFilterListOptions.some((option, i, array) => {
+                if (option.context === tag) {
+                    array[i].selected = true;
+                    return true;
+                }
+            });
         }
         else {
-            const tagToRemove = this.state.selectedTags.indexOf(tag);
-            this.setState({ selectedTags: this.state.selectedTags.filter((_, index) => index !== tagToRemove) });
+            const indexToRemove = selectedTags.indexOf(tag);
+            this.setState({ selectedTags: selectedTags.filter((_, index) => index !== indexToRemove) });
+            this._tagFilterListOptions.some((option, i, array) => {
+                if (option.context === tag) {
+                    array[i].selected = false;
+                    return true;
+                }
+            });
         }
     }
 
     _getOperatorFilterButtons() {
-        return this._filterOperators.map((operator, index) => {
+        return this._filterOperatorOptions.map((operator, index) => {
             const isActive = this.state.selectedOperator === operator.text;
             return <Button key={index} active={isActive}  context={operator.context} onClick={({ context }) => { this._selectOperatorFilter(context); }} text={operator.text}/>;
         });
@@ -85,7 +110,7 @@ class ProjectList extends React.Component {
     _getTagsFilterButtons() {
         return Object.keys(this._tagsToProjectMap).map((tag, index) => {
             const isActive = this.state.selectedTags.indexOf(tag) > -1;
-            return <Button key={index} active={isActive}  context={{ tag }} onClick={({ context }) => { this._selectTagsFilter(context.tag); }} text={tag}/>;
+            return <Button key={index} active={isActive}  context={tag} onClick={({ context }) => { this._selectTagsFilter(context); }} text={tag}/>;
         });
     }
 
@@ -149,23 +174,27 @@ class ProjectList extends React.Component {
                     breakpoint={device.size.tablet}
                     renderDesktop={() => {
                         return (
-                            <div>
-                                {this._getOperatorFilterButtons()}
-                            </div>
+                            <>
+                                <div>
+                                    {this._getOperatorFilterButtons()}
+                                </div>
+                                <div>
+                                    {this._getTagsFilterButtons()}
+                                </div>
+                            </>
                         );
                     }}
                     renderMobile={() => {
                         return (
                             <>
-                                <ExpandableList title="Filter Mode" options={this._filterOperators} collapseOnSelect={true} onOptionSelect={({ context }) => { this._selectOperatorFilter(context); }}/>
+                                <ExpandableList title="Filter Mode" options={this._filterOperatorOptions} collapseOnSelect={false} onOptionSelect={({ context }) => { this._selectOperatorFilter(context); }}/>
+                                <ExpandableList title="Filter" options={this._tagFilterListOptions} collapseOnSelect={false} onOptionSelect={({ context }) => { this._selectTagsFilter(context); }}/>
                             </>
                         );
                     }}
                 />
                 
-                <div>
-                    {this._getTagsFilterButtons()}
-                </div>
+                
                 {this._getFilteredProjectLinks()}
             </>
         );

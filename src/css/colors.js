@@ -75,7 +75,8 @@ export const color = {
         rowEven: offWhite,
         rowEvenText: black,
         rowHover: theme.primaryLight,
-        rowSelected: black,
+        rowSelected: theme.primary,
+        rowTextSelected: black,
         rowBorder: lightGrey
     }
 };

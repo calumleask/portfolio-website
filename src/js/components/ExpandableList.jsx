@@ -8,7 +8,8 @@ const rowHeight = 32;
 const tabHeight = 40;
 
 const Container = styled.div`
-    height: ${tabHeight}px;
+    margin-bottom: 10px;
+    min-height: ${tabHeight}px;
     position: relative;
     width: 100%;
 `;
@@ -48,7 +49,6 @@ const ExpandTab = styled.div`
 
     &.expanded {
         background: ${color.expander.expanded};
-        border-bottom: none;
         color: ${color.expander.textExpanded};
         span {
             border-color: ${color.expander.textExpanded};
@@ -86,7 +86,6 @@ const ArrowIcon = styled.span`
 
 const ListItemContainer = styled.div`
     background-color: ${color.button};
-    position: absolute;
     top: 100%;
     width: 100%;
 `;
@@ -102,7 +101,7 @@ const ListItem = styled.div`
     line-height: ${rowHeight}px;
     overflow: hidden;
     transition-duration: 0.25s;
-    transition-property: height;
+    transition-property: background height;
     transition-timing-function: ease;
     width: 100%;
 
@@ -119,6 +118,11 @@ const ListItem = styled.div`
     &:hover {
         background: ${color.expander.rowHover};
         color: ${color.buttonTextHover};
+    }
+
+    &.selected {
+        background: ${color.expander.rowSelected};
+        color: ${color.rowTextSelected};
     }
 `;
 
@@ -154,7 +158,8 @@ class ExpandableList extends React.Component {
         };
 
         const listItems = options.map((option, i) => {
-            const className = (i % 2 === 0) ? "odd" : "even";
+            let className = (i % 2 === 0) ? "odd" : "even";
+            if (option.selected) className += " selected";
             const { context } = option;
             return <ListItem key={i} className={className} style={style} onClick={(event) => { this._onOptionSelect({ event, context }); }}>{option.text}</ListItem>;
         });
@@ -200,6 +205,7 @@ ExpandableList.propTypes = {
     onOptionSelect: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
         context: PropTypes.any,
+        selected: PropTypes.bool,
         text: PropTypes.string.isRequired
     })),
     title: PropTypes.string.isRequired
