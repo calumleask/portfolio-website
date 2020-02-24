@@ -1,0 +1,40 @@
+---
+title: "Punch Punch City"
+date: "2013-12"
+tags: "PS_Vita Procedural_Generation Games C++"
+---
+import Image from "src/components/Image.jsx"
+
+## PS Vita
+
+The game was developed as a coursework piece for the module titled 'Console Development' with Visual Studio 2010 in c++ using the Abertay Framework.
+It is a side-scrolling beat 'em up where the objective of the game is to save the city by eliminating all of the enemies.
+There is an enemy situated on top of every building, carrying a gun and keeping a watch for the player.
+The player can ascend buildings by wall jumping and defeats the enemies by punching them.
+
+<Image alt="Punch Punch City" maxWidth="480px" src="/assets/projects/punch-punch-city/punch_punch_city.gif"/>
+
+The buildings are procedurally generated with varying widths, heights and separations.
+The enemies can be pushed off the buildings, losing a great deal of health when they land. The enemies also fade away when killed.
+The collision detection was implemented using bounding box collisions and line intersections.
+
+## Enemy Artificial Intelligence
+The enemy AI is implemented using a state-machine of four states: Searching, Attacking, Advancing and Retreating.
+
+### Searching
+The enemy does not know the player exists so will keep watch for potential threats, alternating between looking left and right whilst remaining in a fixed position.
+If the player enters the enemy's line of sight then the enemy is now aware of the player.
+
+### Attacking
+The enemy is aware of the players existence and can see them so will periodically shoot at them until the player is either dead or out of sight.
+
+### Advancing
+If the enemy is aware of the player but cannot see the player then the enemy will move towards the edge of the building they are on.
+This will give them a better view to find the player again as the player is likely on a lower building or on the ground.
+If the enemy is on the ground they will not advance towards the player as it is likely the enemy will walk into a building which is not intelligent behaviour.
+
+### Retreating
+If the enemy can see the player and the player is too close to the enemy then the enemy will retreat backwards away from the player to prevent being punched.
+However the enemy will not step off a building to prevent being punched as that would result in losing a lot of health.
+
+<Image alt="Punch Punch City" maxWidth="480px" src="/assets/projects/punch-punch-city/00.png"/>
