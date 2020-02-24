@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import ProjectLink from "src/components/ProjectLink.jsx";
+import ProjectLink from "src/Pages/Projects/Components/ProjectLink.jsx";
 
 const Ul = styled.ul`
     list-style: none;
