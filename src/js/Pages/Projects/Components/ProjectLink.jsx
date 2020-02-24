@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "gatsby";
 
-import ResponsiveLayout from "src/components/ResponsiveLayout";
-
 import { device } from "src/helpers/devices.js";
 import { color } from "css/colors.js";
 
