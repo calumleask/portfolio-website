@@ -33,6 +33,7 @@ const ContentContainer = styled.div`
     max-width: 1000px;
     padding: 30px 30px 60px 30px;
     text-align: center;
+    width: 100%;
 
     @media ${device.tablet} {
         width: 80%;

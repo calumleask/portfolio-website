@@ -16,11 +16,11 @@ const StyledLink = styled(Link)`
 
 const ProjectContainer = styled.li`
     background-color: ${color.projectLink.background};
-    box-shadow: 1px 1px 2px 0 ${color.projectLink.shadow};
+    box-shadow: 1px 1px 2px 1px ${color.projectLink.shadow};
     color: #444;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     margin: 20px 0;
     min-width: 200px;
@@ -35,48 +35,64 @@ const ProjectContainer = styled.li`
 
     &:active {
         background-color: ${color.projectLink.backgroundActive};
-        color: #222;
-    }
-    
-    @media ${device.mobileL} {
-        flex-direction: row;
+        
+        div {
+            color: ${color.projectLink.textActive};
+        }
     }
 `;
 
 const ImgContainer = styled.div`
-    margin: 0 auto;
-    max-width: 240px;
+    flex: 1 2;
+    margin: 0 5px 0 0;
+    max-width: 320px;
     position: relative;
+    width: 100%;
+`;
 
-    @media ${device.mobileL} {
-        margin: 0 5px 0 0;
-        flex: 1 2;
-    }
+const ImgPlaceHolder = styled.div`
+    margin: 0 5px 0 0;
+    max-width: 320px;
+    padding-top: 56.25%;
+    width: 100%;
 `;
 
 const ProjectImg = styled.img`
-    max-width: 100%;
     opacity: 1;
+    position: absolute;
+    top: 0;
     transition-duration: 0.25s;
     transition-property: opacity;
     transition-timing-function: ease-in;
     vertical-align: top;
+    width: 100%;
     z-index: 10;
 `;
 
 const ProjectInfoContainer = styled.div`
-    @media ${device.mobileL} {
-        flex: 1 1;
-    }
+    flex: 1 1;
+    overflow: hidden;
+    position: relative;
+`;
+
+const VerticallyAlignedDiv = styled.div`
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 `;
 
 const ProjectTitle = styled.div`
     color: ${color.projectLink.title};
-    font-size: 1em;
+    font-size: 0.9em;
     font-weight: normal;
 
     @media ${device.mobileL} {
         font-size: 1.1em;
+        text-align: center;
     }
 
     @media ${device.tablet} {
@@ -86,32 +102,17 @@ const ProjectTitle = styled.div`
 
 const ProjectDate = styled.div`
     color: ${color.projectLink.title};
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-style: italic;
     font-weight: normal;
 
     @media ${device.mobileL} {
         font-size: 1em;
+        text-align: center;
     }
 
     @media ${device.tablet} {
         font-size: 1.1em;
-    }
-`;
-
-const ProjectExcerpt = styled.div`
-    color: ${color.projectLink.excerpt};
-    font-size: 0.8em;
-    font-weight: lighter;
-    text-align: justify;
-
-    @media ${device.mobileL} {
-        font-size: 0.9em;
-        padding: 5px;
-    }
-
-    @media ${device.tablet} {
-        font-size: 1em;
     }
 `;
 
@@ -128,15 +129,6 @@ class ProjectLink extends React.Component {
         this._onMouseOut = this._onMouseOut.bind(this);
     }
 
-    componentDidMount() {
-        this.setState({
-            dimensions: {
-                width: this.container.offsetWidth,
-                height: this.container.offsetHeight
-            }
-        });
-    }
-
     _onMouseOver() {
         this.setState({ hover: true });
     }
@@ -146,8 +138,7 @@ class ProjectLink extends React.Component {
     }
     
     render() {
-        const { excerpt } = this.props.project;
-        const { title, date, tags } = this.props.project.frontmatter;
+        const { title, date,tags } = this.props.project.frontmatter;
         const { slug } = this.props.project.fields;
         const tagsArray = tags.split(" ");
         tagsArray.forEach((tag, index, tagsArray) => {
@@ -159,7 +150,6 @@ class ProjectLink extends React.Component {
 
         const style = {
             opacity: this.state.hover ? 1 : 0,
-            position: "absolute",
             zIndex: 11
         };
 
@@ -167,28 +157,16 @@ class ProjectLink extends React.Component {
             <StyledLink to={slug} onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} ref={el => (this.container = el)}>
                 <ProjectContainer>
                     <ImgContainer>
+                        <ImgPlaceHolder/>
                         <ProjectImg src={imgSrcOnHover} style={style}/>
                         <ProjectImg src={imgSrc}/>
                     </ImgContainer>
-                    <ResponsiveLayout
-                        breakpoint={500}
-                        renderDesktop={() => (
-                            <ProjectInfoContainer>
-                                <ProjectTitle>{title}</ProjectTitle>
-                                <ProjectDate>{date}</ProjectDate>
-                                <ProjectExcerpt>{excerpt}</ProjectExcerpt>
-                            </ProjectInfoContainer>
-                        )}
-                        renderMobile={() => (
-                            <>
-                                <ProjectInfoContainer>
-                                    <ProjectTitle>{title}</ProjectTitle>
-                                    <ProjectDate>{date}</ProjectDate>
-                                </ProjectInfoContainer>
-                                <ProjectExcerpt>{excerpt}</ProjectExcerpt>
-                            </>
-                        )}
-                    />
+                    <ProjectInfoContainer>
+                        <VerticallyAlignedDiv>
+                            <ProjectTitle>{title}</ProjectTitle>
+                            <ProjectDate>{date}</ProjectDate>
+                        </VerticallyAlignedDiv>
+                    </ProjectInfoContainer>
                 </ProjectContainer>
             </StyledLink>
             
@@ -198,7 +176,6 @@ class ProjectLink extends React.Component {
 
 ProjectLink.propTypes = {
     project: PropTypes.shape({
-        excerpt: PropTypes.string.isRequired,
         fields: PropTypes.shape({
             slug: PropTypes.string.isRequired
         }),

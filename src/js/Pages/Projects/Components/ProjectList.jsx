@@ -9,6 +9,7 @@ const Ul = styled.ul`
     margin: auto;
     max-width: 720px;
     padding: 0;
+    width: 100%;
 `;
 
 class ProjectList extends React.Component {

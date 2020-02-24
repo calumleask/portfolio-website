@@ -36,8 +36,9 @@ export const color = {
     footerLinkTextActive: theme.active,
     projectLink: {
         background: white,
-        backgroundHover: white,
-        backgroundActive: offWhite,
+        backgroundHover: whiteSmoke,
+        backgroundActive: black,
+        textActive: whiteSmoke,
         shadow: grey,
         title: black,
         excerpt: darkGrey
