@@ -32,7 +32,7 @@ Image.defaultProps = {
     alt: "",
     caption: null,
     maxWidth: null,
-    width: null,
+    width: "100%",
     style: {}
 };
 
