@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 
-import ProjectList from "src/components/ProjectList.jsx";
+import Projects from "src/Pages/Projects/index.jsx";
 
 const ProjectsPage = ({
     data: {
@@ -10,7 +10,7 @@ const ProjectsPage = ({
     }
 }) => {
     const projects = edges.map(edge => edge.node);
-    return <ProjectList projects={projects}/>;
+    return <Projects projects={projects}/>;
 };
 
 export const pageQuery = graphql`
