@@ -43,6 +43,7 @@ class Projects extends React.Component {
             { ...this._operators[operator], context: this._operators[operator], selected: (i === 0) }
         ));
 
+        // TODO: make nicer
         const { projects } = props;
         this._tags = [];
         this._tagsToProjectMap = {};

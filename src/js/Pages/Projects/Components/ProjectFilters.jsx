@@ -1,26 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 
 import ResponsiveLayout from "src/components/ResponsiveLayout";
-import ExpandableList from "src/components/Expandable/ExpandableList.jsx";
+import ExpandableContent from "src/components/Expandable/ExpandableContent.jsx";
+import ExpandableListItems from "src/components/Expandable/ExpandableListItems.jsx";
 import Button from "src/components/Button.jsx";
 
 import { device } from "src/helpers/devices.js";
-
-const FilterBounds = styled.div`
-    margin: 0;
-    width: 100%;
-
-    @media ${device.mobileL} {
-        margin: 0 auto;
-        max-width: ${device.size.mobileM}px;
-    }
-
-    @media ${device.laptop} {
-        width: 100%;
-    }
-`;
 
 class ProjectFilters extends React.Component {
 
@@ -33,21 +19,23 @@ class ProjectFilters extends React.Component {
         };
     }
 
-    _isSelected(array, context) {
-        return array.some((operator) => (operator.context === context && operator.selected));
+    _onFilterChange() {
+        this.props.onFilterChange({
+            operators: this.state.operators.filter((operator) => (operator.selected)),
+            tags: this.state.tags.filter((tag) => (tag.selected))
+        })
     }
 
     _selectOperatorFilter({ context }) {
-        if (!this._isSelected(this.state.operators, context)) {
+        const { operators } = this.state;
+        const isSelected = operators.some((operator) => (operator.context === context && operator.selected));
+        if (!isSelected) {
             this.setState({
-                operators: this.state.operators.map((operator) => (
+                operators: operators.map((operator) => (
                 { ...operator, selected: operator.context === context }
                 ))
             }, () => {
-                this.props.onFilterChange({
-                    operators: this.state.operators.filter((operator) => (operator.selected)),
-                    tags: this.state.tags.filter((tag) => (tag.selected))
-                })
+                this._onFilterChange();
             });
         }
     }
@@ -58,10 +46,7 @@ class ProjectFilters extends React.Component {
                 { ...tag, selected: (tag.context === context && !tag.selected) || (tag.context !== context && tag.selected) }
                 ))
         }, () => {
-            this.props.onFilterChange({
-                operators: this.state.operators.filter((operator) => (operator.selected)),
-                tags: this.state.tags.filter((tag) => (tag.selected))
-            });
+            this._onFilterChange();
         });
     }
 
@@ -78,31 +63,33 @@ class ProjectFilters extends React.Component {
     }
 
     render() {
-        const { operators, tags } = this.state;
         return (
             <>
-                <ResponsiveLayout
-                    breakpoint={device.size.tablet}
-                    renderDesktop={() => {
-                        return (
-                            <>
-                                <div>
-                                    {this._getOperatorFilterButtons()}
-                                </div>
-                                <div>
-                                    {this._getTagsFilterButtons()}
-                                </div>
-                            </>
-                        );
-                    }}
-                    renderMobile={() => {
-                        return (
-                            <FilterBounds>
-                                <ExpandableList title="Filter Mode" options={operators} onOptionSelect={this._selectOperatorFilter.bind(this)}/>
-                                <ExpandableList title="Filter" options={tags} onOptionSelect={this._selectTagsFilter.bind(this)}/>
-                            </FilterBounds>
-                        );
-                    }}
+                <ExpandableContent
+                    title="Filter Mode"
+                    render={({ expanded }) => (
+                        <ResponsiveLayout
+                            breakpoint={device.size.mobileL}
+                            renderDesktop={() => (this._getOperatorFilterButtons())}
+                            renderMobile={() => (<ExpandableListItems
+                                                    expanded={expanded}
+                                                    options={this.state.operators}
+                                                    onOptionSelect={this._selectOperatorFilter.bind(this)}/>)}
+                        />
+                    )}
+                />
+                <ExpandableContent
+                    title="Filter"
+                    render={({ expanded }) => (
+                        <ResponsiveLayout
+                            breakpoint={device.size.mobileL}
+                            renderDesktop={() => (this._getTagsFilterButtons())}
+                            renderMobile={() => (<ExpandableListItems
+                                                    expanded={expanded}
+                                                    options={this.state.tags}
+                                                    onOptionSelect={this._selectTagsFilter.bind(this)}/>)}
+                        />
+                    )}
                 />
             </>
         );

@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import Expandable from "src/components/Expandable/Expandable.jsx";
 import ExpandableListItems from "src/components/Expandable/ExpandableListItems.jsx";
 
-
 class ExpandableList extends React.Component {
 
     render() {
