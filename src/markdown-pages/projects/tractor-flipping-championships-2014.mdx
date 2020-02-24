@@ -1,0 +1,48 @@
+---
+title: "Tractor Flipping Championships 2014"
+date: "2014-05"
+tags: "PS_Vita Procedural_Generation Games Box2D C++"
+---
+import Image from "src/components/Image.jsx"
+import CodeBlock from "src/components/CodeBlock.jsx"
+
+## PS Vita with Box2D
+
+<Image alt="Tractor Flipping Championships 2014 Title" width="50%" src="/assets/projects/tractor-flipping-championships-2014/title.png"/>
+
+The game was developed as a coursework piece for the module titled 'Console Development' with Visual Studio 2010 in c++ using the Abertay Framework.
+It is an endless side-scroller where the aim of the game is to successfully land flips with the tractor over the hills to keep the crowd happy so you can travel as far as you can.
+If you stop performing flips the crowd’s happiness will drop. If you land the tractor on its back then the crowd’s happiness will drop faster and the tractor will take damage.
+The game will end once the tractor’s condition reaches 0% or the crowd’s happiness reaches zero.
+The game uses Box2D to implement the physics and utilises the back touch pad of the Vita to control the tractor and perform flips.
+
+<Image alt="Tractor Flipping Championships 2014 Title" width="50%" src="/assets/projects/tractor-flipping-championships-2014/tractor_flipping.gif"/>
+
+When a flip is landed the crowd goes ballistic and cheering can be heard.
+
+<Image alt="Tractor Flipping Championships 2014 Title" src="/assets/projects/tractor-flipping-championships-2014/crowd.gif"/>
+
+The hills are procedurally generated with varying width, height and ranges which can all be adjusted in an options menu
+
+<Image alt="Tractor Flipping Championships 2014 Title" width="50%" src="/assets/projects/tractor-flipping-championships-2014/options.png"/>
+
+## Flipping
+Knowing when a flip has been landed is more complicated than it first seems. Flips can be either front flips, back flips or multiple combinations of the two.
+Pseudocode is provided, detailing how flips are recognised.
+
+<CodeBlock code={"Check what type of flip the player is attempting\
+\nIf the player is not attempting a flip\
+\nAnd if the tractor is on its wheels\
+\n\tThen depending on the rotation of the tractor set the flip type to either FRONT or BACK. Also set the stage of the flip the tractor is in to the START.\
+\nIf the player is attempting a flip (The code will have different numerical values depending on the type of flip the player is attempting).\
+\nCheck what stage of the flip the tractor is in\
+\n\tIf the tractor is in the START stage of the flip\
+\n\tThen depending on the rotation of the tractor, progress to the MIDDLE stage of the flip or exit out of the flip and reset all variables.\
+\n\tIf the tractor is in the MIDDLE stage of the flip\
+\n\tThen depending on the rotation of the tractor, progress to the END stage of the flip and increase the number of flips attempting by one or regress to the START stage of the flip.\
+\n\tIf the tractor is in the END stage of the flip\
+\n\tIf the wheels of the tractor are on the ground\
+\n\t\tThen award the player with points based on the number of flips achieved and reset all variables.\
+\n\tOtherwise\
+\n\t\tDepending on the rotation of the tractor, progress to the START stage of the additional flip or regress to the MIDDLE stage of the flip and decrease the number of flips attempting by one."}
+/>
