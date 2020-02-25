@@ -1,28 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 
-import ResponsiveLayout from "src/components/ResponsiveLayout";
-import ExpandableList from "src/components/Expandable/ExpandableList.jsx";
-import Button from "src/components/Button.jsx";
 import ProjectFilters from "src/Pages/Projects/Components/ProjectFilters.jsx";
 import ProjectList from "src/Pages/Projects/Components/ProjectList.jsx";
-
-import { device } from "src/helpers/devices.js";
-
-const FilterBounds = styled.div`
-    margin: 0;
-    width: 100%;
-
-    @media ${device.mobileL} {
-        margin: 0 auto;
-        max-width: ${device.size.mobileM}px;
-    }
-
-    @media ${device.laptop} {
-        width: 100%;
-    }
-`;
 
 class Projects extends React.Component {
 
@@ -37,7 +17,7 @@ class Projects extends React.Component {
             OR: { symbol: "||", text: "OR" },
             AND: { symbol: "&&", text: "AND" },
             NOT: { symbol: "!", text: "NOT" }
-        }
+        };
 
         this._operatorOptions = Object.keys(this._operators).map((operator, i) => (
             { ...this._operators[operator], context: this._operators[operator], selected: (i === 0) }

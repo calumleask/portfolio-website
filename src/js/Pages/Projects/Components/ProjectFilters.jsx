@@ -23,7 +23,7 @@ class ProjectFilters extends React.Component {
         this.props.onFilterChange({
             operators: this.state.operators.filter((operator) => (operator.selected)),
             tags: this.state.tags.filter((tag) => (tag.selected))
-        })
+        });
     }
 
     _selectOperatorFilter({ context }) {
