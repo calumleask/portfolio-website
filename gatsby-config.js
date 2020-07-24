@@ -9,14 +9,15 @@ module.exports = {
     },
     plugins: [
         {
-            resolve: "gatsby-plugin-root-import",
+            resolve: "gatsby-plugin-alias-imports",
             options: {
-                src: path.join(__dirname, "src/js"),
-                markdown: path.join(__dirname, "src/markdown-pages"),
-                css: path.join(__dirname, "src/css")
+                alias: {
+                    "src": path.resolve(__dirname, "src"),
+                    "markdown": path.resolve(__dirname, "src/markdown-pages"),
+                    "css": path.resolve(__dirname, "src/css"),
+                }
             }
         },
-        "gatsby-plugin-mdx",
         {
             resolve: "gatsby-source-filesystem",
             options: {
@@ -24,6 +25,7 @@ module.exports = {
                 path: path.join(__dirname, "/src/markdown-pages")
             }
         },
+        "gatsby-plugin-mdx",
         "gatsby-plugin-styled-components"
     ]
 }

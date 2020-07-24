@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "baseUrl": "src",
+    "paths": {
+      "~/*": ["*"],
+      "markdown/*": ["markdown-pages/*"],
+      "css/*": ["css/*"],
+    },
+    "jsx": "react"
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ]
+}
