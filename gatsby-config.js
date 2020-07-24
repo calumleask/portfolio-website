@@ -12,9 +12,11 @@ module.exports = {
             resolve: "gatsby-plugin-alias-imports",
             options: {
                 alias: {
-                    "src": path.resolve(__dirname, "src"),
-                    "markdown": path.resolve(__dirname, "src/markdown-pages"),
-                    "css": path.resolve(__dirname, "src/css"),
+                    "~": path.resolve(__dirname, "src"),
+                    "@components": path.resolve(__dirname, "src/ts/components"),
+                    "@helpers": path.resolve(__dirname, "src/ts/helpers"),
+                    "@markdown": path.resolve(__dirname, "src/markdown-pages"),
+                    "@style": path.resolve(__dirname, "src/style")
                 }
             }
         },

@@ -9,8 +9,10 @@
     "baseUrl": "src",
     "paths": {
       "~/*": ["*"],
-      "markdown/*": ["markdown-pages/*"],
-      "css/*": ["css/*"],
+      "@components/*": ["ts/components/*"],
+      "@helpers/*": ["ts/helpers/*"],
+      "@markdown/*": ["markdown-pages/*"],
+      "@style/*": ["style/*"],
     },
     "jsx": "react"
   },
