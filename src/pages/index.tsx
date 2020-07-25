@@ -1,7 +1,7 @@
 import React from "react";
 
-import Home from "src/Pages/Home/index.jsx";
+import Home from "@pages/Home";
 
-const HomePage = (): React.ReactNode => <Home/>;
+const HomePage = (): React.ReactElement => <Home/>;
 
 export default HomePage;

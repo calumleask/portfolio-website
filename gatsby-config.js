@@ -13,9 +13,13 @@ module.exports = {
             options: {
                 alias: {
                     "~": path.resolve(__dirname, "src"),
-                    "@components": path.resolve(__dirname, "src/ts/components"),
-                    "@helpers": path.resolve(__dirname, "src/ts/helpers"),
+                    "@components": path.resolve(__dirname, "src/components"),
+                    "@helpers": path.resolve(__dirname, "src/helpers"),
+                    "@images": path.resolve(__dirname, "src/images"),
+                    "@layouts": path.resolve(__dirname, "src/layouts"),
                     "@markdown": path.resolve(__dirname, "src/markdown-pages"),
+                    "@page-source": path.resolve(__dirname, "src/page-source"),
+                    "@providers": path.resolve(__dirname, "src/providers"),
                     "@style": path.resolve(__dirname, "src/style")
                 }
             }
