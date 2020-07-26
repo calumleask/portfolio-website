@@ -1,7 +1,7 @@
 import React from "react";
 
-import Home from "@pages/Home";
+import HomePage from "@pages/Home";
 
-const HomePage = (): React.ReactElement => <Home/>;
+const HomeRoute = (): React.ReactElement => <HomePage/>;
 
-export default HomePage;
+export default HomeRoute;

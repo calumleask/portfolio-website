@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-import { Project } from "@pages/Project/types";
 import ProjectFilters, { OnFilterChange, Operator, OperatorType, Tag } from "./components/ProjectFilters";
 import ProjectList from "./components/ProjectList";
 
-type ProjectsProps = {
-    projects: Project[];
+type ProjectsPageProps = {
+    projects: Pages.ProjectInfo[];
 };
 
-const Projects: React.FC<ProjectsProps> = (props: ProjectsProps) => {
+const ProjectsPage: React.FC<ProjectsPageProps> = (props: ProjectsPageProps) => {
     const [filteredProjects, setFilteredProjects] = useState(props.projects);
 
     const operatorTypes: {
@@ -27,7 +26,7 @@ const Projects: React.FC<ProjectsProps> = (props: ProjectsProps) => {
     const { projects } = props;
     const tags: Tag[] = [];
     const tagsToProjectMap: {
-        [tag: string]: Project[]
+        [tag: string]: Pages.ProjectInfo[]
     } = {};
     projects.forEach(project => {
         project.frontmatter.tags
@@ -53,7 +52,7 @@ const Projects: React.FC<ProjectsProps> = (props: ProjectsProps) => {
             return;
         }
 
-        let filteredProjects: Project[] = [];
+        let filteredProjects: Pages.ProjectInfo[] = [];
         const operator = operators[0].context;
 
         if (operator === operatorTypes.OR) {
@@ -106,4 +105,4 @@ const Projects: React.FC<ProjectsProps> = (props: ProjectsProps) => {
     );
 };
 
-export default Projects;
+export default ProjectsPage;

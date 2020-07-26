@@ -17,7 +17,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions;
 
-    const projectTemplate = path.resolve("src/templates/project-template.tsx");
+    const projectTemplate = path.resolve("src/templates/ProjectRoute.tsx");
     // Query for markdown nodes to use in creating pages.
     // You can query for whatever data you want to create pages for e.g.
     // products, portfolio items, landing pages, etc.

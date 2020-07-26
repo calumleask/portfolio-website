@@ -15,7 +15,7 @@ type ProjectTemplateProps = {
     };
 };
 
-const ProjectTemplate: React.FC<ProjectTemplateProps> = (props: ProjectTemplateProps) => {	
+const ProjectRouteTemplate: React.FC<ProjectTemplateProps> = (props: ProjectTemplateProps) => {	
     return <ProjectPage data={props.data}/>;
 };
 
@@ -31,4 +31,4 @@ export const pageQuery = graphql`
 	}
 `;
 
-export default ProjectTemplate;
+export default ProjectRouteTemplate;

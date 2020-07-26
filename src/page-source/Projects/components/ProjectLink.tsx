@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
 
-import { Project } from "@pages/Project/types";
 import { device } from "@helpers/devices";
 import { color } from "@style/colors";
 
@@ -115,7 +114,7 @@ const ProjectDate = styled.div`
 `;
 
 type ProjectLinkProps = {
-    project: Project;
+    project: Pages.ProjectInfo;
 };
 
 const ProjectLink: React.FC<ProjectLinkProps> = (props: ProjectLinkProps) => {

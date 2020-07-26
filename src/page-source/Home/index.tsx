@@ -2,7 +2,7 @@ import React from "react";
 
 import SlideShow from "./components/SlideShow";
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
     return (
         <div style={{ margin: "40px 0" }}>
             <SlideShow/>
@@ -10,4 +10,4 @@ const Home: React.FC = () => {
     );
 };
 
-export default Home;
+export default HomePage;

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 // TODO: pass in as props
-import { carouselProjectCards } from "./SlideShowData";
+import { carouselProjectCards } from "./components/SlideShowData";
 
-import SlideShowDots from "./SlideShowDots";
-import SlideShowText from "./SlideShowText";
+import SlideShowDots from "./components/SlideShowDots";
+import SlideShowText from "./components/SlideShowText";
 import Carousel from "@components/Carousel";
 
 import { device } from "@helpers/devices";

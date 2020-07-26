@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Project } from "@pages/Project/types";
 import ProjectLink from "./ProjectLink";
 
 const Ul = styled.ul`
@@ -13,7 +12,7 @@ const Ul = styled.ul`
 `;
 
 type ProjectListProps = {
-    projects: Project[];
+    projects: Pages.ProjectInfo[];
 };
 
 const ProjectList: React.FC<ProjectListProps> = (props: ProjectListProps) => {

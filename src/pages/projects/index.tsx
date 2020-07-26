@@ -1,22 +1,21 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-import Projects from "@pages/Projects";
-import { Project } from "@pages/Project/types";
+import ProjectsPage from "@pages/Projects";
 
-type ProjectPageProps = {
+type ProjectRouteProps = {
     data: {
         allMdx: {
             edges: {
-                node: Project
+                node: Pages.ProjectInfo
             }[]
         }
     }
 };
 
-const ProjectsPage = (props: ProjectPageProps): React.ReactElement => {
+const ProjectsRoute = (props: ProjectRouteProps): React.ReactElement => {
     const projects = props.data.allMdx.edges.map(edge => edge.node);
-    return <Projects projects={projects}/>;
+    return <ProjectsPage projects={projects}/>;
 };
 
 export const pageQuery = graphql`
@@ -40,4 +39,4 @@ export const pageQuery = graphql`
     }
 `;
 
-export default ProjectsPage;
+export default ProjectsRoute;

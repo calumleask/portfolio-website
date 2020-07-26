@@ -7,6 +7,7 @@ import Image from "@components/Image";
 import content from "@markdown/about.md";
 import profileImg from "@images/profile.png";
 
+// Extract
 type Query = {
     site: {
         siteMetadata: {
@@ -15,7 +16,7 @@ type Query = {
     };
 };
 
-const About: React.FC = () => {
+const AboutPage: React.FC = () => {
     return (
         <StaticQuery
             query={graphql`
@@ -32,7 +33,7 @@ const About: React.FC = () => {
     );
 };
 
-export default About;
+export default AboutPage;
 
 const render = (data: Query): React.ReactElement => {
     const { title } = data.site.siteMetadata;

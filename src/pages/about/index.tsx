@@ -1,7 +1,7 @@
 import React from "react";
 
-import About from "@pages/About";
+import AboutPage from "@pages/About";
 
-const AboutPage = (): React.ReactElement => <About/>;
+const AboutRoute = (): React.ReactElement => <AboutPage/>;
 
-export default AboutPage;
+export default AboutRoute;
