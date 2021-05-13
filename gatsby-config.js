@@ -4,7 +4,7 @@ module.exports = {
     siteMetadata: {
         title: "Calum Leask",
         siteUrl: "https://calumleask.co.uk/",
-        email: "me@calumleask.co.uk",
+        email: "cjleask@hotmail.co.uk",
         linkedin: "calumleask"
     },
     plugins: [
