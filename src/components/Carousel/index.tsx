@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import CarouselCard from "./components/CarouselCard";
@@ -30,21 +30,19 @@ type CarouselProps = {
     onCycle: (newIndex: number) => void;
 };
 
-const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
-    const { activeIndex, interval } = props;
-
-    let cycleTimeout: number;
+const Carousel: React.FC<CarouselProps> = ({ activeIndex, data, interval, onCycle }: CarouselProps) => {
+    const [timeoutId, setTimeoutId] = useState(-1);
 
     useEffect(() => {
-        cycleTimeout = setTimeout(cycleCard, interval);
         return (): void => {
-            clearTimeout(cycleTimeout);
+            clearTimeout(timeoutId);
         };
     }, []);
 
     useEffect(() => {
-        clearTimeout(cycleTimeout);
-        cycleTimeout = setTimeout(cycleCard, interval);
+        clearTimeout(timeoutId);
+        const id = setTimeout(cycleCard, interval);
+        setTimeoutId(id);
     }, [activeIndex]);
 
     const cycleCard = (): void => {
@@ -52,7 +50,6 @@ const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
     };
 
     const transitionToSlide = (newIndex: number): void => {
-        const { data, onCycle } = props;
         const cardCount = data.length;
         if (newIndex >= cardCount) newIndex -= cardCount;
         if (newIndex < 0) newIndex += cardCount;
@@ -64,23 +61,22 @@ const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
     };
 
     const getCarouselCards = (): React.ReactElement[] => {
-        const { data } = props;
         const cardCount = data.length;
 
-        return data.map((card, cardIndex) => {
+        return data.map((card, index) => {
             let indexOffset = 0;
-            if (cardIndex < activeIndex) {
+            if (index < activeIndex) {
                 const wrapAroundActiveIndex = activeIndex - cardCount;
-                const wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
-                indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
+                const wrapAroundIndexOffset = index - wrapAroundActiveIndex;
+                indexOffset = closestToZero(wrapAroundIndexOffset, index - activeIndex);
             }
-            else if (cardIndex > activeIndex) {
+            else if (index > activeIndex) {
                 const wrapAroundActiveIndex = cardCount + activeIndex;
-                const wrapAroundIndexOffset = cardIndex - wrapAroundActiveIndex;
-                indexOffset = closestToZero(wrapAroundIndexOffset, cardIndex - activeIndex);
+                const wrapAroundIndexOffset = index - wrapAroundActiveIndex;
+                indexOffset = closestToZero(wrapAroundIndexOffset, index - activeIndex);
             }
             const isActive = indexOffset === 0;
-            return <CarouselCard key={cardIndex} indexOffset={indexOffset} images={card.images} interval={2000} cycle={isActive} onClick={(): void => { onCardClick(cardIndex); }}/>;
+            return <CarouselCard key={index} indexOffset={indexOffset} images={card.images} interval={2000} cycle={isActive} onClick={(): void => { onCardClick(index); }}/>;
         });
     };
 
