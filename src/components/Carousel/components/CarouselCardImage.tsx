@@ -16,8 +16,7 @@ type CarouselCardImageProps = {
     src: string;
 };
 
-const CarouselCardImage: React.FC<CarouselCardImageProps> = (props: CarouselCardImageProps) => {
-    const { active, src } = props;
+const CarouselCardImage: React.FC<CarouselCardImageProps> = ({ active, src }: CarouselCardImageProps) => {
 
     const style: React.CSSProperties = {
         opacity: active ? 1 : 0,

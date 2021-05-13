@@ -25,27 +25,19 @@ type CarouselCard = {
     onClick: () => void;
 };
 
-const CarouselCard: React.FC<CarouselCard> = (props: CarouselCard) => {
+const CarouselCard: React.FC<CarouselCard> = ({ cycle, images, indexOffset, interval, onClick }: CarouselCard) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const { cycle, images, indexOffset, interval, onClick } = props;
-    
-    let cycleImageInterval: number;
+    const [intervalId, setIntervalId] = useState(-1);
 
     useEffect(() => {
-        cycleImageInterval = setInterval(cycleImage, interval);
-        return (): void => {
-            clearInterval(cycleImageInterval);
-        };
-    }, []);
-
-    // useEffect(() => {
-    //     if (!cycle) {
-    //         clearInterval(cycleInterval);
-    //     }
-    //     else {
-    //         cycleInterval = setInterval(cycleCard, interval);
-    //     }
-    // }, [cycle]);
+        if (!cycle) {
+            clearInterval(intervalId);
+        }
+        else {
+            const id = setInterval(cycleImage, interval);
+            setIntervalId(id);
+        }
+    }, [cycle]);
 
     const cycleImage = (): void => {
         transitionToSlide(activeIndex + 1);
