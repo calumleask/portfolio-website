@@ -18,6 +18,7 @@ const RootContainer = styled.div`
     overflow-x: hidden;
     padding: 0;
     position: fixed;
+    min-width: 320px;
 `;
 
 const FlexContainer = styled.div`
