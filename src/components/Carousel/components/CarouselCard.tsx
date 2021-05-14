@@ -27,10 +27,10 @@ type CarouselCard = {
 
 const CarouselCard: React.FC<CarouselCard> = ({ cycle, images, indexOffset, interval, onClick }: CarouselCard) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [intervalId, setIntervalId] = useState(-1);
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
     useEffect(() => {
-        if (!cycle) {
+        if (!cycle && intervalId) {
             clearInterval(intervalId);
         }
         else {

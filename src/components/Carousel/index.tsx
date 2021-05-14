@@ -31,16 +31,20 @@ type CarouselProps = {
 };
 
 const Carousel: React.FC<CarouselProps> = ({ activeIndex, data, interval, onCycle }: CarouselProps) => {
-    const [timeoutId, setTimeoutId] = useState(-1);
+    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
 
     useEffect(() => {
         return (): void => {
-            clearTimeout(timeoutId);
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
         };
     }, []);
 
     useEffect(() => {
-        clearTimeout(timeoutId);
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
         const id = setTimeout(cycleCard, interval);
         setTimeoutId(id);
     }, [activeIndex]);

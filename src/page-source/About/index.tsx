@@ -1,5 +1,4 @@
 import React from "react";
-import Markdown from "react-markdown/with-html";
 import { StaticQuery, graphql } from "gatsby";
 
 import Image from "@components/Image";
@@ -55,7 +54,7 @@ const render = (data: Query): React.ReactElement => {
             }}>
                 <Image alt={title} style={style} src={profileImg}/>
             </div>
-            <Markdown source={content} escapeHtml={false}/>
+            <div dangerouslySetInnerHTML={{ __html: content }}></div>
         </>
     );
 };
