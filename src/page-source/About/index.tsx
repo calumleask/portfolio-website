@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from "gatsby";
 import Image from "@components/Image";
 
 import content from "@markdown/about.md";
-import profileImg from "@images/profile.png";
+import profileImg from "@images/profile.jpg";
 
 // Extract
 type Query = {
