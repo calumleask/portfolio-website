@@ -77,8 +77,8 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
             Icon: RiHome2Line
         },
         {
-            to: "/projects",
-            text: "PROJECTS"
+            to: "/portfolio",
+            text: "PORTFOLIO"
         },
         {
             to: "/about",

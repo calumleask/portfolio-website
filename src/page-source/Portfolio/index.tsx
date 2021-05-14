@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import ProjectFilters, { OnFilterChange, Operator, OperatorType, Tag } from "./components/ProjectFilters";
 import ProjectList from "./components/ProjectList";
 
-type ProjectsPageProps = {
+type PortfolioPageProps = {
     projects: Pages.ProjectInfo[];
 };
 
-const ProjectsPage: React.FC<ProjectsPageProps> = ({ projects }: ProjectsPageProps) => {
+const PortfolioPage: React.FC<PortfolioPageProps> = ({ projects }: PortfolioPageProps) => {
     const [filteredProjects, setFilteredProjects] = useState(projects);
 
     const operatorTypes: {
@@ -110,4 +110,4 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ projects }: ProjectsPagePro
     );
 };
 
-export default ProjectsPage;
+export default PortfolioPage;
