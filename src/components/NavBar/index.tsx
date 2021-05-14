@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { WindowLocation } from "@reach/router";
+import { IconType } from "react-icons";
+import { RiHome2Line } from "react-icons/ri";
 
 import NavLink from "./components/NavLink";
 import ResponsiveLayout from "@components/ResponsiveLayout";
@@ -54,6 +56,12 @@ const Li = styled.li`
     }
 `;
 
+type NavLink = {
+    to: string;
+    text: string;
+    Icon?: IconType;
+}
+
 type NavBarProps = {
     location: WindowLocation<WindowLocation["state"]>
 };
@@ -62,29 +70,23 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
 
     const { pathname } = props.location;
 
-    // TODO: move out of here
-    const navLinks = [
+    const navLinks: NavLink[] = [
         {
             to: "/",
             text: "HOME",
-            svg: {
-                viewBox: "0 0 24 24",
-                path: "M 12 2.0996094 L 1 12 L 4 12 L 4 21 L 11 21 L 11 15 L 13 15 L 13 21 L 20 21 L 20 12 L 23 12 L 12 2.0996094 z M 12 4.7910156 L 18 10.191406 L 18 11 L 18 19 L 15 19 L 15 13 L 9 13 L 9 19 L 6 19 L 6 10.191406 L 12 4.7910156 z"
-            }
+            Icon: RiHome2Line
         },
         {
             to: "/projects",
-            text: "PROJECTS",
-            svg: null
+            text: "PROJECTS"
         },
         {
             to: "/about",
-            text: "ABOUT",
-            svg: null
+            text: "ABOUT"
         }
     ];
 
-    const navLinkElements = navLinks.map(({ text, to, svg }, index) => {
+    const navLinkElements = navLinks.map(({ text, to, Icon }, index) => {
         const active = pathname === to || pathname === to.replace(/\/$/, "");
         return (
             <Li key={index}>
@@ -92,8 +94,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
                     breakpoint={device.size.mobileL}
                     renderDesktop={(): React.ReactElement => (<NavLink to={to} text={text} active={active}/>)}
                     renderMobile={(): React.ReactElement => {
-                        if (svg) return <NavLink to={to} svg={svg} active={active}/>;
-                        return <NavLink to={to} text={text} active={active}/>;
+                        return <NavLink to={to} text={text} Icon={Icon} active={active}/>;
                     }}
                 />
             </Li>

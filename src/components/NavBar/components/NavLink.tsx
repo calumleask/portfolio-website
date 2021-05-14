@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
+import { IconType } from "react-icons";
 
 import NavLinkText from "./NavLinkText";
-import SvgIcon from "@components/SvgIcon";
 
 import { color } from "@style/colors";
 
@@ -21,19 +21,16 @@ const StlyedLink = styled(Link)`
 
 type NavLinkProps = {
     active: boolean;
-    svg?: {
-        path: string;
-        viewBox: string;
-    };
-    text?: string;
+    text: string;
     to: string;
+    Icon?: IconType;
 };
 
-const NavLink: React.FC<NavLinkProps> = (props: NavLinkProps) => {
-    const { active, text, to, svg } = props;
-
+const NavLink: React.FC<NavLinkProps> = ({ active, text, to, Icon }: NavLinkProps) => {
     const textColor = active ? color.navTextSelected : color.navText;
     const svgStyle: React.CSSProperties = {
+        display: "inline-block",
+        verticalAlign: "middle",
         height: "30px",
         width: "30px"
     };
@@ -41,13 +38,12 @@ const NavLink: React.FC<NavLinkProps> = (props: NavLinkProps) => {
         svgStyle.transform = "none";
     }
     
-    const svgElement = svg ? <SvgIcon color={textColor} path={svg.path} style={svgStyle} viewBox={svg.viewBox}/> : null;
-    const textElement = text ? <NavLinkText active={active} color={textColor}>{text}</NavLinkText> : null;
-
     return (
         <StlyedLink to={to}>
-            {svgElement}
-            {textElement}
+            {Icon
+                ? <Icon color={textColor} style={svgStyle}/>
+                : <NavLinkText active={active} color={textColor}>{text}</NavLinkText>
+            }
         </StlyedLink>
     );
 };

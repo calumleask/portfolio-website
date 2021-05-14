@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { StaticQuery, graphql } from "gatsby";
 
-import ResponsiveLayout from "@components/ResponsiveLayout";
 import SvgIcon from "@components/SvgIcon";
 
 import { device } from "@helpers/devices";
@@ -152,17 +151,6 @@ const render = (data: Query): React.ReactElement => {
                 <Text>
                     {`Copyright ©  ${new Date().getFullYear()}  ${title}, Built with `}<a target="_blank" rel="noopener noreferrer" href="https://www.gatsbyjs.org">{"Gatsby"}</a>
                 </Text>
-                <ResponsiveLayout
-                    breakpoint={device.size.mobileL}
-                    renderDesktop={(): null => null}
-                    renderMobile={(): React.ReactElement => {
-                        return (
-                            <Text>
-                                {"Home icon by "}<a href="https://icons8.com/icon/83326/home" rel="noopener noreferrer" target="_blank">{"Icons8"}</a>
-                            </Text>
-                        );
-                    }}
-                />
             </Bounds>
         </StyledFooter>
     );
