@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { StaticQuery, graphql } from "gatsby";
-import { RiMailLine, RiLinkedinBoxFill } from "react-icons/ri";
+import { RiMailLine, RiLinkedinBoxFill, RiGithubFill } from "react-icons/ri";
 
 import { device } from "@helpers/devices";
 import { color } from "@style/colors";
@@ -17,6 +17,7 @@ const StyledFooter = styled.footer`
     a {
         color: ${color.footerLinkText};
         font-family: monospace;
+        font-size: 0.8em;
         font-weight: lighter;
 
         &:hover {
@@ -33,6 +34,10 @@ const StyledFooter = styled.footer`
             svg {
                 fill: ${color.footerLinkTextActive};
             }
+        }
+    
+        @media ${device.tablet} {
+            font-size: 0.9em;
         }
     }
 `;
@@ -67,13 +72,8 @@ const Text = styled.div`
     font-weight: lighter;
     margin: 0 0 10px 0;
 
-    @media ${device.mobileL} {
-        font-size: 0.9em;
-        font-weight: normal;
-    }
-
     @media ${device.tablet} {
-        font-size: 1em;
+        font-size: 0.9em;
         font-weight: normal;
     }
 `;
@@ -82,6 +82,7 @@ type Query = {
     site: {
         siteMetadata: {
             email: string;
+            github: string;
             linkedin: string;
             title: string;
         };
@@ -96,6 +97,7 @@ const Footer: React.FC = () => {
                     site {
                         siteMetadata {
                             email,
+                            github,
                             linkedin,
                             title
                         }
@@ -110,7 +112,7 @@ const Footer: React.FC = () => {
 export default Footer;
 
 const render = (data: Query): React.ReactElement => {
-    const { email, linkedin, title } = data.site.siteMetadata;
+    const { email, github, linkedin, title } = data.site.siteMetadata;
 
     const svgStyle: React.CSSProperties = {
         marginRight: "5px",
@@ -129,11 +131,16 @@ const render = (data: Query): React.ReactElement => {
                             {email}
                         </a>
                     </Li>
-                    
                     <Li>
                         <a href={"https://linkedin.com/in/" + linkedin} target="_blank" rel="noopener noreferrer">
                             <RiLinkedinBoxFill style={svgStyle} color={color.footerText}/>
-                            {linkedin}
+                            {"Linkedin"}
+                        </a>
+                    </Li>
+                    <Li>
+                        <a href={"https://github.com/" + github} target="_blank" rel="noopener noreferrer">
+                            <RiGithubFill style={svgStyle} color={color.footerText}/>
+                            {"GitHub"}
                         </a>
                     </Li>
                 </Ul>

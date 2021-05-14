@@ -5,7 +5,8 @@ module.exports = {
         title: "Calum Leask",
         siteUrl: "https://calumleask.co.uk/",
         email: "cjleask@hotmail.co.uk",
-        linkedin: "calumleask"
+        linkedin: "calumleask",
+        github: "calumleask"
     },
     plugins: [
         {
