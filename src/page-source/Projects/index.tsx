@@ -7,8 +7,8 @@ type ProjectsPageProps = {
     projects: Pages.ProjectInfo[];
 };
 
-const ProjectsPage: React.FC<ProjectsPageProps> = (props: ProjectsPageProps) => {
-    const [filteredProjects, setFilteredProjects] = useState(props.projects);
+const ProjectsPage: React.FC<ProjectsPageProps> = ({ projects }: ProjectsPageProps) => {
+    const [filteredProjects, setFilteredProjects] = useState(projects);
 
     const operatorTypes: {
         [operator: string]: OperatorType
@@ -22,8 +22,6 @@ const ProjectsPage: React.FC<ProjectsPageProps> = (props: ProjectsPageProps) => 
         { ...operatorTypes[operator], context: operatorTypes[operator], selected: (i === 0) }
     ));
 
-    // TODO: make nicer
-    const { projects } = props;
     const tags: Tag[] = [];
     const tagsToProjectMap: {
         [tag: string]: Pages.ProjectInfo[]
@@ -46,16 +44,16 @@ const ProjectsPage: React.FC<ProjectsPageProps> = (props: ProjectsPageProps) => 
     });
 
     const onFilterChange: OnFilterChange = ({ operators, tags }) => {
-        const { projects } = props;
         if (tags.length === 0) {
-            setFilteredProjects(projects);
+            setFilteredProjects([...projects]);
             return;
         }
 
         let filteredProjects: Pages.ProjectInfo[] = [];
         const operator = operators[0].context;
 
-        if (operator === operatorTypes.OR) {
+        switch (operator.symbol) {
+        case operatorTypes.OR.symbol: {
             tags.forEach(tag => {
                 tagsToProjectMap[tag.context].forEach(project => {
                     if (filteredProjects.indexOf(project) < 0) {
@@ -63,8 +61,9 @@ const ProjectsPage: React.FC<ProjectsPageProps> = (props: ProjectsPageProps) => 
                     }
                 });
             });
+            break;
         }
-        else if (operator === operatorTypes.AND) {
+        case operatorTypes.AND.symbol: {
             const projectReferencesBySelectedTags: {
                 [projectId: string]: number;
             } = {};
@@ -81,8 +80,9 @@ const ProjectsPage: React.FC<ProjectsPageProps> = (props: ProjectsPageProps) => 
                     filteredProjects.push(project);
                 }
             });
+            break;
         }
-        else if (operator === operatorTypes.NOT) {
+        case operatorTypes.NOT.symbol: {
             filteredProjects = projects.slice();
             tags.forEach(tag => {
                 tagsToProjectMap[tag.context].forEach(project => {
@@ -92,6 +92,11 @@ const ProjectsPage: React.FC<ProjectsPageProps> = (props: ProjectsPageProps) => 
                     }
                 });
             });
+            break;
+        }
+        default: {
+            filteredProjects = [...projects];
+        }
         }
 
         setFilteredProjects(filteredProjects);

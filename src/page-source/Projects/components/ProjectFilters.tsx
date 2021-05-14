@@ -12,9 +12,12 @@ type OnSelectHandler = ({ context, event }: {
     event:  React.MouseEvent<HTMLElement, MouseEvent>;
 }) => void;
 
+type OperatorSymbol = "&&" | "||" | "!";
+type OperatorText = "AND" | "OR" | "NOT";
+
 export type OperatorType = {
-    symbol: string;
-    text: string;
+    symbol: OperatorSymbol;
+    text: OperatorText;
 };
 
 export type Operator = {
@@ -42,20 +45,16 @@ type ProjectFiltersProps = {
     onFilterChange: OnFilterChange;
 };
 
-const ProjectFilters: React.FC<ProjectFiltersProps> = (props: ProjectFiltersProps) => {
-    const [operators, setOperators] = useState(props.operators.map(operator => ({ ...operator, ...{ selected: operator.selected }})));
-    const [tags, setTags] = useState(props.tags.map(tag => ({ ...tag, ...{ selected: tag.selected }})));
+const ProjectFilters: React.FC<ProjectFiltersProps> = ({ operators: _operators, tags: _tags, onFilterChange }: ProjectFiltersProps) => {
+    const [operators, setOperators] = useState(_operators.map(operator => ({ ...operator, ...{ selected: operator.selected }})));
+    const [tags, setTags] = useState(_tags.map(tag => ({ ...tag, ...{ selected: tag.selected }})));
 
     useEffect(() => {
-        onFilterChange();
-    }, [operators, tags]);
-
-    const onFilterChange = (): void => {
-        props.onFilterChange({
+        onFilterChange({
             operators: operators.filter(operator => (operator.selected)),
             tags: tags.filter(tag => (tag.selected))
         });
-    };
+    }, [operators, tags]);
 
     const selectOperatorFilter: OnSelectHandler = ({ context }): void => {
         const isSelected = operators.some(operator => (operator.context === context && operator.selected));
