@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "baseUrl": "src",
+    "paths": {
+      "~/*": ["*"],
+      "@components/*": ["components/*"],
+      "@helpers/*": ["helpers/*"],
+      "@images/*": ["images/*"],
+      "@layouts/*": ["layouts/*"],
+      "@markdown/*": ["markdown-pages/*"],
+      "@pages/*": ["page-source/*"],
+      "@providers/*": ["providers/*"],
+      "@style/*": ["style/*"],
+    },
+    "jsx": "react"
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

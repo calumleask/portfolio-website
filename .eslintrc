@@ -1,0 +1,32 @@
+{
+    "env": {
+      "browser": true
+    },
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended"
+    ],
+    "rules": {
+      "indent": ["error", 4],
+      "quotes": ["error", "double"],
+      "semi": ["error", "always"],
+      "eol-last": ["warn"],
+      "@typescript-eslint/explicit-function-return-type": ["error"],
+      "@typescript-eslint/no-inferrable-types": ["error"],
+      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-namespace": ["off"]
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
+  }
+  
